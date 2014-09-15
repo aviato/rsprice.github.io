@@ -104,6 +104,13 @@ body {
 	width: 66.66%
 }
 
+.teaser img {
+  border-radius: 5px;
+  display: block;
+  margin-bottom: 22px;
+  max-width: 100%
+}
+
 /*
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	C L E A R F I X
