@@ -250,9 +250,7 @@ p a {
 .primary-nav li{
 
 	display: inline-block;
-	padding-left: 50px;
-	padding-right: 50px;
-	padding-bottom: 15px;
+	padding: 15px 50px;
 
 }
 
