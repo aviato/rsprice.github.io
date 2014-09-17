@@ -303,15 +303,15 @@ label {
 */
 
 .intro {
-	color: #fff;
+	color: #1e1e1e;
 }
 
 .container .intro img {
 	display: block;
 	margin: 50px auto;
-	width: 90%;
 	border: 1px solid gray;
 	border-radius: 8px;
+	width: 90%;
 
 }
 
