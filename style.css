@@ -273,14 +273,14 @@ p a {
 */
 
 .intro {
-	width: 960px;
+	color: #fff;
 }
 
 .intro img {
 	margin: 50px auto;
 	border: 1px solid silver;
 	border-radius: 8px;
-	width: 90%;
+	width: 80%;
 
 }
 
