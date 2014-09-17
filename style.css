@@ -105,7 +105,7 @@ body {
 }
 
 .teaser img {
-  border-radius: 5px;
+  border-radius: 8px;
   display: block;
   margin-bottom: 22px;
   max-width: 100%
@@ -142,6 +142,7 @@ body {
 }
 .row {
 	padding: 66px 0 44px 0;
+	background: #141414;
 }
 .row-alt {
   background: #cbe2c1;
@@ -174,6 +175,7 @@ h2 {
 h3 {
   font-size: 33px;
   text-align: center;
+  text-transform: uppercase;
 }
 h4 {
   font-size: 18px;
@@ -258,7 +260,30 @@ p a {
 
 	display: inline-block;
 	padding: 8px 50px;
+	font-weight: 400;
+  	text-transform: uppercase;
+  	letter-spacing: 1px;
 
+}
+
+/*
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	C O N T A C T
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+*/
+
+
+.sidebar {
+	text-align: right;
+	background: #2B2B2B;
+}
+
+.sidebar textarea {
+	width: 90%;
+}
+
+label {
+	display: block;
 }
 
 /*
@@ -276,6 +301,7 @@ p a {
 	display: block;
 	margin: 50px auto;
 	border: 1px solid gray;
+	border-radius: 8px;
 
 }
 
@@ -298,6 +324,7 @@ p a {
 	margin: 50px auto;
 	padding: 20px 0;
 	border-top: 1px solid #D6D6D6;
+	color: gray;
 }
 
 .primary-footer small {
