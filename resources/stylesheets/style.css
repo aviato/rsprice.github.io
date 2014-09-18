@@ -256,7 +256,7 @@ p a {
 
 }
 
-.primary-nav li{
+.primary-nav ul li{
 
 	display: inline-block;
 	padding: 8px 50px;
