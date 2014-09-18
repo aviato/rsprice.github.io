@@ -268,6 +268,24 @@ p a {
 
 /*
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	I N T R O
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+*/
+
+.intro {
+	color: #fff;
+}
+
+.intro img {
+	margin: 50px auto;
+	border: 1px solid silver;
+	border-radius: 8px;
+	width: 80%;
+
+}
+
+/*
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	C O N T A C T
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 */
@@ -296,23 +314,7 @@ label {
 	display: block;
 }
 
-/*
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	I N T R O
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-*/
 
-.intro {
-	color: #fff;
-}
-
-.intro img {
-	display: block;
-	margin: 50px auto;
-	border: 1px solid gray;
-	border-radius: 8px;
-
-}
 
 /*
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
