@@ -12,7 +12,7 @@
 }
 
 body {
-	background: #141414;
+	background: #000;
     color: #888;
 	font: 100%/1.5em "Lato", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -23,9 +23,12 @@ img {
 }
 
 .row {
+	background: #141414;
 	float: left;
 	clear: both;
 	width: 100%;
+	border-bottom: .5em solid #4D4D4D;
+
 }
 
 .container .columns {
@@ -101,6 +104,7 @@ img {
 	
 	.columns.five {
 		padding: 0 1%;
+		margin-top: 2em;
 	}
 
 	.columns.eight {
@@ -110,6 +114,10 @@ img {
 }
 
 /* typography */
+
+p {
+	color: #fff;
+}
 
 h1, h2, h3, h4 {
 	color: #648880;
@@ -159,6 +167,7 @@ em {
 /* links */
 
 a {
+  font-size: 1em;
   color: #fff;
   text-decoration: none;
 }
@@ -179,10 +188,14 @@ p a {
 
 /* primary header */
 
+header {
+	border-top: .5em solid #4D4D4D;
+	border-bottom: .5em solid #4D4D4D;
+}
+
 .logo {
   text-align: center;
-  border-top: 4px solid #648880;
-  font-size: 108px;
+  font-size: 7em;
   font-weight: 100;
   letter-spacing: .5px;
   line-height: 100px;
@@ -190,11 +203,6 @@ p a {
   text-transform: uppercase;
   clear: both;
 }
-.tagline {
-  margin: 66px 0 22px 0;
-  text-align: right;
-}
-
 
 .primary-nav{
 	font-size: 14px;
@@ -206,14 +214,17 @@ p a {
 }
 
 .primary-nav ul li{
-
+	margin: 0 1em;
+	border-bottom: .5em solid #648880;
 	display: inline-block;
-	padding: 8px 50px;
+	padding: 8px 24px;
 	font-weight: 400;
   	text-transform: uppercase;
   	letter-spacing: .2em;
+  	text-align: center;
 
 }
+
 
 /* intro */
 
