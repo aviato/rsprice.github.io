@@ -77,7 +77,7 @@ img {
 
 /* media queries*/
 
-@media screen and (min-width: 400px) {
+@media screen and (min-width: 480px) {
 
 	.container .columns.one 		{ width: 6.25%;		}
 	.container .columns.two 		{ width: 12.5%;		}
