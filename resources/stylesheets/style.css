@@ -32,8 +32,7 @@ img {
 }
 
 .container .columns {
-	float: left;
-	margin: 0 0 1em;
+	margin: 1em auto;
 	text-align: center;
 }
 
