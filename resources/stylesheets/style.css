@@ -12,7 +12,7 @@
 }
 
 body {
-	background: #000;
+	background: #1e1e1e;
     color: #888;
 	font: 100%/1.5em "Lato", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -23,12 +23,9 @@ img {
 }
 
 .row {
-	background: #141414;
 	float: left;
 	clear: both;
 	width: 100%;
-	border-bottom: .5em solid #4D4D4D;
-
 }
 
 .container .columns {
@@ -77,7 +74,7 @@ img {
 
 /* media queries*/
 
-@media screen and (min-width: 480px) {
+@media screen and (min-width: 500px) {
 
 	.container .columns.one 		{ width: 6.25%;		}
 	.container .columns.two 		{ width: 12.5%;		}
@@ -104,155 +101,11 @@ img {
 	
 	.columns.five {
 		padding: 0 1%;
-		margin-top: 2em;
-	}
-
-	.columns.eight {
-		float: right;
 	}
 
 }
 
-/* typography */
-
-p {
-	color: #fff;
-}
-
-h1, h2, h3, h4 {
-	color: #648880;
-}
-
-h1, h3, h4, h5, p {
-	margin-bottom: 22px;
-}
-
-h1 {
-	font-size: 36px;
-	line-height: 44px;
-}
-
-h2 {
-	font-size: 24px;
-	line-height: 44px;
-}
-
-h3 {
-	font-size: 2em;
-	text-align: center;
-	text-transform: uppercase;
-	font-weight: 400;
-}
-
-h4 {
-	font-size: 18px;
-}
-
-h5 {
-	color: #a9b2b9;
-	font-size: 1em;
-	font-weight: 400;
-	text-transform: uppercase;
-}
-
-strong {
-	font-weight: 400;
-}
-
-cite,
-em {
-	font-style: italic;
-}
-
-/* links */
-
-a {
-  font-size: 1em;
-  color: #fff;
-  text-decoration: none;
-}
-a:hover {
-  color: #a9b2b9;
-}
-p a {
-  border-bottom: 1px solid #dfe2e5;
-}
-.primary-header a,
-.primary-footer a {
-  color: #fff;
-}
-.primary-header a:hover,
-.primary-footer a:hover {
-  color: #648880;
-}
-
-/* primary header */
-
-header {
-	border-top: .5em solid #4D4D4D;
-	border-bottom: .5em solid #4D4D4D;
-}
-
-.logo {
-  text-align: center;
-  font-size: 7em;
-  font-weight: 100;
-  letter-spacing: .5px;
-  line-height: 100px;
-  padding: 40px 0 22px 0;
-  text-transform: uppercase;
-}
-
-.primary-nav{
-	font-size: 14px;
-	font-weight: 400;
-	letter-spacing: .5px;
-	text-transform: uppercase;
-	text-align: center;
-
-}
-
-.primary-nav ul li{
-	margin: 0 1em;
-	border-bottom: .5em solid #648880;
-	display: inline-block;
-	padding: 8px 24px;
-	font-weight: 400;
-  	text-transform: uppercase;
-  	letter-spacing: .2em;
-  	text-align: center;
-
-}
+/* header */
 
 
-/* intro */
 
-.intro {
-	margin: 0 auto;
-	color: #fff;
-}
-
-
-/* footer */
-
-.social-buttons {
-	display: inline-block;
-	padding-top: 8px;
-	padding-right: 5px;
-}
-.social-buttons li {
-	display: inline-block;
-
-}
-.primary-footer {
-	margin: 50px auto;
-	padding: 20px 0;
-	border-top: 1px solid #D6D6D6;
-	color: gray;
-}
-
-.primary-footer small {
-	padding-top: 8px;
-	display: inline-block;
-	float: right;
-}
