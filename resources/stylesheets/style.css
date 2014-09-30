@@ -12,7 +12,7 @@
 }
 
 body {
-	background: black;
+	background: #141414;
     color: #888;
 	font: 100%/1.5em "Lato", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -26,7 +26,6 @@ img {
 	float: left;
 	clear: both;
 	width: 100%;
-	background: #1e1e1e;
 }
 
 .container .columns {
@@ -75,7 +74,7 @@ img {
 
 /* media queries*/
 
-@media screen and (min-width: 500px) {
+@media screen and (min-width: 480px) {
 
 	.container .columns.one 		{ width: 6.25%;		}
 	.container .columns.two 		{ width: 12.5%;		}
@@ -86,7 +85,7 @@ img {
 	.container .columns.seven 		{ width: 43.75%;    }
 	.container .columns.eight 		{ width: 50%;    	}
 	.container .columns.nine 		{ width: 56.25%;    }
-	.container .columns.ten 		{ widht: 62.5%;    	}
+	.container .columns.ten 		{ width: 62.5%;    	}
 	.container .columns.eleven 		{ width: 68.75%;    }
 	.container .columns.twelve 		{ width: 75%;    	}
 	.container .columns.thirteen 	{ width: 81.25%;    }
@@ -102,6 +101,10 @@ img {
 	
 	.columns.five {
 		padding: 0 1%;
+	}
+
+	.columns.eight {
+		float: right;
 	}
 
 }
@@ -185,6 +188,7 @@ p a {
   line-height: 100px;
   padding: 40px 0 22px 0;
   text-transform: uppercase;
+  clear: both;
 }
 .tagline {
   margin: 66px 0 22px 0;
@@ -193,13 +197,11 @@ p a {
 
 
 .primary-nav{
-
 	font-size: 14px;
 	font-weight: 400;
 	letter-spacing: .5px;
 	text-transform: uppercase;
 	text-align: center;
-	border-top: 1px white solid;
 
 }
 
