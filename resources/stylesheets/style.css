@@ -32,7 +32,8 @@ img {
 }
 
 .container .columns {
-	margin: 1em auto;
+	float: left;
+	margin: 0 0 1em;
 	text-align: center;
 }
 
@@ -200,7 +201,6 @@ header {
   line-height: 100px;
   padding: 40px 0 22px 0;
   text-transform: uppercase;
-  clear: both;
 }
 
 .primary-nav{
