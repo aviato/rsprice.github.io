@@ -12,7 +12,7 @@
 }
 
 body {
-	background: #141414;
+	background: black;
     color: #888;
 	font: 100%/1.5em "Lato", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -26,6 +26,7 @@ img {
 	float: left;
 	clear: both;
 	width: 100%;
+	background: #1e1e1e;
 }
 
 .container .columns {
@@ -126,9 +127,10 @@ h2 {
 }
 
 h3 {
-	font-size: 33px;
+	font-size: 2em;
 	text-align: center;
 	text-transform: uppercase;
+	font-weight: 400;
 }
 
 h4 {
@@ -137,7 +139,7 @@ h4 {
 
 h5 {
 	color: #a9b2b9;
-	font-size: 14px;
+	font-size: 1em;
 	font-weight: 400;
 	text-transform: uppercase;
 }
@@ -207,7 +209,7 @@ p a {
 	padding: 8px 50px;
 	font-weight: 400;
   	text-transform: uppercase;
-  	letter-spacing: 1px;
+  	letter-spacing: .2em;
 
 }
 
