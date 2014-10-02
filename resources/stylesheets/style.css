@@ -30,7 +30,7 @@ img {
 
 .container .columns {
 	float: left;
-	margin: 0 0 1em; /* slight margin on bottom of all columns */
+	margin: 0 auto;
 }
 
 .container .columns.one,
@@ -59,7 +59,7 @@ img {
 }
 
 .clearfix:after,
-.container:after {
+.container:after, {
 	content: '';
 	display: block;
 	overflow: hidden;
@@ -113,14 +113,12 @@ img {
   text-align: center;
   font-size: 7em;
   font-weight: 100;
-  letter-spacing: .5px;
-  line-height: 100px;
-  padding: 40px 0 22px 0;
   text-transform: uppercase;
+  padding: .5em;
+  line-height: .5em;
 }
 
 .navbar {
-	border-bottom: 1px solid #fff;
 	text-align: right;
 }
 
@@ -130,7 +128,9 @@ img {
 }
 
 /* hero */
-
+.hero {
+	clear: both;
+}
 .hero-text {
 	text-align: center;
 	font-weight: 600;
@@ -147,7 +147,6 @@ img {
 /* footer */
 
 .foot-navbar {
-	border-top: 1px solid #fff;
 }
 
 .foot-navbar ul li {
