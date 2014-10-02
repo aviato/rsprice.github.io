@@ -155,7 +155,7 @@ img {
 	text-align: right;
 }
 
-/* typography */
+/*	typography 
 
 p {
 	color: #fff;
@@ -197,7 +197,9 @@ h5 {
 	text-transform: uppercase;
 }
 
-/* links */
+*/
+
+/*	links
 
 a {
   font-size: 1em;
@@ -218,4 +220,6 @@ p a {
 .primary-footer a:hover {
   color: #648880;
 }
+
+*/
 
