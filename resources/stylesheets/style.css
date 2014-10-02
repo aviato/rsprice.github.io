@@ -12,7 +12,7 @@
 }
 
 body {
-	background: #1e1e1e;
+	background: #141414;
     color: #fff;
 	font: 100%/1.5em "Lato", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -20,12 +20,14 @@ body {
 img {
 	max-width: 100%;
 	height: auto;
+	border-radius: 8px;
 }
 
 .row {
 	float: left;
 	clear: both;
 	width: 100%;
+	background: #1e1e1e
 }
 
 .container .columns {
@@ -55,6 +57,9 @@ img {
 	width: 100%;
 }
 
+.container .columns.sixteen {
+	clear: both;
+}
 
 .clearfix:after,
 .container:after {
@@ -74,7 +79,7 @@ img {
 
 /* media queries*/
 
-@media screen and (min-width: 500px) {
+@media screen and (min-width: 450px) {
 
 	.container .columns.one 		{ width: 6.25%;		}
 	.container .columns.two 		{ width: 12.5%;		}
@@ -95,7 +100,7 @@ img {
 	
 	/* container specs for larger screens */
 	.container {
-		width: 90%;
+		width: 75%;
 		margin: 0 auto;
 	}
 	
@@ -103,9 +108,19 @@ img {
 		padding: 0 1%;
 	}
 
+
 }
 
 /* header */
 
+/* hero */
+
+.hero {
+}
+
+.hero-text {
+	font-weight: 600;
+	color: #fff;
+}
 
 
