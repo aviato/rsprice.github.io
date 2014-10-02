@@ -12,9 +12,9 @@
 }
 
 body {
-	background: #141414;
-    color: #fff;
+	background: #1e1e1e;
 	font: 100%/1.5em "Lato", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color: white;
 }
 
 img {
@@ -24,16 +24,13 @@ img {
 }
 
 .row {
-	float: left;
-	clear: both;
-	width: 100%;
-	background: #1e1e1e
+	width: 70%;
+	margin: 0 auto;
 }
 
 .container .columns {
 	float: left;
-	margin: 0 0 1em;
-	text-align: center;
+	margin: 0 0 1em; /* slight margin on bottom of all columns */
 }
 
 .container .columns.one,
@@ -51,7 +48,7 @@ img {
 .container .columns.thirteen,
 .container .columns.fourteen,
 .container .columns.fifteen,
-.container .columns.sixteen 	{  width: 100%;		}
+.container .columns.sixteen 	{ width: 100%;		}
 
 .container {
 	width: 100%;
@@ -108,19 +105,117 @@ img {
 		padding: 0 1%;
 	}
 
-
 }
 
 /* header */
 
-/* hero */
-
-.hero {
+.logo {
+  text-align: center;
+  font-size: 7em;
+  font-weight: 100;
+  letter-spacing: .5px;
+  line-height: 100px;
+  padding: 40px 0 22px 0;
+  text-transform: uppercase;
 }
 
+.navbar {
+	border-bottom: 1px solid #fff;
+	text-align: right;
+}
+
+.navbar ul li {
+	display: inline-block;
+	padding: 0 .1em;
+}
+
+/* hero */
+
 .hero-text {
+	text-align: center;
 	font-weight: 600;
 	color: #fff;
 }
 
+
+/* teaser section */
+
+.tease p {
+	text-align: center;
+}
+
+/* footer */
+
+.foot-navbar {
+	border-top: 1px solid #fff;
+}
+
+.foot-navbar ul li {
+	display: inline-block;
+	text-align: right;
+}
+
+/* typography */
+
+p {
+	color: #fff;
+}
+
+h1, h2, h3, h4 {
+	color: #648880;
+}
+
+h1, h3, h4, h5, p {
+	margin-bottom: 22px;
+}
+
+h1 {
+	font-size: 36px;
+	line-height: 44px;
+}
+
+h2 {
+	font-size: 24px;
+	line-height: 44px;
+}
+
+h3 {
+	font-size: 2em;
+	text-align: center;
+	text-transform: uppercase;
+	font-weight: 400;
+}
+
+h4 {
+	font-size: 18px;
+}
+
+h5 {
+	color: #a9b2b9;
+	font-size: 1em;
+	font-weight: 400;
+	text-transform: uppercase;
+}
+
+/* links */
+
+a {
+  font-size: 1em;
+  color: #fff;
+  text-decoration: none;
+}
+a:hover {
+  color: #a9b2b9;
+}
+p a {
+  border-bottom: 1px solid #dfe2e5;
+}
+.primary-header a,
+.primary-footer a {
+  color: #fff;
+}
+.primary-header a:hover,
+.primary-footer a:hover {
+  color: #648880;
+}
 
