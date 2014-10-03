@@ -111,11 +111,10 @@ img {
 
 .logo {
   text-align: center;
-  font-size: 7em;
   font-weight: 100;
+  line-height: 1em;
   text-transform: uppercase;
-  padding: .5em;
-  line-height: .5em;
+  font-size: 7em;
 }
 
 .navbar {
