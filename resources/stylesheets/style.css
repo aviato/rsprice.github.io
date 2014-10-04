@@ -100,20 +100,16 @@ img {
 		background: #fff;
 	}
 
-	.container .columns.sixteen {
-		margin-bottom: 1em;
-	}
 }
 
 
 /* header */
 
 .navbar {
+	padding: 1em;
 	border-bottom: .5em solid #4B73D1;
 	background: #1e1e1e;
-	padding: 1em 1em;
-	position: fixed;
-	overflow: auto;
+	overflow: hidden;
 	opacity: 0.8;
 }
 
@@ -129,7 +125,6 @@ img {
 }
 
 .navbar-links ul li {
-	padding: 0 1em;
 	font-size: 1em;
 	display: inline-block;
 }
@@ -147,6 +142,7 @@ img {
 /* upcoming */
 .upcoming {
 	/* border-bottom: .1em solid #fff; */
+	margin: 1em;
 }
 .upcoming table {
 	width: 100%;
