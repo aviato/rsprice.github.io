@@ -2,7 +2,6 @@
 <html>
 
 <head>
-
 	<title>Nick Krein Music</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="utf-8">
@@ -12,116 +11,122 @@
 </head>
 
 <body>
-	<div class="container">
+	<!-- wraps header -->
+	<header>
+
 		<!-- navbar -->
-		<div class="columns sixteen">
-			<nav class="navbar">
-				<ul>
-					<li><a href="index.html">Home</a></li>
-					<li><a href="">Blog</a></li>
-					<li><a href="">Projects</a></li>
-					<li><a href="contact.html">Contact</a></li>
-				</ul>
-			</nav>
-		</div><!-- /navbar -->
-	</div>
+		<div class="columns sixteen navbar">
 
-		<!-- wraps layout -->
-		<header class="primary-header">
+			<!-- navigation links (navbar: right) -->
+			<div class="navbar-links">
+				<nav role="primary">
 
-			<!-- Logo for website -->
-			<div class="columns sixteen">
-			    <h1 class="logo">
-
-			    	<a href="index.html">Nick Krein Music</a>
-
-			    </h1>
-		</header>
-
-		<!-- hero section -->
-			<div class="columns sixteen hero">
-				<img src="http://i.imgur.com/Kql2P6o.jpg" alt="nickpick2">
-			    <section class="hero-text">
-				    	<p>
-				    		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vitae neque eget quam auctor dignissim id eu lorem. Mauris libero nunc, sagittis nec augue id, accumsan mollis ligula. Phasellus aliquet sem id ligula lobortis dignissim. Quisque pellentesque aliquam magna. Mauris sodales massa gravida metus accumsan consequat.
-				    	</p>
-
-			    </section>
-			</div><!-- /hero -->
-
-		<!-- row of teaser sections -->
-			<!-- schedule section -->
-			<div class="columns five">
-				<section class="columns sixteen tease">
-					<table>
-						<thead>
-							<tr>
-								<th>
-									Upcoming:
-								</th>
-							</tr>
-						</thead>
-
-						<tbody>
-							<tr>
-
-							</tr>
-						</tbody>
-					</table>
-				</section>
-			</div><!-- /schedule section -->
-
-
-			<!-- videos section -->
-			<div class="columns five tease">
-				<section class="">
-
-				    <a href="videos">
-
-				        <h3>Videos</h3>
-
-				        <img src="http://i.imgur.com/hoOhNri.jpg">
-				    </a>
-
-				    <p>Nick's Youtube channel! Nick updates his channel every week with new videos.</p>
-
-				</section>
-			</div><!-- /videos section -->
-
-
-			<!-- lessons section -->
-			<div class="columns five tease">
-				<section>
-
-				    <a href="lessons">
-
-				        <h3>Lessons</h3>
-
-				        <img src="http://i.imgur.com/87IxgkS.jpg">
-				    </a>
-
-				    <p>
-				    	Nick offers guitar lessons in the greater Los Angeles area for all skill levels.
-				    </p>
-
-				</section>
-			</div><!-- /lessons section -->
-
-		</div><!-- /row -->
-
-		<div class="columns sixteen">
-			<footer>
-				<nav class="foot-navbar">
 					<ul>
 						<li><a href="index.html">Home</a></li>
-						<li><a href="">Blog</a></li>
-						<li><a href="">Projects</a></li>
+						<li><a href="">Videos</a></li>
 						<li><a href="contact.html">Contact</a></li>
 					</ul>
+
 				</nav>
-			</footer>
-		</div><!-- /footer -->
-	</div><!-- /container -->	
+			</div>
+			<!-- Logo for website (navbar: left) -->
+			<div class="logo">
+
+				<a href="index.html">Nick Krein Music</a>
+
+			</div>
+
+		</div>
+
+	</header>
+
+	<!-- wraps content -->
+	<div class="container">
+		<!-- marquee type banner / slideshow -->
+		<div class="columns sixteen hero">
+
+			<div class="row">
+
+				<img src="http://i.imgur.com/Kql2P6o.jpg" alt="nickpick2">
+
+				<p class="hero-text">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vitae neque eget quam auctor dignissim id eu lorem. Mauris libero nunc, sagittis nec augue id, accumsan mollis ligula. Phasellus aliquet sem id ligula lobortis dignissim. Quisque pellentesque aliquam magna. Mauris sodales massa gravida metus accumsan consequat.
+				</p>
+
+			</div><!-- /row -->
+
+		</div><!-- hero -->
+
+		<div class="columns sixteen upcoming">
+			<h1>Upcoming</h2>
+
+			<!-- schedule table -->
+			<div class="row">
+				<table>
+
+
+					<!-- table head -->
+					<thead>
+
+						<tr>
+							<th class="date">Date</th>
+							<th class="location">Location</th>
+							<th class="venue">Venue</th>
+							<!-- may add a "buy tickets" section later -->
+						</tr>
+
+					</thead>
+
+
+					<!-- table body -->
+					<tbody>
+						<tr>
+							<td class="date">10/31/14</td>
+							<td class="location">Hollywood, CA</td>
+							<td class="venue">Halloween Town</td>
+						</tr>
+
+						<tr>
+							<td class="date">11/27/14</td>
+							<td class="location">Hollywood, CA</td>
+							<td class="venue">Turkeytown</td>
+						</tr>
+
+						<tr>
+							<td class="date">12/25/14</td>
+							<td class="location">Hollywood, CA</td>
+							<td class="venue">The North Pole</td>
+						</tr>
+
+						<tr>
+							<td class="date">1/1/15</td>
+							<td class="location">Hollywood, CA</td>
+							<td class="venue">Times Square, NY</td>
+						</tr>
+
+					</tbody>
+
+				</table>
+
+			</div><!-- col 16 row -->
+
+		</div><!-- upcoming -->
+
+		<div class="columns sixteen new-video">
+			<div class="row">
+				<h1>New Video</h1>
+
+				<iframe width="560" height="315" src="http://www.youtube.com/embed/3-DuKGvJsIo" frameborder="0" allowfullscreen></iframe>
+
+			</div>
+
+		</div>
+
+	</div><!-- /container -->
+
+	<footer>
+		
+	</footer>
 
 </body>
 </html>
