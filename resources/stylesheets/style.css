@@ -72,36 +72,6 @@ img {
 	zoom: 1;
 }
 
-/* media queries*/
-
-@media screen and (min-width: 500px) {
-
-	.container .columns.one 		{ width: 6.25%;		}
-	.container .columns.two 		{ width: 12.5%;		}
-	.container .columns.three 		{ width: 18.75%;	}
-	.container .columns.four 		{ width: 25%;    	}
-	.container .columns.five 		{ width: 33.333333%;}
-	.container .columns.six 		{ width: 37.5%;    	}
-	.container .columns.seven 		{ width: 43.75%;    }
-	.container .columns.eight 		{ width: 50%;    	}
-	.container .columns.nine 		{ width: 56.25%;    }
-	.container .columns.ten 		{ width: 62.5%;    	}
-	.container .columns.eleven 		{ width: 68.75%;    }
-	.container .columns.twelve 		{ width: 75%;    	}
-	.container .columns.thirteen 	{ width: 81.25%;    }
-	.container .columns.fourteen 	{ width: 87.5%;    	}
-	.container .columns.fifteen 	{ width: 93.75%;    }
-	.container .columns.sixteen 	{ width: 100%;		}
-	
-	/* container specs for larger screens */
-	.container {
-		width: 100%;
-		margin: 0 auto;
-		background: #fff;
-	}
-
-}
-
 
 /* header */
 
