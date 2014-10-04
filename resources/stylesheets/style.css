@@ -95,7 +95,7 @@ img {
 	
 	/* container specs for larger screens */
 	.container {
-		width: 90%;
+		width: 100%;
 		margin: 0 auto;
 		background: #fff;
 	}
@@ -110,11 +110,11 @@ img {
 
 .navbar {
 	border-bottom: .5em solid #4B73D1;
-	background: #D4E1FF;
+	background: #1e1e1e;
 	padding: 1em 1em;
-	position: static;
+	position: fixed;
 	overflow: auto;
-	opacity: 0.5;
+	opacity: 0.8;
 }
 
 .logo {
@@ -159,7 +159,7 @@ img {
 }
 
 .upcoming table th {
-	color: #4BB9D1
+	color: #4BB9D1;
 }
 
 .upcoming table td {
@@ -178,6 +178,7 @@ img {
 
 a {
 	text-decoration: none;
+	color: #fff;
 }
 
 
