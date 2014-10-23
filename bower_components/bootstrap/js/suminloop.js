@@ -6,8 +6,8 @@ document.getElementById('submit-button').addEventListener('click', function() {
   
   console.log(splitData);  
 
-  for (var i = 0; i < splitData.length; i++) {
-    var StrToInt = parseInt(splitData[i]);
+  for (var i = 1; i < splitData.length; i++) {
+    var StrToInt = parseInt(splitData[i], 10);
     total += StrToInt
   };
   
