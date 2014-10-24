@@ -1,8 +1,8 @@
-document.getElementById('submit-button').addEventListener('click', function() {
+document.getElementByClassName('submit-button').addEventListener('click', function() {
 
-  var testData = document.getElementById('test-data').value;
+  var testData  = document.getElementByClassName('test-data').value;
   var splitData = testData.split(' ');
-  var total = 0;
+  var total     = 0;
   
   console.log(splitData);  
 

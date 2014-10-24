@@ -7,7 +7,7 @@
     <title>Bootstrap 101 Template</title>
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -18,30 +18,52 @@
   </head>
 
   <body>
-    <div>
-    <div>
-      <form>
+    <!-- container wraps all content -->
+    <div class="container">
 
-	<!-- data field -->
-        <label>Test Data</label>
-        <input placeholder="copy & paste data" id="test-data" type="string"></input>
-      </form>
 
-      <!-- submit button -->
-      <input type="submit" id="submit-button"/>
-    </div>
-	
-    <!-- answer div -->
-    <div id="ans-wrap">
-      <p>Answer:</p>
-      <p id="answer"></p>
-    </div>
+        <div class="col-md-12">
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="/bower_components/bootstrap/js/suminloop.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-  </div>
+          <!-- header -->
+          <div class="page-header">
+            <h1>Code Abbey <small>Sum In Loop</small></h1>
+          </div>
+
+
+          </div>
+            <form class="form-horizontal" role="form">
+              <div class="form-group">
+
+        	      <!-- data field -->
+                <label>Test Data: </label>
+                <input type="text" class="form-control input-lg test-data" placeholder="Text input">
+              </div><!-- /form-group -->
+
+              <!-- submit button -->
+              <input type="submit" class="btn btn-primary btn-lg btn-block sub-btn"/>
+            </form>
+
+
+
+      	 
+          <!-- answer div -->
+          <div id="ans-wrap">
+            <p>Answer:</p>
+            <p id="answer"></p>
+          </div>
+
+          <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+          <!-- Include all compiled plugins (below), or include individual files as needed -->
+          <script src="/bower_components/bootstrap/js/suminloop.js"></script>
+
+          <script src="js/bootstrap.min.js"></script>
+
+      </div><!-- /row -->
+
+    </div><!-- /container -->
+
   </body>
+
 </html>
