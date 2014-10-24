@@ -1,4 +1,4 @@
-document.getElementByClassName('sub-button').addEventListener('click', function() {
+document.getElementByClassName('sub-btn').addEventListener('click', function() {
 
   var testData  = document.getElementByClassName('test-data').value;
   var splitData = testData.split(' ');
