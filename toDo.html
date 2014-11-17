@@ -5,13 +5,12 @@
 <head>
 
   <title>Ryan Price | Web Dev</title>
-  <script src="js/fizzbuzz.js"></script>
+
   <meta charset="utf-8">
   <link rel="stylesheet" href="css/normalize.css">
-  <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="css/main.css">
+  <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="css/ionicons.css">
-
 
 </head>
 
@@ -28,20 +27,29 @@
     <!-- main navigation -->
     <nav>
       <ul>
-        <li><a href="index.html" class="selected">Projects</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="#index.html" class="selected">Projects</a></li>
+        <li><a href="#about.html">About</a></li>
+        <li><a href="#contact.html">Contact</a></li>
       </ul>
     </nav>
 
   </header>
 
   <!-- main content -->
-  <div id="wrapper">
-    <section id="intro">
-      <p>Welcome to my portfolio site! Here are all the things I've been working on.</p>
-      <p>If you are interested in working together,
-        you can find my contact info <a href="contact.html">here</a>.</p>
+  <div id="container">
+    <section id="toDoList">
+
+      <p>
+        <label for="addItem">Add Item</label><input id="addItem" type="text"><button>Add</button>
+      </p>
+
+      <h3>Todo</h3>
+      <ul id="incompleteUl"></ul>
+
+      <h3>Completed</h3>
+      <ul id="completeUl"></ul>
+
+
 
     </section>
 
@@ -62,8 +70,8 @@
     </footer>
   </div>
 
-  <!-- script that does not work -->
-
+  <!-- script should work -->
+  <script type="text/javascript" src="js/toDo.js"></script>
 
 </body>
 
