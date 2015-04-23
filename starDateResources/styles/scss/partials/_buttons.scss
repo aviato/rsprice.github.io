@@ -1,0 +1,19 @@
+button {
+    -webkit-appearance: none;
+    -moz-appearance:    none;
+    appearance:         none;
+    padding: 5em;
+    border: none;}
+
+.nextMonth {
+    background-color: $buttonBg;
+    width: 20%;
+    float: right;
+    margin-bottom: 1em;}
+
+.prevMonth {
+    background-color: $buttonBg;
+    width: 20%;
+    margin: 0 auto;
+    float: left;
+    margin-bottom: 1em;}

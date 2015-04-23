@@ -1,0 +1,291 @@
+/*
+%%% %%%%%%%% %%%
+%%% main css %%%
+%%% %%%%%%%% %%%
+*/
+
+body {
+  background-color: #000;
+  font-weight: 100;
+  letter-spacing: .9px;
+  text-shadow: 2px 2px black;
+}
+
+@font-face {
+  font-family: 'Final Fantasy Script Collection - Final Fantasy VII';
+  src: url('http://www.fontsaddict.com/fontface/final-fantasy-script-collection---final-fantasy-vii.ttf');
+}
+
+h1 {
+  font-size: 30px;
+  font-weight: 200;
+}
+
+.main-menu {
+  margin-top: 100px;
+  background-image:
+  linear-gradient(
+
+      to right,
+      rgb(000,000,176),
+      rgb(000,000,128),
+      rgb(000,000,080),
+      rgb(000,000,032)
+  );
+
+  /* my gray is c5c5c5 */
+
+  box-shadow: 30px gray;
+  box-shadow: inset 0 0 10px black;
+
+  border: 4px solid #fff;
+  border-radius: 4px;
+
+  /* hack for rounded border gradients */
+
+  /*   -webkit-border-image: -webkit-linear-gradient(
+    to bottom,
+    #c5c5c5,
+    #fff
+  );
+
+  -moz-border-image: -moz-linear-gradient(
+    to bottom,
+    #c5c5c5,
+    #fff
+  );
+
+  border-image: linear-gradient(
+    to bottom,
+    #c5c5c5,
+    #fff
+  );
+
+
+  border-image-slice: 1; */
+
+}
+
+/* .col-md-2 {
+  border: 1px dashed white;
+}
+.col-md-4 {
+  border: 1px dashed white;
+} */
+
+.row-three {
+  padding-bottom: 40px;
+}
+
+/*
+  %%%%%%%%%%%%%%%%%%%
+  first columns - img
+  %%%%%%%%%%%%%%%%%%%
+*/
+
+
+.char-img {
+  margin-left: 25px;
+  padding-top: 20px;
+  padding-right: 40px;
+  margin-right: 20px;
+  max-height: 180px;
+  max-width: 180px;
+}
+
+/*
+  %%%%%%%%%%%%%%%%%%%%%
+  second column - stats
+  %%%%%%%%%%%%%%%%%%%%%
+*/
+
+/* general area of the stats column */
+.stats {
+  left: 30px;
+  /* used for debugging - comment when no longer needed*/
+  /* border: 1px dashed white; */
+}
+
+  /* char name */
+  h1 {
+    font-weight: 100;
+    color: white;
+  }
+
+  /* used to stack stat values */
+  .stats-block {
+    display: block;
+  }
+
+
+  /* used for stat categories */
+  .stats-cat {
+    color: #00ddd6;
+    opacity: 1;
+    font-size: 25px;
+    margin-right: 10px;
+    font-weight: 600;
+  }
+
+  /* stat values */
+  .stats-val {
+    color: #fff;
+    font-size: 25px;
+    border-bottom: 1px solid green;
+    font-weight: 600;
+  }
+
+    /* the little green slash within the stat value */
+    .stats-slash {
+      color: green;
+      font-size: 25px;
+    }
+
+    /* removes the line from LV */
+    .lv {
+      border-bottom: none;
+    }
+
+    .hp {
+
+    }
+
+    .mp {
+      padding-right: 16px;
+    }
+
+/*
+  %%%%%%%%%%%%%%%%%%%%%
+  third column - status
+  %%%%%%%%%%%%%%%%%%%%%
+*/
+
+.status {
+  left: 15px;
+}
+
+.nxt-lvl-block {
+  margin-top: 50px;
+  margin-bottom: -5px;
+}
+
+.nxt-lvl {
+  color: #fff;
+  font-size: 25px;
+}
+
+.lmt-lvl-lbl,
+.lmt-lvl-val {
+  color: #fff;
+  font-size: 25px;
+}
+
+.progress {
+  margin-left: 15px;
+  background-color: #61615f;
+  box-shadow: inset 0 3px 3px black;
+  border: 4px solid #fff;
+  border-radius: 0;
+}
+
+.progress-bar {
+
+  background-image:
+    radial-gradient(
+      #fff,
+      salmon
+    );
+
+  box-shadow: inset 0 3px 3px black;
+}
+
+.progress-bar-custom {
+  box-shadow: inset 0 3px 3px black;
+  background-image:
+    radial-gradient(
+      #fff,
+      salmon
+    );
+}
+
+
+
+/*
+  %%%%%%%%%%%%%
+  side-menu
+  %%%%%%%%%%%%%
+*/
+
+.side-menu {
+  color: #fff;
+  font-size: 30px;
+  right: 100px;
+  up: 100px;
+  margin-top: 60px;
+  padding-right: 50px;
+  box-shadow: inset 0 0 10px black;
+  background-image:
+  linear-gradient(
+
+    to right,
+    rgb(000,000,176),
+    rgb(000,000,128),
+    rgb(000,000,080),
+    rgb(000,000,032)
+    );
+
+  border: 4px solid white;
+  border-radius: 4px;
+}
+
+.side-menu ul {
+  padding-top: 10px;
+  padding-left: 15px;
+  padding-bottom: 10px;
+  padding-right: 30px;
+  margin-right: 20px;
+}
+
+.side-menu ul li {
+
+  list-style: none;
+
+  padding-right: 10px;
+  margin-right: 10px;
+
+}
+
+ul li:nth-child(8)  {
+  margin-bottom: 40px;
+}
+
+
+.side-menu ext-1 {
+  padding-right: 100px;
+}
+
+.time-cat {
+  padding-right: 80px;
+}
+
+.gil-cat {
+  padding-right: 160px;
+}
+
+.time-val {
+  font-weight: 600;
+}
+
+.gil-val {
+  font-weight: 600;
+}
+
+.ext-2 {
+  margin-top: -24px;
+  padding: 5px 10px;
+}
+
+ul li.glove-show {
+  list-style-image: url("../images/ggg.png");
+  list-style-position: outside;
+}
