@@ -169,6 +169,11 @@ input[type="checkbox"], input[type="radio"] {
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
 
+.pageWrap {
+    width: 100%;
+    margin: 0 auto;
+}
+
 .headingContainer {
   margin: 0 auto;
   max-width: 100%; }
