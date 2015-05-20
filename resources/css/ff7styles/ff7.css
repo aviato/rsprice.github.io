@@ -286,6 +286,6 @@ ul li:nth-child(8)  {
 }
 
 ul li.glove-show {
-  list-style-image: url("../images/glove.png");
+  list-style-image: url("../../images/glove.png");
   list-style-position: outside;
 }
