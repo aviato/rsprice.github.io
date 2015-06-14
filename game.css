@@ -148,6 +148,36 @@ button {
   width: 140px;
   top: 15px;
   left: 620px;
- 
   visibility: hidden;
+}
+
+.blur {
+  background-color: gray;
+  opacity: .6;
+}
+
+#openScroll {
+  position: absolute;
+  width: 60%;
+  height: 450px;
+  top: 70px;
+  left: 150px;
+  background-color: #ECDFCF;
+  border: 3px solid black;
+  border-radius: 4px;
+  opacity: .95;
+  z-index: 0;
+  visibility: hidden;
+}
+
+#closeScroll {
+  position: absolute;
+  z-index: 0;
+  visibility: hidden;
+  top: 10px;
+  right: 10px;
+  border: none;
+  height: 20px;
+  width: 20px;
+  font-size: 20px;
 }

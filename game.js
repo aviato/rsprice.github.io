@@ -21,6 +21,8 @@
     this.startScreenActive = true;
     this.indicator = new Image();
     this.indicator.src = "resources/ActionIcons/IndicatorLight.png";
+    this.scroll = new Image();
+    this.scroll.src = "resources/ActionIcons/scroll.png";
     
     // resouces object
     this.resources = {
@@ -73,6 +75,22 @@
 //    game.draw();
 //    
 //  };
+    
+  // ------------------------------------------------------------------------------------------------
+
+  //                                         Sounds
+
+  // ------------------------------------------------------------------------------------------------
+    
+  var Sounds = function() {
+    this.mainThemeMP3 = new Audio("resources/sounds/DepthsOfWinter1.mp3");
+    this.mainLoopMP3 = new Audio("resources/sounds/WinterLoop.mp3");
+    this.BShammer = new Audio("resources/sounds/Anvil.mp3");
+    this.granary = new Audio("resources/sounds/Granary.mp3");
+    this.LMsound = new Audio("resources/sounds/LumberMill.mp3");
+    this.Apothsounds = new Audio("resources/sounds/Apothecary.mp3");
+    this.pageTurn = new Audio("resources/sounds/PageTurn.mp3");
+  }
 
   // ------------------------------------------------------------------------------------------------
 
@@ -116,6 +134,13 @@
   };
 
   MainMenu.prototype.lore = function() {
+    
+    game.ctx.filltext(this.lore, game.size.x / 2, game.size.y / 2);
+    game.ctx.filltext(this.lore, game.size.x / 2, game.size.y / 2);
+    game.ctx.filltext(this.lore, game.size.x / 2, game.size.y / 2);
+    game.ctx.filltext(this.lore, game.size.x / 2, game.size.y / 2);
+    game.ctx.filltext(this.lore, game.size.x / 2, game.size.y / 2);
+    game.ctx.filltext(this.lore, game.size.x / 2, game.size.y / 2);
     game.ctx.filltext(this.lore, game.size.x / 2, game.size.y / 2);
   };
 
@@ -135,11 +160,8 @@
   };
 
   GameOverScreen.prototype.draw = function() {
-    gameOver.BG.onload = function() {
-      game.clear();
-      game.ctx.drawImage(gameOver.BG, 0, 0);
-      console.log("gameOver.draw is working");
-    }
+    game.ctx.drawImage(gameOver.BG, 0, 0);
+    console.log("gameOver.draw is working");
   };
 
 
@@ -172,6 +194,7 @@
     var startScreenActive = true;
 
   function startGame(){
+    sounds.mainThemeMP3.play();
     mainMenu.draw();
     var startButton = document.getElementById("startButton");
     startButton.addEventListener("click", function() {
@@ -182,10 +205,6 @@
     
     
   }; 
-  
-
-
-  
 
   function playGame(day) {
     var people = game.resources.subjects;
@@ -194,27 +213,10 @@
     game.ctx.drawImage(game.BG, 0, 0);
     game.update();
     
-    if (game.resources.tasks < 1) {
-      game.turnActive = false;
-    }
     
     //draw the scroll the screen with the days message
     //scroll.draw(); 
-    
-    if (day > 5) {
-      // see if a disaster happened
-      // rollDisaster();
-    }
-    
-    if (day > 89) {
-      // game over, you win!
-      // return victoryScreen();
-    } else if (people <= 0) {
-      // game over, you lose!
-      // return gameOverScreen();
-    } else if (game.turnActive === false) {
-      return playGame(day += 1);
-    } 
+  
   };
 
 
@@ -229,7 +231,6 @@
     this.playerUI = new Image();
     this.playerUI.src = "resources/DeskJournalandScroll.png";
     this.journalArray = [];
-    this.resouces = this.name = '';
     
     // All the building objects... x & y coords + width and height of sprites + strings and methods
     this.buildings = {
@@ -327,7 +328,29 @@
         }
       },
       // needs properties!!
-      scroll: {}
+      scroll: {
+        scrollLabel: "Day " + game.day + " Summary",
+        disasterText: function() {
+          //if wolves print wolves
+          //if blizz print blizz
+          //if plague print plague
+        },
+        oreText: "Ore: " + game.resources.ore,
+        swordsText: "Swords: " + game.resources.swords,
+        lumberText: "Logs" + game.resources.logs,
+        firewoodText: "Firewood: " + game.resources.firewood,
+        grainText: "Grain: " + game.resources.grain,
+        breadText: "Bread: " + game.resources.bread,
+        herbsText: "Herbs: " + game.resources.herbs,
+        medicineText: "Medicine: " + game.resources.medicine,
+        writeReport: function() {
+          // In here we'll fill out a report with our current status
+          game.ctx.fillStyle = "#000";
+          game.ctx.fillText(journal.buildings.scroll.scrollLabel, 330, 78);
+          console.log("report written!");
+          
+        }
+      }
     };
     
   };
@@ -377,6 +400,7 @@
       game.ctx.fillStyle = "#000";
     };
     
+    
   };
       
   
@@ -409,7 +433,6 @@
     var roll = Math.ceil(Math.random() * 3);
   };
 
-
   
   // ------------------------------------------------------------------------------------------------
 
@@ -426,6 +449,8 @@
   var mainMenu = new MainMenu();
   var victory = new VictoryScreen();
   var gameOver = new GameOverScreen();
+  var sounds = new Sounds();
+  var openScroll = document.getElementById("openScroll");
 
   // All the buttons
   var BSButton = document.getElementById("BSButton");
@@ -443,13 +468,31 @@
   var Apothplus = document.getElementById("Apothplus");
   var Apothminus = document.getElementById("Apothminus");
   var nextDayButton = document.getElementById("nextDayButton");
+  var closeScrollButton = document.getElementById("closeScroll");
   var buttonArray = [];
   
   // Push all the button dom elements into a neat array
   buttonArray.push(BSButton, GranButton, LMButton, ApothButton, BSplus, BSminus, Granplus, Granminus, LMplus, LMminus, Apothplus, Apothminus, nextDayButton);
 
+  // Bind event to the close scroll button
+  closeScrollButton.addEventListener("click", function() {
+    openScroll.style.zIndex = 0;
+    openScroll.style.visibility = "hidden";
+    closeScrollButton.style.zIndex = 0;
+    closeScrollButton.style.visibility = "hidden";
+  });
+  
+
+  // Bind event listener to the ink well, the main mechanism for moving tot he next day
   buttonArray[12].addEventListener("click", function() {
+    openScroll.style.zIndex = 1000;
+    openScroll.style.visibility = "visible";
+    
+    closeScrollButton.style.zIndex = 1000;
+    closeScrollButton.style.visibility = "visible";
+    journal.buildings.scroll.writeReport();
     console.log("next day!");
+    sounds.pageTurn.play();
     game.day++;
     game.resources.tasks = 3;
     for (var i = 0; i < buttonArray.length; i++) {
@@ -458,6 +501,11 @@
     };
     game.ctx.drawImage(game.BG, 0, 0);
     game.update();
+    
+    if (game.resources.subjects <= 0) {
+      game.clear();
+    gameOver.draw();
+    }
   });
 
   game.canvas.addEventListener("mousedown", getPosition, false);
@@ -614,16 +662,6 @@
     console.log(x, y);
     
     
-    
-////    if (game.resources.tasks === 0) {
-////      game.ctx.drawImage(game.BG, 0, 0);
-////      game.day += 1;
-////      game.tasks = 3;
-////      game.update();
-//
-//    }
-    
-    
     console.log(game.resources.tasks);
     
     
@@ -649,6 +687,7 @@
 
     buttonArray[0].style.visibility = "visible";
     buttonArray[0].addEventListener("click", function() {
+      sounds.BShammer.play();
       console.log("this BLACKSMITH button works");
       journal.buildings.blacksmith.forgeSwords(journal.buildings.blacksmith.forgeValue);
       drawBlacksmithPage();
@@ -711,6 +750,7 @@
     buttonArray[1].style.visibility = "visible";
     buttonArray[1].style.zIndex = "60";
     buttonArray[1].addEventListener("click", function() {
+      sounds.granary.play();
       console.log("this GRANARY button works");
       journal.buildings.granary.makeBread(journal.buildings.granary.granaryValue);
       drawGranaryPage();
@@ -758,6 +798,7 @@
     buttonArray[2].style.visibility = "visible";
     buttonArray[2].style.zIndex = "60";
     buttonArray[2].addEventListener("click", function() {
+      sounds.LMsound.play();
       console.log("this LUMBERMILL button works");
       journal.buildings.lumbermill.makeFirewood(journal.buildings.lumbermill.firewoodValue);
       drawLumbermillPage();
@@ -806,6 +847,7 @@
     buttonArray[3].style.visibility = "visible";
     buttonArray[3].style.zIndex = "60";
     buttonArray[3].addEventListener("click", function() {
+      sounds.Apothsounds.play();
       console.log("this APOTHECARY button works");
       journal.buildings.apothecary.makeMedicine(journal.buildings.apothecary.medicineValue);
       drawApothecaryPage();
@@ -843,7 +885,6 @@
 };
 
 game.canvas.style.cursor = "url(resources/ActionIcons/QuillCursor2.png), auto";
-
 
 startGame();
 
