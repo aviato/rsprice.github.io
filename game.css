@@ -1,0 +1,153 @@
+*,
+*:active,
+*:focus,
+*:hover,
+*:enabled,
+*:default,
+*:target,
+*:link {
+  cursor: url(resources/ActionIcons/QuillCursor2.png), auto;
+}
+
+input:active {
+  outline: yellow;
+}
+
+button {
+  background: none;
+  /* set border to none */
+}
+
+.container {
+  height: 600px;
+  width: 800px;
+  position: relative;
+}
+
+#canvas, canvas {
+  z-index: -1;
+  cursor: none;
+}
+
+#canvas:active {
+/*  cursor: url(resources/ActionIcons/QuillCursor.png), auto;*/
+}
+
+/* button must be positioned with px */
+#BSButton {
+  position: absolute;
+  top: 380px;
+  left: 467px;
+  visibility: hidden;
+}
+
+#GranButton {
+  position: absolute;
+  top: 380px;
+  left: 467px;
+  visibility: hidden;
+}
+
+#LMButton {
+  position: absolute;
+  top: 380px;
+  left: 467px;
+  visibility: hidden;
+}
+
+#ApothButton {
+  position: absolute;
+  top: 380px;
+  left: 467px;
+  visibility: hidden;
+}
+
+#BSplus{
+  z-index: 0;
+  position: absolute;
+  top: 351px;
+  left: 569px;
+  visibility: hidden;
+}
+
+#BSminus {
+  z-index: 0;
+  position: absolute;
+  top: 351px;
+  left: 592px;
+  visibility: hidden;
+}
+
+#Granplus {
+  z-index: 0;
+  position: absolute;
+  top: 351px;
+  left: 569px;
+  visibility: hidden;
+}
+
+#Granminus {
+  z-index: 0;
+  position: absolute;
+  top: 351px;
+  left: 592px;
+  visibility: hidden;
+}
+
+#LMplus {
+  z-index: 0;
+  position: absolute;
+  top: 351px;
+  left: 569px;
+  visibility: hidden;
+}
+
+#LMminus {
+  z-index: 0;
+  position: absolute;
+  top: 351px;
+  left: 592px;
+  visibility: hidden;
+}
+
+#Apothplus {
+  z-index: 0;
+  position: absolute;
+  top: 351px;
+  left: 569px;
+  visibility: hidden;
+}
+
+#Apothminus {
+  z-index: 0;
+  position: absolute;
+  top: 351px;
+  left: 592px;
+  visibility: hidden;
+}
+
+#startButton {
+  color: white;
+  background: none;
+  border: 2px solid white;
+  font-size: 18px;
+  z-index: 10;
+  position: absolute;
+  top: 156px;
+  left: 417px;
+  visibility: visible;
+  height: 50px;
+  width: 150px;
+}
+
+#nextDayButton {
+  border: none;
+  position: absolute;
+  z-index: 0;
+  height: 140px;
+  width: 140px;
+  top: 15px;
+  left: 620px;
+ 
+  visibility: hidden;
+}
