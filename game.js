@@ -27,16 +27,15 @@
     // resouces object
     this.resources = {
       subjects: 300,
-      logs: 500,
-      firewood: 50,
-      ore: 500,
-      medicine: 400,
-      gold: 500,
-      grain: 1000,
-      bread: 50,
+      logs: 27000,
+      firewood: 0,
+      ore: 27000,
+      medicine: 0,
+      grain: 27000,
+      bread: 0,
       tasks: 3,
-      swords: 25,
-      herbs: 100
+      swords: 0,
+      herbs: 27000
     };
     
   }
@@ -196,14 +195,6 @@
   function startGame(){
     sounds.mainThemeMP3.play();
     mainMenu.draw();
-    var startButton = document.getElementById("startButton");
-    startButton.addEventListener("click", function() {
-      startButton.style.visibility = "hidden";
-      startButton.style.zIndex = -1000;
-      playGame(game.day);
-    });
-    
-    
   }; 
 
   function playGame(day) {
@@ -212,8 +203,6 @@
     game.clear();
     game.ctx.drawImage(game.BG, 0, 0);
     game.update();
-    
-    
     //draw the scroll the screen with the days message
     //scroll.draw(); 
   
@@ -248,12 +237,12 @@
         introTextLn4: "useful to arm yourself in",
         introTextLn5: "these hard times.",
         currentArms: game.resources.swords,
-        forgeValue: 0,
+        forgeValue: Math.ceil(game.resources.subjects / 3) / 10,
         armsStatus: "Armed subjects: " + game.resources.swords + "",
         oreStatus: "Remaining ore: " + game.resources.ore + "",
         forgeSwords: function(val) {
           game.resources.swords += val;
-          game.resources.ore -= val * 10
+          game.resources.ore -= val * 9;
           game.resources.tasks -= 1;
         }
       },
@@ -271,7 +260,7 @@
         introTextLn3: "subjects. Feed them well.",
         grainStatus: "Remaining grain: " + game.resources.grain + "",
         breadStatus: "Total bread: " + + game.resources.bread + "",
-        granaryValue: 0,
+        granaryValue: game.resources.subjects,
         plusGrain: function(){},
         minusGrain: function(){},
         makeBread: function(val) {
@@ -294,7 +283,7 @@
         introTextLn3: "a most welcome ally.",
         logsStatus: "Remaining logs: " + game.resources.logs + "",
         firewoodStatus: "Total firewood: " + + game.resources.firewood + "",
-        firewoodValue: 0,
+        firewoodValue: game.resources.subjects,
         plusWood: function(){},
         minusWood: function(){},
         makeFirewood: function(val) {
@@ -318,7 +307,7 @@
         introTextLn4: "greatest treasure.",
         herbsStatus: "Remaining herbs: " + game.resources.herbs + "",
         medicineStatus: "Total medicine: " + + game.resources.medicine + "",
-        medicineValue: 0,
+        medicineValue: game.resources.subjects,
         plusMedicine: function(){},
         minusMedicine: function(){},
         makeMedicine: function(val) {
@@ -411,7 +400,8 @@
     var killedByWolves = Math.ceil(Math.random() * (5 - 1) + 1);
     var killedByBlizzard = Math.ceil(Math.random() * (20 - 10) + 10);
     var killedByPlague = Math.ceil(Math.random() * (50 - 20) + 20);
-    
+    var killedByStarvation = null;
+  
     // Disaster 1
     this.wolves = function() {
       console.log('The village was raided by wolves during the night! ' + killedByWolves + ' did not survive...');
@@ -430,88 +420,159 @@
   };
 
   Disaster.prototype.rollDisaster = function() {
-    var roll = Math.ceil(Math.random() * 3);
+    // should roll to see if there are any disasters
+    var randRoll = Math.ceil(Math.random() * 3);
+    var disasterRoll = Math.ceil(Math.random() * 3);
+    if (randRoll < 4) {
+      if (disasterRoll === 1) {
+        console.log("wolves");
+      } else if (disasterRoll === 2) {
+        console.log("blizzard");
+      } else if (disasterRoll === 3) {
+        console.log("starvation");
+      } else {
+        console.log("plague");
+      }
+    }
+    console.log(randRoll);
+    console.log(disasterRoll);
   };
 
+  // ------------------------------------------------------------------------------------------------
+
+  //                                        Global variables
+
+  // ------------------------------------------------------------------------------------------------
   
-  // ------------------------------------------------------------------------------------------------
-
-  //                          Globals and functions to start the game
-
-  // ------------------------------------------------------------------------------------------------
 
   /* Call the actual game function */
   
   // Instantiate all the objects
   var game = new Game();
-  //  var player = new Player(game);
   var journal = new Journal();
   var mainMenu = new MainMenu();
   var victory = new VictoryScreen();
   var gameOver = new GameOverScreen();
   var sounds = new Sounds();
-  var openScroll = document.getElementById("openScroll");
+  var disaster = new Disaster();
 
-  // All the buttons
+  var openScroll = document.getElementById("openScroll");
+                                           
+  var BS = document.getElementById("BS");
   var BSButton = document.getElementById("BSButton");
-  var LMButton = document.getElementById("LMButton");
-  var GranButton = document.getElementById("GranButton");
-  var ApothButton = document.getElementById("ApothButton");
-  var plusButton = document.getElementById("plus");
-  var minusButton = document.getElementById("minus");
   var BSplus = document.getElementById("BSplus");
   var BSminus = document.getElementById("BSminus");
+
+  var Gran = document.getElementById("Gran");
+  var GranButton = document.getElementById("GranButton");
   var Granplus = document.getElementById("Granplus");
   var Granminus = document.getElementById("Granminus");
+
+  var LM = document.getElementById("LM");
+  var LMButton = document.getElementById("LMButton");
   var LMplus = document.getElementById("LMplus");
   var LMminus = document.getElementById("LMminus");
+
+  var Apoth = document.getElementById("Apoth");
+  var ApothButton = document.getElementById("ApothButton");
   var Apothplus = document.getElementById("Apothplus");
   var Apothminus = document.getElementById("Apothminus");
+
+  var startButton = document.getElementById("startButton");
+
   var nextDayButton = document.getElementById("nextDayButton");
   var closeScrollButton = document.getElementById("closeScroll");
   var buttonArray = [];
   
   // Push all the button dom elements into a neat array
   buttonArray.push(BSButton, GranButton, LMButton, ApothButton, BSplus, BSminus, Granplus, Granminus, LMplus, LMminus, Apothplus, Apothminus, nextDayButton);
+  
+  // Set the game's cursor to a quill
+  game.canvas.style.cursor = "url(resources/ActionIcons/QuillCursor2.png), auto";
 
-  // Bind event to the close scroll button
-  closeScrollButton.addEventListener("click", function() {
-    openScroll.style.zIndex = 0;
-    openScroll.style.visibility = "hidden";
-    closeScrollButton.style.zIndex = 0;
-    closeScrollButton.style.visibility = "hidden";
+  // ------------------------------------------------------------------------------------------------
+
+  //                                        Start Button
+
+  // ------------------------------------------------------------------------------------------------
+
+  startButton.addEventListener("click", function() {
+    startButton.style.visibility = "hidden";
+    startButton.style.zIndex = -1000;
+    BS.style.zIndex = 10;
+    BS.style.visibility = "visible";
+    Gran.style.zIndex = 10;
+    Gran.style.visibility = "visible";
+    LM.style.zIndex = 10;
+    LM.style.visibility = "visible";
+    Apoth.style.zIndex = 10;
+    Apoth.style.visibility = "visible";
+    playGame(game.day);
+  });
+
+  
+  // ------------------------------------------------------------------------------------------------
+
+  //                                        Blacksmith
+
+  // ------------------------------------------------------------------------------------------------
+
+  BS.addEventListener("click", function() {
+    console.log("draw BS page");
+    drawBlacksmithPage();
+    buttonArray.forEach(function(button) {
+      button.style.visibility = "hidden";
+      button.style.zIndex = 0;
+    });
+    BSButton.style.visibility = "visible";
+    BSButton.style.zIndex = 10;
+//    BSplus.style.visibility = "visible";
+//    BSminus.style.visibility = "visible";
+//    BSplus.style.zIndex = 10;
+//    BSminus.style.zIndex = 10;
+
   });
   
+  // Forge swords from ore
 
-  // Bind event listener to the ink well, the main mechanism for moving tot he next day
-  buttonArray[12].addEventListener("click", function() {
-    openScroll.style.zIndex = 1000;
-    openScroll.style.visibility = "visible";
-    
-    closeScrollButton.style.zIndex = 1000;
-    closeScrollButton.style.visibility = "visible";
-    journal.buildings.scroll.writeReport();
-    console.log("next day!");
-    sounds.pageTurn.play();
-    game.day++;
-    game.resources.tasks = 3;
-    for (var i = 0; i < buttonArray.length; i++) {
-      buttonArray[i].style.visibility = "hidden";
-      buttonArray[i].style.zIndex = 0;
-    };
-    game.ctx.drawImage(game.BG, 0, 0);
-    game.update();
-    
-    if (game.resources.subjects <= 0) {
-      game.clear();
-    gameOver.draw();
-    }
+  BSButton.addEventListener("click", function() {
+    console.log("this BLACKSMITH button works");
+    sounds.BShammer.play();
+    journal.buildings.blacksmith.forgeSwords(journal.buildings.blacksmith.forgeValue);
+    drawBlacksmithPage();
+  });
+  
+  // Increment forgeValue when the + button is clicked
+
+  BSplus.addEventListener("click", function() {
+    console.log("BSplus");
+    journal.buildings.blacksmith.forgeValue++;
+    game.resources.ore -= 10;
+    game.resources.swords += 1;
+    drawBlacksmithPage();
+    console.log(journal.buildings.blacksmith.forgeValue);
   });
 
-  game.canvas.addEventListener("mousedown", getPosition, false);
+
+  // Decrement forgeValue when the - button is clicked
+  BSminus.addEventListener("click", function () {
+    console.log("BSminus");
+    journal.buildings.blacksmith.forgeValue--;
+    drawBlacksmithPage();
+    console.log(journal.buildings.blacksmith.forgeValue);
+
+    if (journal.buildings.blacksmith.forgeValue < 1) { 
+      journal.buildings.blacksmith.forgeValue = 0;
+      drawBlacksmithPage();
+    }
+    game.ctx.fillText(journal.buildings.blacksmith.forgeValue, 483, 359);
+  });
 
   // Draw the Blacksmith page on the right side of the journal
   function drawBlacksmithPage() {
+    if (game.resources.tasks < 1) {
+      journal.buildings.blacksmith.forgeValue = 0;
+    }
     game.ctx.drawImage(game.BG, 0, 0);
     game.update();
     
@@ -546,8 +607,64 @@
 
   };
 
+  // ------------------------------------------------------------------------------------------------
+
+  //                                        Granary
+
+  // ------------------------------------------------------------------------------------------------
+
+  // Draw the granary page
+  Gran.addEventListener("click", function() {
+    console.log("draw Gran page");
+    buttonArray.forEach(function(button) {
+      button.style.visibility = "hidden";
+      button.style.zIndex = 0;
+    });
+    drawGranaryPage();
+    GranButton.style.visibility = "visible";
+    GranButton.style.zIndex = 10;
+    Granplus.style.visibility = "visible";
+    Granminus.style.visibility = "visible";
+    Granplus.style.zIndex = 10;
+    Granminus.style.zIndex = 10;
+  });
+  
+  // Bake Bread
+  GranButton.addEventListener("click", function() {
+    sounds.granary.play();
+    console.log("this GRANARY button works");
+    journal.buildings.granary.makeBread(journal.buildings.granary.granaryValue);
+    journal.buildings.granary.granaryValue = 0;
+    drawGranaryPage();
+  });
+
+  // Increment the bake bread value
+  Granplus.addEventListener("click", function b() {
+    console.log("GRplus");
+    journal.buildings.granary.granaryValue + 1;
+    game.resources.grain -= 20;
+    game.resources.bread += 10;
+    console.log(journal.buildings.granary.granaryValue++);
+    drawGranaryPage();
+  });
+  
+  // Decrement the bake bread value
+  Granminus.addEventListener("click", function () {
+    console.log("GRminus");
+    journal.buildings.granary.granaryValue--;
+    drawGranaryPage();
+    console.log(journal.buildings.granary.granaryValue);
+
+    if (journal.buildings.granary.granaryValue < 1) { 
+      journal.buildings.granary.granaryValue = 0;
+      drawGranaryPage();
+    }
+    game.ctx.fillText(journal.buildings.granary.granaryValue, 483, 359);
+  });
+
   // Draw the Granary page on the right side of the journal
   function drawGranaryPage() {
+    
     game.ctx.drawImage(game.BG, 0, 0);
     game.update();
     
@@ -574,9 +691,64 @@
     game.ctx.fillText(journal.buildings.granary.granaryValue, 483, 359);
     game.ctx.fillText("bread", 500, 367);
 
-
   };
-  
+
+
+  // ------------------------------------------------------------------------------------------------
+
+  //                                      Lumber Mill
+
+  // ------------------------------------------------------------------------------------------------
+ 
+  LM.addEventListener("click", function() {
+    console.log("draw LM page");
+    buttonArray.forEach(function(button) {
+      button.style.visibility = "hidden";
+      button.style.zIndex = 0;
+    });
+    drawLumbermillPage();
+    LMButton.style.visibility = "visible";
+    LMButton.style.zIndex = "60";
+    LMplus.style.visibility = "visible";
+    LMminus.style.visibility = "visible";
+    LMplus.style.zIndex = 10;
+    LMminus.style.zIndex = 10;
+  });
+
+
+  LMButton.addEventListener("click", function() {
+    sounds.LMsound.play();
+    console.log("this LUMBERMILL button works");
+    journal.buildings.lumbermill.makeFirewood(journal.buildings.lumbermill.firewoodValue);
+    journal.buildings.lumbermill.firewoodValue = 0;
+    drawLumbermillPage();
+    
+  });
+
+ 
+  LMplus.addEventListener("click", function() {
+    console.log("FWplus");
+    journal.buildings.lumbermill.firewoodValue + 1;
+    game.resources.logs -= 10;
+    game.resources.firewood += 3;
+    console.log(journal.buildings.lumbermill.firewoodValue++);
+    drawLumbermillPage();
+  });
+
+
+  LMminus.addEventListener("click", function() {
+    console.log("FWminus");
+    journal.buildings.lumbermill.firewoodValue--;
+    drawLumbermillPage();
+    console.log(journal.buildings.lumbermill.firewoodValue);
+
+    if (journal.buildings.lumbermill.firewoodValue < 1) { 
+      journal.buildings.lumbermill.firewoodValue = 0;
+      drawLumbermillPage();
+    }
+    game.ctx.fillText(journal.buildings.lumbermill.firewoodValue, 483, 359);
+  });
+
   // Draw the lumbermill page on the right side of the journal
   function drawLumbermillPage(){
     
@@ -607,8 +779,59 @@
     game.ctx.fillText("firewood", 500, 367);
     
   };
+      
 
-  
+  // ------------------------------------------------------------------------------------------------
+
+  //                                      Apothecary
+
+  // ------------------------------------------------------------------------------------------------
+
+  Apoth.addEventListener("click", function() {
+    console.log("draw Apoth page");
+    buttonArray.forEach(function(button) {
+      button.style.visibility = "hidden";
+      button.style.zIndex = 0;
+    });
+    drawApothecaryPage();
+    ApothButton.style.visibility = "visible";
+    ApothButton.style.zIndex = 10;
+    Apothplus.style.visibility = "visible";
+    Apothminus.style.visibility = "visible";
+    Apothplus.style.zIndex = 10;
+    Apothminus.style.zIndex = 10;
+  });
+ 
+  ApothButton.addEventListener("click", function() {
+    sounds.Apothsounds.play();
+    console.log("this APOTHECARY button works");
+    journal.buildings.apothecary.makeMedicine(journal.buildings.apothecary.medicineValue);
+    journal.buildings.apothecary.medicineValue = 0;
+    drawApothecaryPage();
+  });
+
+  Apothplus.addEventListener("click", function() {
+    console.log("FWplus");
+    journal.buildings.apothecary.medicineValue + 1;
+    game.resources.medicine += 1;
+    game.resources.herbs -= 10;
+    console.log(journal.buildings.apothecary.medicineValue++);
+    drawApothecaryPage();
+  });
+    
+  Apothminus.addEventListener("click", function() {
+    console.log("FWminus");
+    journal.buildings.apothecary.medicineValue--;
+    drawApothecaryPage();
+    console.log(journal.buildings.apothecary.medicineValue);
+
+    if (journal.buildings.apothecary.medicineValue < 1) { 
+      journal.buildings.apothecary.medicineValue = 0;
+      drawApothecaryPage();
+    }
+    game.ctx.fillText(journal.buildings.apothecary.medicineValue, 483, 359);
+  });
+
   // Draw the Apothecary page on the right side of the jounal
   function drawApothecaryPage(){
     game.ctx.drawImage(game.BG, 0, 0);
@@ -638,14 +861,65 @@
   
   };
 
-  var clickCountA = 0;
-  var clickCountB = 0;
 
-  buttonArray.forEach(function(button) {
-    button.style.visibility = "hidden";
-    button.style.zIndex = 0;
-  });
+
+
+
   
+  // ------------------------------------------------------------------------------------------------
+
+  //                                      Next Day Button
+
+  // ------------------------------------------------------------------------------------------------
+
+  
+  // Bind event listener to the ink well, the main mechanism for moving tot he next day
+  nextDayButton.addEventListener("click", function() {
+    openScroll.style.zIndex = 1000;
+    openScroll.style.visibility = "visible";
+    
+    closeScrollButton.style.zIndex = 1000;
+    closeScrollButton.style.visibility = "visible";
+    journal.buildings.scroll.writeReport();
+    console.log("next day!");
+    sounds.pageTurn.play();
+    game.day++;
+    game.resources.tasks = 3;
+    for (var i = 0; i < buttonArray.length; i++) {
+      buttonArray[i].style.visibility = "hidden";
+      buttonArray[i].style.zIndex = 0;
+    };
+    game.ctx.drawImage(game.BG, 0, 0);
+    game.update();
+    
+    if (game.resources.subjects <= 0) {
+      game.clear();
+      gameOver.draw();
+    }
+    
+  });
+
+ // ------------------------------------------------------------------------------------------------
+
+  //                                      Scroll
+
+  // ------------------------------------------------------------------------------------------------
+
+  // Bind event to the close scroll button
+  closeScrollButton.addEventListener("click", function() {
+    openScroll.style.zIndex = 0;
+    openScroll.style.visibility = "hidden";
+    closeScrollButton.style.zIndex = 0;
+    closeScrollButton.style.visibility = "hidden";
+  });
+
+ // ------------------------------------------------------------------------------------------------
+
+  //                                      Debugging 
+
+  // ------------------------------------------------------------------------------------------------
+  // Debugging tool, show x and y on click
+  game.canvas.addEventListener("mousedown", getPosition, false);
 
   // callback for the event listener that is bound to the canvas
   function getPosition(event) {
@@ -655,237 +929,21 @@
     // if statement logic goes in here to trigger the text on the right page of journal
     var x = event.x;
     var y = event.y;
-
     x -= game.canvas.offsetLeft;
     y -= game.canvas.offsetTop;
     
-    console.log(x, y);
-    
-    
-    console.log(game.resources.tasks);
-    
-    
-    // If blacksmith icon is clicked, draw info to the right page
-    if (x > journal.buildings.blacksmith.x && x < journal.buildings.blacksmith.x + journal.buildings.blacksmith.w && y > journal.buildings.blacksmith.y && y < journal.buildings.blacksmith.y + journal.buildings.blacksmith.h) {
-    
-//    game.resources.tasks -= 1;
-    drawBlacksmithPage();  
-      
-//    clickCountA++;
-//      
-//    console.log("clickCountA = " + clickCountA);
-//      
-//    if (clickCountA > 1) {
-//      buttonArray[4].removeEventListener("click", a);
-//      clickCountA = 0;
-//    }
-      
-    buttonArray.forEach(function(button) {
-      button.style.visibility = "hidden";
-      button.style.zIndex = 0;
-    });
-
-    buttonArray[0].style.visibility = "visible";
-    buttonArray[0].addEventListener("click", function() {
-      sounds.BShammer.play();
-      console.log("this BLACKSMITH button works");
-      journal.buildings.blacksmith.forgeSwords(journal.buildings.blacksmith.forgeValue);
-      drawBlacksmithPage();
-      console.log(game.resources.ore);
-      console.log(game.resources.swords);
-    });
-
-    buttonArray[4].style.visibility = "visible";
-    buttonArray[5].style.visibility = "visible";
-    buttonArray[4].style.zIndex = 10;
-    buttonArray[5].style.zIndex = 10;
-
-    // Increment forgeValue when the + button is clicked
-    buttonArray[4].addEventListener("click", function() {
-      console.log("BSplus");
-      journal.buildings.blacksmith.forgeValue++;
-      game.resources.ore -= 10;
-      game.resources.swords += 1;
-      drawBlacksmithPage();
-      console.log(journal.buildings.blacksmith.forgeValue);
-      
-    });
-
-    // Decrement forgeValue when the - button is clicked
-    buttonArray[5].addEventListener("click", function () {
-      console.log("BSminus");
-      journal.buildings.blacksmith.forgeValue--;
-      drawBlacksmithPage();
-      console.log(journal.buildings.blacksmith.forgeValue);
-  
-      if (journal.buildings.blacksmith.forgeValue < 1) { 
-        journal.buildings.blacksmith.forgeValue = 0;
-        drawBlacksmithPage();
-      }
-      game.ctx.fillText(journal.buildings.blacksmith.forgeValue, 483, 359);
-    });
-    
-    };
-      
-    // If granary icon is clicked, draw info to the right page
-    if (x > journal.buildings.granary.x && x < journal.buildings.granary.x + journal.buildings.granary.w && y > journal.buildings.granary.y && y < journal.buildings.granary.y + journal.buildings.granary.h) {
-      
-    drawGranaryPage();
-      
-//    clickCountB++;
-//      
-//    console.log("clickCountB = " + clickCountB);
-//      
-//    if (clickCountB > 1 || clickCountA > 1) {
-//      buttonArray[4].removeEventListener("click", b);
-//      
-//      clickCountB = 0;
-//    }
-      
-    buttonArray.forEach(function(button) {
-      button.style.visibility = "hidden";
-      button.style.zIndex = 0;
-    });
-
-    buttonArray[1].style.visibility = "visible";
-    buttonArray[1].style.zIndex = "60";
-    buttonArray[1].addEventListener("click", function() {
-      sounds.granary.play();
-      console.log("this GRANARY button works");
-      journal.buildings.granary.makeBread(journal.buildings.granary.granaryValue);
-      drawGranaryPage();
-    });
-
-    buttonArray[6].style.visibility = "visible";
-    buttonArray[7].style.visibility = "visible";
-    buttonArray[6].style.zIndex = 10;
-    buttonArray[7].style.zIndex = 10;
-
-    buttonArray[6].addEventListener("click", function b() {
-      console.log("GRplus");
-      journal.buildings.granary.granaryValue + 1;
-      game.resources.grain -= 20;
-      game.resources.bread += 10;
-      console.log(journal.buildings.granary.granaryValue++);
-      drawGranaryPage();
-    });
-      
-    buttonArray[7].addEventListener("click", function () {
-      console.log("GRminus");
-      journal.buildings.granary.granaryValue--;
-      drawGranaryPage();
-      console.log(journal.buildings.granary.granaryValue);
-  
-      if (journal.buildings.granary.granaryValue < 1) { 
-        journal.buildings.granary.granaryValue = 0;
-        drawGranaryPage();
-      }
-      game.ctx.fillText(journal.buildings.granary.granaryValue, 483, 359);
-    });
-      
-    };
-    
-    // If Lumbermill icon is clicked, draw info to the right page
-    if (x > journal.buildings.lumbermill.x && x < journal.buildings.lumbermill.x + journal.buildings.lumbermill.w && y > journal.buildings.lumbermill.y && y < journal.buildings.lumbermill.y + journal.buildings.lumbermill.h){
-      
-    drawLumbermillPage();
-      
-    buttonArray.forEach(function(button) {
-      button.style.visibility = "hidden";
-      button.style.zIndex = 0;
-    });
-
-    buttonArray[2].style.visibility = "visible";
-    buttonArray[2].style.zIndex = "60";
-    buttonArray[2].addEventListener("click", function() {
-      sounds.LMsound.play();
-      console.log("this LUMBERMILL button works");
-      journal.buildings.lumbermill.makeFirewood(journal.buildings.lumbermill.firewoodValue);
-      drawLumbermillPage();
-      
-    });
-      
-    buttonArray[8].style.visibility = "visible";
-    buttonArray[9].style.visibility = "visible";
-    buttonArray[8].style.zIndex = 10;
-    buttonArray[9].style.zIndex = 10;
-
-    buttonArray[8].addEventListener("click", function() {
-      console.log("FWplus");
-      journal.buildings.lumbermill.firewoodValue + 1;
-      game.resources.logs -= 10;
-      game.resources.firewood += 3;
-      console.log(journal.buildings.lumbermill.firewoodValue++);
-      drawLumbermillPage();
-    });
-      
-    buttonArray[9].addEventListener("click", function() {
-      console.log("FWminus");
-      journal.buildings.lumbermill.firewoodValue--;
-      drawLumbermillPage();
-      console.log(journal.buildings.lumbermill.firewoodValue);
-  
-      if (journal.buildings.lumbermill.firewoodValue < 1) { 
-        journal.buildings.lumbermill.firewoodValue = 0;
-        drawLumbermillPage();
-      }
-      game.ctx.fillText(journal.buildings.lumbermill.firewoodValue, 483, 359);
-    });
-      
-    };
-    
-    // If granary icon is clicked, draw info to the right page
-    if (x > journal.buildings.apothecary.x && x < journal.buildings.apothecary.x + journal.buildings.apothecary.w && y > journal.buildings.apothecary.y && y < journal.buildings.apothecary.y + journal.buildings.apothecary.h){
-      
-    drawApothecaryPage();
-      
-    buttonArray.forEach(function(button) {
-      button.style.visibility = "hidden";
-      button.style.zIndex = 0;
-    });
-
-    buttonArray[3].style.visibility = "visible";
-    buttonArray[3].style.zIndex = "60";
-    buttonArray[3].addEventListener("click", function() {
-      sounds.Apothsounds.play();
-      console.log("this APOTHECARY button works");
-      journal.buildings.apothecary.makeMedicine(journal.buildings.apothecary.medicineValue);
-      drawApothecaryPage();
-    });
-      
-    buttonArray[10].style.visibility = "visible";
-    buttonArray[11].style.visibility = "visible";
-    buttonArray[10].style.zIndex = 10;
-    buttonArray[11].style.zIndex = 10;
-
-    buttonArray[10].addEventListener("click", function() {
-      console.log("FWplus");
-      journal.buildings.apothecary.medicineValue + 1;
-      game.resources.medicine += 1;
-      game.resources.herbs -= 10;
-      console.log(journal.buildings.apothecary.medicineValue++);
-      drawApothecaryPage();
-    });
-      
-    buttonArray[11].addEventListener("click", function() {
-      console.log("FWminus");
-      journal.buildings.apothecary.medicineValue--;
-      drawApothecaryPage();
-      console.log(journal.buildings.apothecary.medicineValue);
-  
-      if (journal.buildings.apothecary.medicineValue < 1) { 
-        journal.buildings.apothecary.medicineValue = 0;
-        drawApothecaryPage();
-      }
-      game.ctx.fillText(journal.buildings.apothecary.medicineValue, 483, 359);
-    });
-      
-    };
+    console.log(x, y); 
     
 };
 
-game.canvas.style.cursor = "url(resources/ActionIcons/QuillCursor2.png), auto";
 
+
+
+// ------------------------------------------------------------------------------------------------
+
+//                                      Run the Game!!! 
+
+// ------------------------------------------------------------------------------------------------
 startGame();
-
+disaster.rollDisaster();
 //})();
