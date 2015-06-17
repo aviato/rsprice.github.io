@@ -23,19 +23,21 @@
     this.indicator.src = "resources/ActionIcons/IndicatorLight.png";
     this.scroll = new Image();
     this.scroll.src = "resources/ActionIcons/scroll.png";
+    this.starvationChance = 0;
+    this.freezeChance = 0;
     
     // resouces object
     this.resources = {
       subjects: 300,
       logs: 27000,
       firewood: 0,
-      ore: 27000,
+      ore: 6750,
       medicine: 0,
       grain: 27000,
       bread: 0,
       tasks: 3,
       swords: 0,
-      herbs: 27000
+      herbs: 6750
     };
     
   }
@@ -66,14 +68,7 @@
     journal.update();
     console.log('game.update is working');
   };
-  
-  // Game loop
-//  Game.prototype.tick = function() {
-//    game.clear();
-//    game.update();
-//    game.draw();
-//    
-//  };
+
     
   // ------------------------------------------------------------------------------------------------
 
@@ -187,13 +182,13 @@
 
   // -----------------------------------------------------------------------------------------------
 
-  //                                      Main Game Loop
+  //                                      Main Game Loop Functios
 
   // ------------------------------------------------------------------------------------------------
     var startScreenActive = true;
 
   function startGame(){
-    sounds.mainThemeMP3.play();
+    sounds.mainThemeMP3.play(); //  DISABLE FOR DEBUGGING
     mainMenu.draw();
   }; 
 
@@ -216,6 +211,7 @@
 
   // ------------------------------------------------------------------------------------------------
 
+  // Keep track of all the journal's things
   var Journal = function() {
     this.playerUI = new Image();
     this.playerUI.src = "resources/DeskJournalandScroll.png";
@@ -237,13 +233,12 @@
         introTextLn4: "useful to arm yourself in",
         introTextLn5: "these hard times.",
         currentArms: game.resources.swords,
-        forgeValue: Math.ceil(game.resources.subjects / 3) / 10,
+        forgeValue: 0, // WAS PREVIOUSLY Math.ceil(game.resources.subjects / 100)
         armsStatus: "Armed subjects: " + game.resources.swords + "",
         oreStatus: "Remaining ore: " + game.resources.ore + "",
         forgeSwords: function(val) {
           game.resources.swords += val;
-          game.resources.ore -= val * 9;
-          game.resources.tasks -= 1;
+          game.resources.ore -= val * 10;
         }
       },
       
@@ -260,13 +255,12 @@
         introTextLn3: "subjects. Feed them well.",
         grainStatus: "Remaining grain: " + game.resources.grain + "",
         breadStatus: "Total bread: " + + game.resources.bread + "",
-        granaryValue: game.resources.subjects,
+        granaryValue: 0,
         plusGrain: function(){},
         minusGrain: function(){},
         makeBread: function(val) {
           game.resources.bread += val;
           game.resources.grain -= val * 10;
-          game.resources.tasks -= 1;
         }
       },
       
@@ -283,13 +277,12 @@
         introTextLn3: "a most welcome ally.",
         logsStatus: "Remaining logs: " + game.resources.logs + "",
         firewoodStatus: "Total firewood: " + + game.resources.firewood + "",
-        firewoodValue: game.resources.subjects,
+        firewoodValue: 0,
         plusWood: function(){},
         minusWood: function(){},
         makeFirewood: function(val) {
           game.resources.firewood += val;
           game.resources.logs -= val * 10;
-          game.resources.tasks -= 1;
         }
       },
       
@@ -307,13 +300,12 @@
         introTextLn4: "greatest treasure.",
         herbsStatus: "Remaining herbs: " + game.resources.herbs + "",
         medicineStatus: "Total medicine: " + + game.resources.medicine + "",
-        medicineValue: game.resources.subjects,
+        medicineValue: 0,
         plusMedicine: function(){},
         minusMedicine: function(){},
         makeMedicine: function(val) {
-          game.resources.medicine += val + 4;
+          game.resources.medicine += val;
           game.resources.herbs -= val * 10;
-          game.resources.tasks -= 1;
         }
       },
       // needs properties!!
@@ -343,13 +335,14 @@
     };
     
   };
-  
 
+  // Draw the journal (the background)
   Journal.prototype.draw = function() {
-    // Draw the journal (the background)
+    
     game.ctx.drawImage(this.playerUI, 0, 0);
   };
   
+  // Update the journal by drawing on it
   Journal.prototype.update = function() {
     
     // Set Font
@@ -373,9 +366,13 @@
     game.ctx.font = "22px Courier";
     game.ctx.fillStyle = "#fff";
     
-    // Bottom right of screen (remainin subjects)
+    // Bottom right of screen (remaining subjects)
     game.ctx.fillText("Subjects remaining: " + game.resources.subjects, 480, 561);
+    if (game.resources.tasks === 0) {
+      game.ctx.fillStyle = "red";
+    }
     game.ctx.fillText("Tasks remaining: " + game.resources.tasks, 40, 561);
+    
     game.ctx.fillStyle = "#000";
     
     if (game.resources.tasks <= 0) {
@@ -391,13 +388,42 @@
     
     
   };
-      
+
   
+  // Deplete all resources at the start of each day.
+  Journal.prototype.depleteResouces = function() {
+    
+    // deplete swords by a random % of amount of swords
+    // if no swords roll a wolf attack
+    //game.resources.swords -= game.resources.subjects * .2; // THIS VALUE MAY NEED TO CHANGE
+    
+    
+    // deplete bread by population
+    // if no bread, roll a starvation
+    game.resources.bread -= game.resources.subjects;
+    
+    
+    // deplete fw by population + a little bit extra
+    // if no firewood roll a blizzard
+    game.resources.firewood -= game.resources.subjects + (game.resources.subjects * .04);
+    
+    
+    // deplete medicine by a random amount (low %)
+    // if no medicine roll a plague
+    //game.resources.medicine -= game.resources.subjects * (game.resources.subjects * .01);
+    
+  };
+
+      
+  // ------------------------------------------------------------------------------------------------
+
+  //                                         Disasters
+
   // ------------------------------------------------------------------------------------------------
   
   // !Disaster class... might need to be a part of the player class and subtract from Player values!
   var Disaster = function() {
-    var killedByWolves = Math.ceil(Math.random() * (5 - 1) + 1);
+    var killedByWolves = Math.random() * 5;
     var killedByBlizzard = Math.ceil(Math.random() * (20 - 10) + 10);
     var killedByPlague = Math.ceil(Math.random() * (50 - 20) + 20);
     var killedByStarvation = null;
@@ -417,21 +443,77 @@
       console.log('The village was hit by a bout of plague! ' + killedByPlague + ' did not survive...');
     };
     
+    this.starvation = function() {};
+    
   };
 
   Disaster.prototype.rollDisaster = function() {
+    
     // should roll to see if there are any disasters
-    var randRoll = Math.ceil(Math.random() * 3);
-    var disasterRoll = Math.ceil(Math.random() * 3);
-    if (randRoll < 4) {
+    var randRoll = Math.ceil(Math.random() * 100);
+    var disasterRoll = Math.ceil(Math.random() * 4);
+    var chanceToStarve = game.starvationChance;
+    var chanceToFreeze = game.freezeChance;
+    
+    // chance for disaster will go up as each day passes
+    if (randRoll + game.day > 100) {
+      
+      // rolling a 1 will use logic to see if there has been a starvation disaster
       if (disasterRoll === 1) {
-        console.log("wolves");
+        console.log("rolled a 1: starvation");
+        
+        // if you have more subjects then food: disaster is imminent
+        if (game.resources.subjects > game.resources.bread) {
+          // there is a set chance to starve that will increment each day that subs > food
+          // add 10% chance to starve for each day
+          game.starvationChance += 10;
+          console.log("starvation chance: " + game.starvationChance);
+          
+          // if you roll greater than 100 with a random roll and your starvation chance: disaster
+          if (randRoll + game.starvationChance >= 100) {
+            // Everyone who doesn't have food dies!
+            game.resources.subjects -= game.resources.subjects - game.resources.bread;
+          } else {
+            // ... Otherwise, you lose a random % of people
+            game.resources.subjects -= Math.ceil((game.resources.subjects - game.resources.bread) / 10 );
+          }
+          
+        // If you have more subjects than food, no one will starve.
+        } else {
+          // Crisis averted... for now.
+          game.starvationChance = 0;
+        }
+      
+      // rolling a 2 will use logic to see if there has been a blizzard disaster
       } else if (disasterRoll === 2) {
         console.log("blizzard");
+        
+        // if you have more subjects than firewood: disaster the risk of disaster increases
+        if (game.resources.subjects > game.resources.firewood) {
+          // there is a chance that everyone will freeze every day you don't have firewood
+          //increase the chance by 10%
+          chanceToFreeze += 10;
+          console.log("freezing chance:" + game.freezeChance);
+          
+          if (randRoll + game.starvationChance >= 100) {
+            game.resources.subjects -= game.resources.subjects - game.resources.firewood;
+          } else {
+            // lose a random % of people based on difference between subjects and firewood
+            // maybe change the / 10 to / a random num
+            game.resources.subjects -= Math.ceil((game.resources.subjects - game.resources.firewood) / 10);
+          }
+        } else {
+          game.freezeChance = 0;
+        }
+        
+        
+        
+        
+        
       } else if (disasterRoll === 3) {
         console.log("starvation");
       } else {
-        console.log("plague");
+        console.log("wolves");
       }
     }
     console.log(randRoll);
@@ -455,31 +537,35 @@
   var gameOver = new GameOverScreen();
   var sounds = new Sounds();
   var disaster = new Disaster();
-
-  var openScroll = document.getElementById("openScroll");
                                            
   var BS = document.getElementById("BS");
   var BSButton = document.getElementById("BSButton");
   var BSplus = document.getElementById("BSplus");
   var BSminus = document.getElementById("BSminus");
+  // Helps track the value of BSPlus
+  var BScounter = 0;
 
   var Gran = document.getElementById("Gran");
   var GranButton = document.getElementById("GranButton");
   var Granplus = document.getElementById("Granplus");
   var Granminus = document.getElementById("Granminus");
+  var GranCounter = 0;
 
   var LM = document.getElementById("LM");
   var LMButton = document.getElementById("LMButton");
   var LMplus = document.getElementById("LMplus");
   var LMminus = document.getElementById("LMminus");
+  var LMcounter = 0;
 
   var Apoth = document.getElementById("Apoth");
   var ApothButton = document.getElementById("ApothButton");
   var Apothplus = document.getElementById("Apothplus");
   var Apothminus = document.getElementById("Apothminus");
+  var Apothcounter = 0;
 
   var startButton = document.getElementById("startButton");
 
+  var openScroll = document.getElementById("openScroll");
   var nextDayButton = document.getElementById("nextDayButton");
   var closeScrollButton = document.getElementById("closeScroll");
   var buttonArray = [];
@@ -489,6 +575,7 @@
   
   // Set the game's cursor to a quill
   game.canvas.style.cursor = "url(resources/ActionIcons/QuillCursor2.png), auto";
+
 
   // ------------------------------------------------------------------------------------------------
 
@@ -526,46 +613,43 @@
     });
     BSButton.style.visibility = "visible";
     BSButton.style.zIndex = 10;
-//    BSplus.style.visibility = "visible";
-//    BSminus.style.visibility = "visible";
-//    BSplus.style.zIndex = 10;
-//    BSminus.style.zIndex = 10;
+    BSplus.style.visibility = "visible";
+    BSminus.style.visibility = "visible";
+    BSplus.style.zIndex = 10;
+    BSminus.style.zIndex = 10;
 
   });
-  
-  // Forge swords from ore
 
+
+  // Forge swords from ore
   BSButton.addEventListener("click", function() {
+    game.resources.tasks -= BScounter;
+    if (game.resources.tasks <= 0) { game.resources.tasks = 0; }
+//    BScounter = 0;
     console.log("this BLACKSMITH button works");
     sounds.BShammer.play();
-    journal.buildings.blacksmith.forgeSwords(journal.buildings.blacksmith.forgeValue);
+    journal.buildings.blacksmith.forgeValue = 0;
     drawBlacksmithPage();
   });
-  
+
   // Increment forgeValue when the + button is clicked
-
   BSplus.addEventListener("click", function() {
-    console.log("BSplus");
-    journal.buildings.blacksmith.forgeValue++;
-    game.resources.ore -= 10;
-    game.resources.swords += 1;
+    BScounter++;
+    if (BScounter > game.resources.tasks) { BScounter = game.resources.tasks; }
+    journal.buildings.blacksmith.forgeValue = ((Math.ceil(game.resources.subjects / 100) * BScounter));
     drawBlacksmithPage();
-    console.log(journal.buildings.blacksmith.forgeValue);
+    console.log(BScounter);
+    // console.log("BS+");
   });
-
 
   // Decrement forgeValue when the - button is clicked
   BSminus.addEventListener("click", function () {
+    BScounter--;
+    if (BScounter < 0) { BScounter = 0; }
     console.log("BSminus");
-    journal.buildings.blacksmith.forgeValue--;
+    journal.buildings.blacksmith.forgeValue = ((Math.ceil(game.resources.subjects / 100) * BScounter));
     drawBlacksmithPage();
     console.log(journal.buildings.blacksmith.forgeValue);
-
-    if (journal.buildings.blacksmith.forgeValue < 1) { 
-      journal.buildings.blacksmith.forgeValue = 0;
-      drawBlacksmithPage();
-    }
-    game.ctx.fillText(journal.buildings.blacksmith.forgeValue, 483, 359);
   });
 
   // Draw the Blacksmith page on the right side of the journal
@@ -574,6 +658,7 @@
       journal.buildings.blacksmith.forgeValue = 0;
     }
     game.ctx.drawImage(game.BG, 0, 0);
+    journal.update();
     game.update();
     
     // Label at top of page
@@ -631,6 +716,9 @@
   
   // Bake Bread
   GranButton.addEventListener("click", function() {
+    game.resources.tasks -= GranCounter;
+    if (game.resources.tasks <= 0) { game.resources.tasks = 0; }
+    GranCounter = 0;
     sounds.granary.play();
     console.log("this GRANARY button works");
     journal.buildings.granary.makeBread(journal.buildings.granary.granaryValue);
@@ -639,33 +727,30 @@
   });
 
   // Increment the bake bread value
-  Granplus.addEventListener("click", function b() {
-    console.log("GRplus");
-    journal.buildings.granary.granaryValue + 1;
-    game.resources.grain -= 20;
-    game.resources.bread += 10;
-    console.log(journal.buildings.granary.granaryValue++);
+  Granplus.addEventListener("click", function () {
+    GranCounter++;
+    if (GranCounter > game.resources.tasks) { GranCounter = game.resources.tasks; }
+    journal.buildings.granary.granaryValue = game.resources.subjects * GranCounter;
     drawGranaryPage();
+    console.log("GR+");
   });
   
   // Decrement the bake bread value
   Granminus.addEventListener("click", function () {
+    GranCounter--;
+    if (GranCounter < 0) { GranCounter = 0; }
     console.log("GRminus");
-    journal.buildings.granary.granaryValue--;
+    journal.buildings.granary.granaryValue = game.resources.subjects * GranCounter;
     drawGranaryPage();
-    console.log(journal.buildings.granary.granaryValue);
-
-    if (journal.buildings.granary.granaryValue < 1) { 
-      journal.buildings.granary.granaryValue = 0;
-      drawGranaryPage();
-    }
-    game.ctx.fillText(journal.buildings.granary.granaryValue, 483, 359);
   });
 
   // Draw the Granary page on the right side of the journal
   function drawGranaryPage() {
-    
+    if (game.resources.tasks < 1) {
+      journal.buildings.granary.granaryValue = 0;
+    }
     game.ctx.drawImage(game.BG, 0, 0);
+    journal.update();
     game.update();
     
     // Granary label
@@ -699,7 +784,8 @@
   //                                      Lumber Mill
 
   // ------------------------------------------------------------------------------------------------
- 
+  
+  // Draw the Lumber Mill page
   LM.addEventListener("click", function() {
     console.log("draw LM page");
     buttonArray.forEach(function(button) {
@@ -715,8 +801,11 @@
     LMminus.style.zIndex = 10;
   });
 
-
+  // Make fire wood
   LMButton.addEventListener("click", function() {
+    game.resources.tasks -= LMcounter;
+    if (game.resources.tasks <= 0) { game.resources.tasks = 0; }
+    GranCounter = 0;
     sounds.LMsound.play();
     console.log("this LUMBERMILL button works");
     journal.buildings.lumbermill.makeFirewood(journal.buildings.lumbermill.firewoodValue);
@@ -725,34 +814,32 @@
     
   });
 
- 
+ // increment the fire wood value
   LMplus.addEventListener("click", function() {
-    console.log("FWplus");
-    journal.buildings.lumbermill.firewoodValue + 1;
-    game.resources.logs -= 10;
-    game.resources.firewood += 3;
-    console.log(journal.buildings.lumbermill.firewoodValue++);
+    LMcounter++;
+    if (LMcounter > game.resources.tasks) { LMcounter = game.resources.tasks; }
+    journal.buildings.lumbermill.firewoodValue = game.resources.subjects * LMcounter;
+//    console.log(journal.buildings.lumbermill.firewoodValue++);
     drawLumbermillPage();
+    console.log("FW+");
   });
 
-
+  // decrement the fire wood value
   LMminus.addEventListener("click", function() {
-    console.log("FWminus");
-    journal.buildings.lumbermill.firewoodValue--;
+    LMcounter--;
+    if (LMcounter < 0) { LMcounter = 0; }
+    journal.buildings.lumbermill.firewoodValue = game.resources.subjects * LMcounter;
     drawLumbermillPage();
     console.log(journal.buildings.lumbermill.firewoodValue);
+    console.log("FWminus");
 
-    if (journal.buildings.lumbermill.firewoodValue < 1) { 
-      journal.buildings.lumbermill.firewoodValue = 0;
-      drawLumbermillPage();
-    }
-    game.ctx.fillText(journal.buildings.lumbermill.firewoodValue, 483, 359);
   });
 
   // Draw the lumbermill page on the right side of the journal
   function drawLumbermillPage(){
     
     game.ctx.drawImage(game.BG, 0, 0);
+    journal.update();
     game.update();
     
     // Draw Lumber Mill Label
@@ -787,6 +874,7 @@
 
   // ------------------------------------------------------------------------------------------------
 
+  // Draw the Apothecary page
   Apoth.addEventListener("click", function() {
     console.log("draw Apoth page");
     buttonArray.forEach(function(button) {
@@ -802,7 +890,11 @@
     Apothminus.style.zIndex = 10;
   });
  
+  // make medicine
   ApothButton.addEventListener("click", function() {
+    game.resources.tasks -= Apothcounter;
+    if (game.resources.tasks <= 0) { game.resources.tasks = 0; }
+    Apothcounter = 0;
     sounds.Apothsounds.play();
     console.log("this APOTHECARY button works");
     journal.buildings.apothecary.makeMedicine(journal.buildings.apothecary.medicineValue);
@@ -810,32 +902,31 @@
     drawApothecaryPage();
   });
 
+  // increment the medicine value
   Apothplus.addEventListener("click", function() {
-    console.log("FWplus");
-    journal.buildings.apothecary.medicineValue + 1;
-    game.resources.medicine += 1;
-    game.resources.herbs -= 10;
-    console.log(journal.buildings.apothecary.medicineValue++);
+    Apothcounter++;
+    if (Apothcounter > game.resources.tasks) { Apothcounter = game.resources.tasks; }
+    journal.buildings.apothecary.medicineValue = (game.resources.subjects / 5) * Apothcounter;
     drawApothecaryPage();
+    console.log("MEDS+");
   });
     
+  // decrement the medicine value
   Apothminus.addEventListener("click", function() {
-    console.log("FWminus");
-    journal.buildings.apothecary.medicineValue--;
+    Apothcounter--;
+    if (Apothcounter < 0) { Apothcounter = 0; }
+    journal.buildings.apothecary.medicineValue = (game.resources.subjects / 5) * Apothcounter;
     drawApothecaryPage();
-    console.log(journal.buildings.apothecary.medicineValue);
-
-    if (journal.buildings.apothecary.medicineValue < 1) { 
-      journal.buildings.apothecary.medicineValue = 0;
-      drawApothecaryPage();
-    }
-    game.ctx.fillText(journal.buildings.apothecary.medicineValue, 483, 359);
+    console.log("MED-");
   });
 
   // Draw the Apothecary page on the right side of the jounal
   function drawApothecaryPage(){
+    
     game.ctx.drawImage(game.BG, 0, 0);
+    journal.update();
     game.update();
+    
     game.ctx.fillText(journal.buildings.apothecary.label, 429, 158);
     // Apothecary Intro text needs to be fixed when inro text is written
     game.ctx.font = "12px Courier";
@@ -861,10 +952,6 @@
   
   };
 
-
-
-
-
   
   // ------------------------------------------------------------------------------------------------
 
@@ -875,6 +962,7 @@
   
   // Bind event listener to the ink well, the main mechanism for moving tot he next day
   nextDayButton.addEventListener("click", function() {
+    journal.depleteResouces();
     openScroll.style.zIndex = 1000;
     openScroll.style.visibility = "visible";
     
@@ -899,6 +987,7 @@
     
   });
 
+
  // ------------------------------------------------------------------------------------------------
 
   //                                      Scroll
@@ -913,6 +1002,7 @@
     closeScrollButton.style.visibility = "hidden";
   });
 
+
  // ------------------------------------------------------------------------------------------------
 
   //                                      Debugging 
@@ -924,8 +1014,6 @@
   // callback for the event listener that is bound to the canvas
   function getPosition(event) {
     
-    console.log(game.resources.tasks);
-    
     // if statement logic goes in here to trigger the text on the right page of journal
     var x = event.x;
     var y = event.y;
@@ -935,8 +1023,6 @@
     console.log(x, y); 
     
 };
-
-
 
 
 // ------------------------------------------------------------------------------------------------
