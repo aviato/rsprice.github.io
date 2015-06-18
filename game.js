@@ -16,7 +16,6 @@
     this.totalDays = 90;
     this.BG = new Image();
     this.BG.src = "resources/Screens/DeskJournalandScroll.png";
-    this.disaster = false;
     this.turnActive = false;
     this.startScreenActive = true;
     this.indicator = new Image();
@@ -25,6 +24,10 @@
     this.scroll.src = "resources/ActionIcons/scroll.png";
     this.starvationChance = 0;
     this.freezeChance = 0;
+    this.wolfDisaster = false;
+    this.blizzDisaster = false;
+    this.starveDisaster = false;
+    this.plagueDisaster = false;
     
     // resouces object
     this.resources = {
@@ -42,15 +45,12 @@
     
   }
   
-  
   // Clear the canvas
   // THIS MAY BREAK THINGS IN THE FUTURE... THE CODE SNIPPET INSIDE THIS FUNCTION WAS ONCE IN
   // GAME.PROTOTYPE.DRAW ON LINE 22 (FIRST LINE OF THE FUNCTION)
   Game.prototype.clear = function() {
     this.ctx.clearRect(0, 0, canvas.width, canvas.height);
   };
-
-  
   
   // Draw to the canvas
   Game.prototype.draw = function() {
@@ -79,13 +79,17 @@
   var Sounds = function() {
     this.mainThemeMP3 = new Audio("resources/sounds/DepthsOfWinter1.mp3");
     this.mainLoopMP3 = new Audio("resources/sounds/WinterLoop.mp3");
+    this.gameOverTheme = new Audio ("resources/sounds/GameOver.mp3");
     this.BShammer = new Audio("resources/sounds/Anvil.mp3");
     this.granary = new Audio("resources/sounds/Granary.mp3");
     this.LMsound = new Audio("resources/sounds/LumberMill.mp3");
     this.Apothsounds = new Audio("resources/sounds/Apothecary.mp3");
     this.pageTurn = new Audio("resources/sounds/PageTurn.mp3");
+    this.wolfAttack = new Audio("");
+    this.blizzard = new Audio("Blizzard.mp3");
   }
 
+  
   // ------------------------------------------------------------------------------------------------
 
   //                                         Main Menu
@@ -139,7 +143,6 @@
   };
 
   
-
   // Name character and name castle should probably have their own screen as well
   
   // -----------------------------------------------------------------------------------------------
@@ -155,6 +158,7 @@
 
   GameOverScreen.prototype.draw = function() {
     game.ctx.drawImage(gameOver.BG, 0, 0);
+    sounds.gameOverTheme.play();
     console.log("gameOver.draw is working");
   };
 
@@ -185,10 +189,23 @@
   //                                      Main Game Loop Functios
 
   // ------------------------------------------------------------------------------------------------
-    var startScreenActive = true;
+  
+  var startScreenActive = true;
+
+  function loopSong() {
+    song.addEventListener("ended", function() {
+      song.currentTime = 0;
+    })
+  };
 
   function startGame(){
-    sounds.mainThemeMP3.play(); //  DISABLE FOR DEBUGGING
+    sounds.mainThemeMP3.play();
+    sounds.mainThemeMP3.addEventListener("ended", function() {
+      sounds.mainLoopMP3.play();
+    }, false);//  DISABLE FOR DEBUGGING
+    sounds.mainLoopMP3.addEventListener("ended", function() {
+      sounds.mainLoopMP3.currentTime = 0;
+    }, false)
     mainMenu.draw();
   }; 
 
@@ -202,7 +219,6 @@
     //scroll.draw(); 
   
   };
-
 
 
   // ------------------------------------------------------------------------------------------------
@@ -227,11 +243,11 @@
         y: 200,
         h: 58,
         w: 99,
-        introTextLn1: "Here is where the Blacksmith",
-        introTextLn2: "turns your precious ore into ",
-        introTextLn3: "swords and armor. It may be ",
-        introTextLn4: "useful to arm yourself in",
-        introTextLn5: "these hard times.",
+        introTextLn1: "The blacksmith can turn your",
+        introTextLn2: "ore into swords to help fend",
+        introTextLn3: "off wolf attacks. The wolves",
+        introTextLn4: "become increasingly hungry",
+        introTextLn5: "as the winter goes on.",
         currentArms: game.resources.swords,
         forgeValue: 0, // WAS PREVIOUSLY Math.ceil(game.resources.subjects / 100)
         armsStatus: "Armed subjects: " + game.resources.swords + "",
@@ -250,41 +266,43 @@
         y: 259,
         h: 81,
         w: 87,
-        introTextLn1: "The granary is the main",
-        introTextLn2: "source of food for your",
-        introTextLn3: "subjects. Feed them well.",
+        introTextLn1: "Turn your grain into bread",
+        introTextLn2: "to feed your subjects. If",
+        introTextLn3: "your bread stores are empty",
+        introTextLn4: "you risk the chance of your",
+        introTextLn5: "subjects dying of starvation.",
         grainStatus: "Remaining grain: " + game.resources.grain + "",
         breadStatus: "Total bread: " + + game.resources.bread + "",
         granaryValue: 0,
-        plusGrain: function(){},
-        minusGrain: function(){},
         makeBread: function(val) {
           game.resources.bread += val;
-          game.resources.grain -= val * 10;
+          game.resources.grain -= val * 2;
         }
       },
       
       // Lumbermill object
       lumbermill: {
         sprite: 'lumber',
-        label: 'Lumbermill',
+        label: 'Lumber Mill',
         x: 180, 
         y: 342,
         h: 65,
         w: 89,
-        introTextLn1: "The winter cold is bitter.",
-        introTextLn2: "A well stoked fire will be",
-        introTextLn3: "a most welcome ally.",
+        introTextLn1: "The winter cold is bitter and",
+        introTextLn2: "cruel. A well stoked fire is",
+        introTextLn3: "crucial to the survival of your",
+        introTextLn4: "people. It is the only thing",
+        introTextLn5: "that can protect your people",
+        introTextLn6: "against the nothern blizzards.",
         logsStatus: "Remaining logs: " + game.resources.logs + "",
         firewoodStatus: "Total firewood: " + + game.resources.firewood + "",
         firewoodValue: 0,
-        plusWood: function(){},
-        minusWood: function(){},
         makeFirewood: function(val) {
           game.resources.firewood += val;
-          game.resources.logs -= val * 10;
+          game.resources.logs -= val * 2;
         }
       },
+      
       
       // Apothecary object
       apothecary: {
@@ -294,40 +312,40 @@
         y: 411,
         h: 78,
         w: 71,
-        introTextLn1: "The apothecary can turn",
-        introTextLn2: "your herbs into medicine.",
-        introTextLn3: "They say health is the",
-        introTextLn4: "greatest treasure.",
+        introTextLn1: "The apothecary can turn your",
+        introTextLn2: "herbs into a second chance at",
+        introTextLn3: "life. Plague can strike at any",
+        introTextLn4: "moment, so it's good to keep a",
+        introTextLn5: "healthy supply of medicine.",
         herbsStatus: "Remaining herbs: " + game.resources.herbs + "",
         medicineStatus: "Total medicine: " + + game.resources.medicine + "",
         medicineValue: 0,
-        plusMedicine: function(){},
-        minusMedicine: function(){},
         makeMedicine: function(val) {
           game.resources.medicine += val;
-          game.resources.herbs -= val * 10;
+          game.resources.herbs -= val * 3;
         }
       },
-      // needs properties!!
+      
+      // Scroll Object
       scroll: {
-        scrollLabel: "Day " + game.day + " Summary",
-        disasterText: function() {
-          //if wolves print wolves
-          //if blizz print blizz
-          //if plague print plague
-        },
-        oreText: "Ore: " + game.resources.ore,
-        swordsText: "Swords: " + game.resources.swords,
-        lumberText: "Logs" + game.resources.logs,
-        firewoodText: "Firewood: " + game.resources.firewood,
-        grainText: "Grain: " + game.resources.grain,
-        breadText: "Bread: " + game.resources.bread,
-        herbsText: "Herbs: " + game.resources.herbs,
-        medicineText: "Medicine: " + game.resources.medicine,
         writeReport: function() {
+          var matsListItems = rawMats.getElementsByTagName("li");
+          var consListItems = consumables.getElementsByTagName("li");
           // In here we'll fill out a report with our current status
-          game.ctx.fillStyle = "#000";
-          game.ctx.fillText(journal.buildings.scroll.scrollLabel, 330, 78);
+          // Using a div instead of the canvas so we'll update the elements
+          label.innerHTML = "Day " + game.day + " Report";
+          
+          matsListItems[0].innerHTML = "Ore: " + game.resources.ore;
+          matsListItems[1].innerHTML = "Grain: " + game.resources.grain;
+          matsListItems[2].innerHTML = "Logs: " + game.resources.logs;
+          matsListItems[3].innerHTML = "Herbs: " + game.resources.herbs;
+          
+          consListItems[0].innerHTML = "Swords: " + game.resources.swords;
+          consListItems[1].innerHTML = "Bread: " + game.resources.bread;
+          consListItems[2].innerHTML = "Firewood: " + game.resources.firewood;
+          consListItems[3].innerHTML = "Medicine: " + game.resources.medicine;
+          
+          
           console.log("report written!");
           
         }
@@ -346,28 +364,29 @@
   Journal.prototype.update = function() {
     
     // Set Font
-    game.ctx.font = "16px Courier";
+    game.ctx.font = "20px alagard_by_pix3m-d6awiwp";
     
     // Blacksmith label
-    game.ctx.fillText(this.buildings.blacksmith.label, this.buildings.blacksmith.x + this.buildings.blacksmith.w, this.buildings.blacksmith.y + (this.buildings.blacksmith.h / 2));
+    game.ctx.fillText(this.buildings.blacksmith.label, 271, 235);
     
     // Granary label
-    game.ctx.fillText(this.buildings.granary.label, this.buildings.granary.x + this.buildings.granary.w, this.buildings.granary.y + (this.buildings.granary.h / 2));
+    game.ctx.fillText(this.buildings.granary.label, 284, 305);
     
     // Lumbermill label
-    game.ctx.fillText(this.buildings.lumbermill.label, this.buildings.lumbermill.x + this.buildings.lumbermill.w, this.buildings.lumbermill.y + (this.buildings.lumbermill.h / 2));
+    game.ctx.fillText(this.buildings.lumbermill.label, 271, 375);
     
     // Apothecary label
-    game.ctx.fillText(this.buildings.apothecary.label, this.buildings.apothecary.x + this.buildings.apothecary.w, this.buildings.apothecary.y + (this.buildings.apothecary.h / 2));
+    game.ctx.fillText(this.buildings.apothecary.label, 271, 455);
     
+    game.ctx.font = "28px alagard_by_pix3m-d6awiwp";
     // Top left of journal day status 
-    game.ctx.fillText("Day " + String(game.day) + " of " + String(game.totalDays), 225, 160);
+    game.ctx.fillText("Day " + String(game.day) + " of " + String(game.totalDays), 207, 165);
     
-    game.ctx.font = "22px Courier";
+    game.ctx.font = "28px alagard_by_pix3m-d6awiwp";
     game.ctx.fillStyle = "#fff";
     
     // Bottom right of screen (remaining subjects)
-    game.ctx.fillText("Subjects remaining: " + game.resources.subjects, 480, 561);
+    game.ctx.fillText("Subjects remaining: " + game.resources.subjects, 450, 561);
     if (game.resources.tasks === 0) {
       game.ctx.fillStyle = "red";
     }
@@ -395,17 +414,22 @@
     
     // deplete swords by a random % of amount of swords
     // if no swords roll a wolf attack
-    //game.resources.swords -= game.resources.subjects * .2; // THIS VALUE MAY NEED TO CHANGE
-    
     
     // deplete bread by population
     // if no bread, roll a starvation
-    game.resources.bread -= game.resources.subjects;
-    
+    if (game.resources.bread <= 0) {
+      game.resources.bread = 0;
+    } else {
+      game.resources.bread -= game.resources.subjects;
+    }
     
     // deplete fw by population + a little bit extra
     // if no firewood roll a blizzard
-    game.resources.firewood -= game.resources.subjects + (game.resources.subjects * .04);
+    if (game.resources.firewood <= 0) {
+      game.resources.firewood = 0;
+    } else {
+      game.resources.firewood -= game.resources.subjects + (game.resources.subjects * .04);
+    }
     
     
     // deplete medicine by a random amount (low %)
@@ -466,7 +490,7 @@
         if (game.resources.subjects > game.resources.bread) {
           // there is a set chance to starve that will increment each day that subs > food
           // add 10% chance to starve for each day
-          game.starvationChance += 10;
+          game.starvationChance += 20;
           console.log("starvation chance: " + game.starvationChance);
           
           // if you roll greater than 100 with a random roll and your starvation chance: disaster
@@ -492,7 +516,7 @@
         if (game.resources.subjects > game.resources.firewood) {
           // there is a chance that everyone will freeze every day you don't have firewood
           //increase the chance by 10%
-          chanceToFreeze += 10;
+          chanceToFreeze += 20;
           console.log("freezing chance:" + game.freezeChance);
           
           if (randRoll + game.starvationChance >= 100) {
@@ -500,20 +524,37 @@
           } else {
             // lose a random % of people based on difference between subjects and firewood
             // maybe change the / 10 to / a random num
+            sounds.blizzard.play();
             game.resources.subjects -= Math.ceil((game.resources.subjects - game.resources.firewood) / 10);
           }
+          
         } else {
           game.freezeChance = 0;
         }
-        
-        
-        
-        
-        
+      
+      // Rolling a 3 will trigger a 
       } else if (disasterRoll === 3) {
-        console.log("starvation");
-      } else {
         console.log("wolves");
+        // If sword count is less than 25% you will not be able to fend off the wolves
+        if (game.resources.swords < Math.ceil(game.resources.subjects * .25)) {
+          sounds.wolfAttack.play();
+          game.resources.subjects -= Math.ceil(Math.random() + 10) + Math.ceil(Math.random() + 5);
+          console.log("WOLF DISASTER");
+        } else {
+          game.resources.subjects -= Math.ceil(Math.random() + 5);
+          console.log("WOLF ATTACK");
+        }
+        
+      } else {
+        console.log("plague");
+        
+        if (game.resources.medicine < Math.ceil(game.resources.subjects * .2)) {
+          game.resources.subjects -= Math.ceil(Math.random() + 20) + Math.ceil(Math.random() + 5)
+          console.log("plague epidemic");
+        } else {
+          game.resources.subjects -= (Math.random() + 3);
+          console.log("died of plague");
+        }
       }
     }
     console.log(randRoll);
@@ -525,9 +566,6 @@
   //                                        Global variables
 
   // ------------------------------------------------------------------------------------------------
-  
-
-  /* Call the actual game function */
   
   // Instantiate all the objects
   var game = new Game();
@@ -542,7 +580,6 @@
   var BSButton = document.getElementById("BSButton");
   var BSplus = document.getElementById("BSplus");
   var BSminus = document.getElementById("BSminus");
-  // Helps track the value of BSPlus
   var BScounter = 0;
 
   var Gran = document.getElementById("Gran");
@@ -561,13 +598,18 @@
   var ApothButton = document.getElementById("ApothButton");
   var Apothplus = document.getElementById("Apothplus");
   var Apothminus = document.getElementById("Apothminus");
+  var Apothminus = document.getElementById("Apothminus");
   var Apothcounter = 0;
 
   var startButton = document.getElementById("startButton");
-
+  var label = document.getElementById("label");
+  var report = document.getElementById("report");
+  var consumables = document.getElementById("consumables");
+  var rawMats = document.getElementById("rawMats");
   var openScroll = document.getElementById("openScroll");
   var nextDayButton = document.getElementById("nextDayButton");
   var closeScrollButton = document.getElementById("closeScroll");
+
   var buttonArray = [];
   
   // Push all the button dom elements into a neat array
@@ -575,7 +617,8 @@
   
   // Set the game's cursor to a quill
   game.canvas.style.cursor = "url(resources/ActionIcons/QuillCursor2.png), auto";
-
+  
+  
 
   // ------------------------------------------------------------------------------------------------
 
@@ -604,8 +647,10 @@
 
   // ------------------------------------------------------------------------------------------------
 
+  // Draw the BS page
   BS.addEventListener("click", function() {
     console.log("draw BS page");
+    if (BScounter > game.resources.tasks) { journal.buildings.blacksmith.forgeValue = ((Math.ceil(game.resources.subjects / 100) * game.resources.tasks)); }
     drawBlacksmithPage();
     buttonArray.forEach(function(button) {
       button.style.visibility = "hidden";
@@ -620,14 +665,14 @@
 
   });
 
-
   // Forge swords from ore
   BSButton.addEventListener("click", function() {
     game.resources.tasks -= BScounter;
     if (game.resources.tasks <= 0) { game.resources.tasks = 0; }
-//    BScounter = 0;
+    BScounter = 0;
     console.log("this BLACKSMITH button works");
     sounds.BShammer.play();
+    journal.buildings.blacksmith.forgeSwords(journal.buildings.blacksmith.forgeValue);
     journal.buildings.blacksmith.forgeValue = 0;
     drawBlacksmithPage();
   });
@@ -655,6 +700,7 @@
   // Draw the Blacksmith page on the right side of the journal
   function drawBlacksmithPage() {
     if (game.resources.tasks < 1) {
+      game.ctx.fillStyle = "red";
       journal.buildings.blacksmith.forgeValue = 0;
     }
     game.ctx.drawImage(game.BG, 0, 0);
@@ -662,33 +708,36 @@
     game.update();
     
     // Label at top of page
-    game.ctx.fillText(journal.buildings.blacksmith.label, 429, 158);
+    game.ctx.fillText(journal.buildings.blacksmith.label, 445, 165);
 
     // Blacksmith Intro text
-    game.ctx.font = "12px Courier";
-    game.ctx.fillText(journal.buildings.blacksmith.introTextLn1, 422, 204);
-    game.ctx.fillText(journal.buildings.blacksmith.introTextLn2, 415, 213);
-    game.ctx.fillText(journal.buildings.blacksmith.introTextLn3, 417, 222);
-    game.ctx.fillText(journal.buildings.blacksmith.introTextLn4, 415, 231);
-    game.ctx.fillText(journal.buildings.blacksmith.introTextLn5, 415, 240);
+    game.ctx.font = "15px alagard_by_pix3m-d6awiwp";
+    game.ctx.fillText(journal.buildings.blacksmith.introTextLn1, 415, 204);
+    game.ctx.fillText(journal.buildings.blacksmith.introTextLn2, 415, 215);
+    game.ctx.fillText(journal.buildings.blacksmith.introTextLn3, 415, 226);
+    game.ctx.fillText(journal.buildings.blacksmith.introTextLn4, 415, 237);
+    game.ctx.fillText(journal.buildings.blacksmith.introTextLn5, 415, 248);
 
     // Arms and Ore status
-    game.ctx.font = "14px Courier";
-    game.ctx.fillText("Remaining ore: " + game.resources.ore, 415, 292);
-    game.ctx.fillText("Armed subjects: " + game.resources.swords, 415, 312);
+    game.ctx.font = "20px alagard_by_pix3m-d6awiwp";
+    if (game.resources.ore === 0) { game.ctx.fillStyle = "red"; } 
+    game.ctx.fillText("Remaining ore: " + game.resources.ore, 420, 292);
+    if (game.resources.swords === 0) { game.ctx.fillStyle = "red"; }
+    game.ctx.fillText("Armed subjects: " + game.resources.swords, 420, 312);
 
+    game.ctx.fillStyle = "#000";
     // turn the forge value into a string so that it can be printed to the page
     journal.buildings.blacksmith.forgeValue.toString();
 
     // Forge swords text
-    game.ctx.font = "18px Courier";
-    game.ctx.fillText("Forge", 415, 367);
+    game.ctx.font = "22px alagard_by_pix3m-d6awiwp";
+    game.ctx.fillText("Forge", 415, 375);
     game.ctx.beginPath();
-    game.ctx.moveTo(470, 368);
-    game.ctx.lineTo(490, 368);
+    game.ctx.moveTo(478, 375);
+    game.ctx.lineTo(500, 375);
     game.ctx.stroke();
-    game.ctx.fillText(journal.buildings.blacksmith.forgeValue, 483, 359);
-    game.ctx.fillText("swords", 500, 367);
+    game.ctx.fillText(journal.buildings.blacksmith.forgeValue, 484, 372);
+    game.ctx.fillText("swords", 504, 375);
 
   };
 
@@ -705,6 +754,7 @@
       button.style.visibility = "hidden";
       button.style.zIndex = 0;
     });
+    if (GranCounter > game.resources.tasks) { journal.buildings.granary.granaryValue = game.resources.subjects * game.resources.tasks; }
     drawGranaryPage();
     GranButton.style.visibility = "visible";
     GranButton.style.zIndex = 10;
@@ -727,7 +777,7 @@
   });
 
   // Increment the bake bread value
-  Granplus.addEventListener("click", function () {
+  Granplus.addEventListener("click", function() {
     GranCounter++;
     if (GranCounter > game.resources.tasks) { GranCounter = game.resources.tasks; }
     journal.buildings.granary.granaryValue = game.resources.subjects * GranCounter;
@@ -747,6 +797,7 @@
   // Draw the Granary page on the right side of the journal
   function drawGranaryPage() {
     if (game.resources.tasks < 1) {
+      game.ctx.fillStyle = "red";
       journal.buildings.granary.granaryValue = 0;
     }
     game.ctx.drawImage(game.BG, 0, 0);
@@ -754,27 +805,38 @@
     game.update();
     
     // Granary label
-    game.ctx.fillText(journal.buildings.granary.label, 429, 158);
+    game.ctx.fillText(journal.buildings.granary.label, 465, 165);
     
     // Granary Intro text
     // Needs to be change to journal.buildings.granary.introTextLnX once it is written
-    game.ctx.font = "12px Courier";
-    game.ctx.fillText(journal.buildings.granary.introTextLn1, 422, 204);
-    game.ctx.fillText(journal.buildings.granary.introTextLn2, 415, 213);
-    game.ctx.fillText(journal.buildings.granary.introTextLn3, 417, 222);
-    game.ctx.font = "14px Courier";
+    game.ctx.font = "16px alagard_by_pix3m-d6awiwp";
+    game.ctx.fillText(journal.buildings.granary.introTextLn1, 419, 204);
+    game.ctx.fillText(journal.buildings.granary.introTextLn2, 419, 215);
+    game.ctx.fillText(journal.buildings.granary.introTextLn3, 419, 226);
+    game.ctx.fillText(journal.buildings.granary.introTextLn4, 419, 237);
+    game.ctx.fillText(journal.buildings.granary.introTextLn5, 419, 248);
+    
+    // Logs and FW status
+    game.ctx.font = "20px alagard_by_pix3m-d6awiwp";
+    if (game.resources.grain === 0) {
+      game.ctx.fillStyle = "red";
+    }
     game.ctx.fillText("Remaining grain: " + game.resources.grain, 415, 292);
+    if (game.resources.bread === 0) { game.ctx.fillStyle = "red"; } 
     game.ctx.fillText("Total bread: " + game.resources.bread, 415, 312);
-
+    
+    // change text color back to black
+    game.ctx.fillStyle = "#000";
+    
     // Make bread text
-    game.ctx.font = "18px Courier";
-    game.ctx.fillText("Bake", 415, 367);
+    game.ctx.font = "22px alagard_by_pix3m-d6awiwp";
+    game.ctx.fillText("Bake", 415, 375);
     game.ctx.beginPath();
-    game.ctx.moveTo(470, 368);
-    game.ctx.lineTo(490, 368);
+    game.ctx.moveTo(475, 375);
+    game.ctx.lineTo(497, 375);
     game.ctx.stroke();
-    game.ctx.fillText(journal.buildings.granary.granaryValue, 483, 359);
-    game.ctx.fillText("bread", 500, 367);
+    game.ctx.fillText(journal.buildings.granary.granaryValue, 475, 372);
+    game.ctx.fillText("bread", 510, 375);
 
   };
 
@@ -783,8 +845,8 @@
 
   //                                      Lumber Mill
 
-  // ------------------------------------------------------------------------------------------------
-  
+  // ------------------------------------------------------------------------------------------------  
+
   // Draw the Lumber Mill page
   LM.addEventListener("click", function() {
     console.log("draw LM page");
@@ -792,6 +854,7 @@
       button.style.visibility = "hidden";
       button.style.zIndex = 0;
     });
+    if (LMcounter > game.resources.tasks) { journal.buildings.lumbermill.firewoodValue = game.resources.subjects * game.resources.tasks; }
     drawLumbermillPage();
     LMButton.style.visibility = "visible";
     LMButton.style.zIndex = "60";
@@ -805,7 +868,7 @@
   LMButton.addEventListener("click", function() {
     game.resources.tasks -= LMcounter;
     if (game.resources.tasks <= 0) { game.resources.tasks = 0; }
-    GranCounter = 0;
+    LMcounter = 0;
     sounds.LMsound.play();
     console.log("this LUMBERMILL button works");
     journal.buildings.lumbermill.makeFirewood(journal.buildings.lumbermill.firewoodValue);
@@ -843,27 +906,35 @@
     game.update();
     
     // Draw Lumber Mill Label
-    game.ctx.fillText(journal.buildings.lumbermill.label, 429, 158);
+    game.ctx.fillText(journal.buildings.lumbermill.label, 445, 165);
     
     // Lumber Mill  Intro text
     // Needs to be changed once the LM intro text has been written
-    game.ctx.font = "12px Courier";
-    game.ctx.fillText(journal.buildings.lumbermill.introTextLn1, 422, 204);
-    game.ctx.fillText(journal.buildings.lumbermill.introTextLn2, 415, 213);
-    game.ctx.fillText(journal.buildings.lumbermill.introTextLn3, 417, 222);
-    game.ctx.font = "14px Courier";
+    game.ctx.font = "16px alagard_by_pix3m-d6awiwp";
+    game.ctx.fillText(journal.buildings.lumbermill.introTextLn1, 415, 204);
+    game.ctx.fillText(journal.buildings.lumbermill.introTextLn2, 415, 215);
+    game.ctx.fillText(journal.buildings.lumbermill.introTextLn3, 415, 226);
+    game.ctx.fillText(journal.buildings.lumbermill.introTextLn4, 415, 237);
+    game.ctx.fillText(journal.buildings.lumbermill.introTextLn5, 415, 248);
+    game.ctx.fillText(journal.buildings.lumbermill.introTextLn6, 415, 259);
+    
+    game.ctx.font = "20px alagard_by_pix3m-d6awiwp";
+    if (game.resources.logs === 0) { game.ctx.fillStyle = "red"; };
     game.ctx.fillText("Remaining logs: " + game.resources.logs, 415, 292);
+    if (game.resources.firewood === 0) { game.ctx.fillStyle = "red"; };
     game.ctx.fillText("Total firewood: " + game.resources.firewood, 415, 312);
+    
+    game.ctx.fillStyle = "#000";
 
     // Make Firewood text
-    game.ctx.font = "13px Courier";
-    game.ctx.fillText("Make", 415, 367);
+    game.ctx.font = "20px alagard_by_pix3m-d6awiwp";
+    game.ctx.fillText("Make", 415, 375);
     game.ctx.beginPath();
-    game.ctx.moveTo(470, 368);
-    game.ctx.lineTo(490, 368);
+    game.ctx.moveTo(470, 375);
+    game.ctx.lineTo(492, 375);
     game.ctx.stroke();
-    game.ctx.fillText(journal.buildings.lumbermill.firewoodValue, 483, 359);
-    game.ctx.fillText("firewood", 500, 367);
+    game.ctx.fillText(journal.buildings.lumbermill.firewoodValue, 469, 372);
+    game.ctx.fillText("firewood", 500, 375);
     
   };
       
@@ -881,6 +952,7 @@
       button.style.visibility = "hidden";
       button.style.zIndex = 0;
     });
+    if (Apothcounter > game.resources.tasks) { journal.buildings.apothecary.medicineValue = ((Math.ceil(game.resources.subjects / 10) * game.resources.tasks)); }
     drawApothecaryPage();
     ApothButton.style.visibility = "visible";
     ApothButton.style.zIndex = 10;
@@ -906,7 +978,7 @@
   Apothplus.addEventListener("click", function() {
     Apothcounter++;
     if (Apothcounter > game.resources.tasks) { Apothcounter = game.resources.tasks; }
-    journal.buildings.apothecary.medicineValue = (game.resources.subjects / 5) * Apothcounter;
+    journal.buildings.apothecary.medicineValue = (game.resources.subjects / 10) * Apothcounter;
     drawApothecaryPage();
     console.log("MEDS+");
   });
@@ -915,7 +987,7 @@
   Apothminus.addEventListener("click", function() {
     Apothcounter--;
     if (Apothcounter < 0) { Apothcounter = 0; }
-    journal.buildings.apothecary.medicineValue = (game.resources.subjects / 5) * Apothcounter;
+    journal.buildings.apothecary.medicineValue = (game.resources.subjects / 10) * Apothcounter;
     drawApothecaryPage();
     console.log("MED-");
   });
@@ -927,28 +999,32 @@
     journal.update();
     game.update();
     
-    game.ctx.fillText(journal.buildings.apothecary.label, 429, 158);
+    game.ctx.fillText(journal.buildings.apothecary.label, 445, 165);
     // Apothecary Intro text needs to be fixed when inro text is written
-    game.ctx.font = "12px Courier";
-    game.ctx.fillText(journal.buildings.apothecary.introTextLn1, 422, 204);
-    game.ctx.fillText(journal.buildings.apothecary.introTextLn2, 415, 213);
-    game.ctx.fillText(journal.buildings.apothecary.introTextLn3, 417, 222);
-    game.ctx.fillText(journal.buildings.apothecary.introTextLn4, 415, 231);
+    game.ctx.font = "16px alagard_by_pix3m-d6awiwp";
+    game.ctx.fillText(journal.buildings.apothecary.introTextLn1, 415, 204);
+    game.ctx.fillText(journal.buildings.apothecary.introTextLn2, 415, 215);
+    game.ctx.fillText(journal.buildings.apothecary.introTextLn3, 415, 226);
+    game.ctx.fillText(journal.buildings.apothecary.introTextLn4, 415, 237);
+    game.ctx.fillText(journal.buildings.apothecary.introTextLn5, 415, 248);
     
-    game.ctx.font = "14px Courier";
-    
+    game.ctx.font = "20px alagard_by_pix3m-d6awiwp";
+    if (game.resources.herbs === 0) { game.ctx.fillStyle = "red"; };
     game.ctx.fillText("Remaining herbs: " + game.resources.herbs, 415, 292);
+    if (game.resources.medicine === 0) { game.ctx.fillStyle = "red"; };
     game.ctx.fillText("Total medicine: " + game.resources.medicine, 415, 312);
 
+    game.ctx.fillStyle = "#000";
+    
     // create medicine text
-    game.ctx.font = "13px Courier";
-    game.ctx.fillText("Create", 415, 367);
+    game.ctx.font = "19px alagard_by_pix3m-d6awiwp";
+    game.ctx.fillText("Create", 415, 375);
     game.ctx.beginPath();
-    game.ctx.moveTo(470, 368);
-    game.ctx.lineTo(490, 368);
+    game.ctx.moveTo(475, 375);
+    game.ctx.lineTo(494, 375);
     game.ctx.stroke();
-    game.ctx.fillText(journal.buildings.apothecary.medicineValue, 483, 359);
-    game.ctx.fillText("medicine", 500, 367);
+    game.ctx.fillText(journal.buildings.apothecary.medicineValue, 481, 372);
+    game.ctx.fillText("medicine", 500, 375);
   
   };
 
@@ -959,10 +1035,14 @@
 
   // ------------------------------------------------------------------------------------------------
 
-  
   // Bind event listener to the ink well, the main mechanism for moving tot he next day
   nextDayButton.addEventListener("click", function() {
+    if (game.resources.subjects <= 0) {
+      game.clear();
+      gameOver.draw();
+    }
     journal.depleteResouces();
+    disaster.rollDisaster();
     openScroll.style.zIndex = 1000;
     openScroll.style.visibility = "visible";
     
@@ -980,15 +1060,12 @@
     game.ctx.drawImage(game.BG, 0, 0);
     game.update();
     
-    if (game.resources.subjects <= 0) {
-      game.clear();
-      gameOver.draw();
-    }
+
     
   });
 
 
- // ------------------------------------------------------------------------------------------------
+  // ------------------------------------------------------------------------------------------------
 
   //                                      Scroll
 
@@ -1003,11 +1080,12 @@
   });
 
 
- // ------------------------------------------------------------------------------------------------
+  // ------------------------------------------------------------------------------------------------
 
   //                                      Debugging 
 
   // ------------------------------------------------------------------------------------------------
+
   // Debugging tool, show x and y on click
   game.canvas.addEventListener("mousedown", getPosition, false);
 

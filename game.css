@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "alagard_by_pix3m-d6awiwp";
+  src: url(resources/fonts/alagard_by_pix3m-d6awiwp.ttf);
+}
+
 *,
 *:active,
 *:focus,
@@ -7,6 +12,7 @@
 *:target,
 *:link {
   cursor: url(resources/ActionIcons/QuillCursor2.png), auto;
+  font-family: "alagard_by_pix3m-d6awiwp";
 }
 
 input:active {
@@ -24,6 +30,7 @@ button {
   height: 600px;
   width: 800px;
   position: relative;
+  font-family: "alagard_by_pix3m-d6awiwp";
 }
 
 #canvas, canvas {
@@ -38,7 +45,7 @@ button {
 #BS {
   position: absolute;
   top: 197px;
-  left: 167px;
+  left: 180px;
   width: 205px;
   height: 60px;
   z-index: -10;
@@ -48,7 +55,7 @@ button {
 #Gran {
   position: absolute;
   top: 262px;
-  left: 167px;
+  left: 180px;
   width: 205px;
   height: 75px;
   z-index: 0;
@@ -58,7 +65,7 @@ button {
 #LM {
   position: absolute;
   top: 340px;
-  left: 167px;
+  left: 180px;
   width: 205px;
   height: 70px;
   z-index: 0;
@@ -68,7 +75,7 @@ button {
 #Apoth {
   position: absolute;
   top: 413px;
-  left: 167px;
+  left: 180px;
   width: 205px;
   height: 75px;
   z-index: 0;
@@ -77,6 +84,7 @@ button {
 
 /* button must be positioned with px */
 #BSButton {
+  margin: 10px 8px;
   position: absolute;
   top: 380px;
   left: 467px;
@@ -84,6 +92,7 @@ button {
 }
 
 #GranButton {
+  margin: 10px 8px;
   position: absolute;
   top: 380px;
   left: 467px;
@@ -91,6 +100,7 @@ button {
 }
 
 #LMButton {
+  margin: 10px 8px;
   position: absolute;
   top: 380px;
   left: 467px;
@@ -98,6 +108,7 @@ button {
 }
 
 #ApothButton {
+  margin: 10px 8px;
   position: absolute;
   top: 380px;
   left: 467px;
@@ -105,6 +116,9 @@ button {
 }
 
 #BSplus{
+  font-size: 15px;
+  padding: 10px;
+  margin-left: 8px;
   z-index: 0;
   position: absolute;
   top: 351px;
@@ -113,6 +127,10 @@ button {
 }
 
 #BSminus {
+  font-weight: bolder;
+  font-size: 15px;
+  padding: 10px;
+  margin-left: 15px;
   z-index: 0;
   position: absolute;
   top: 351px;
@@ -121,6 +139,9 @@ button {
 }
 
 #Granplus {
+  font-size: 15px;
+  padding: 10px;
+  margin-left: 8px;
   z-index: 0;
   position: absolute;
   top: 351px;
@@ -129,6 +150,10 @@ button {
 }
 
 #Granminus {
+  padding: 10px;
+  margin-left: 15px;
+  font-size: 15px;
+  font-weight: bolder;
   z-index: 0;
   position: absolute;
   top: 351px;
@@ -137,6 +162,9 @@ button {
 }
 
 #LMplus {
+  font-size: 15px;
+  padding: 10px;
+  margin-left: 10px;
   z-index: 0;
   position: absolute;
   top: 351px;
@@ -145,6 +173,10 @@ button {
 }
 
 #LMminus {
+  padding: 10px;
+  margin-left: 17px;
+  font-size: 15px;
+  font-weight: bolder;
   z-index: 0;
   position: absolute;
   top: 351px;
@@ -153,6 +185,9 @@ button {
 }
 
 #Apothplus {
+  font-size: 15px;
+  padding: 10px;
+  margin-left: 10px;
   z-index: 0;
   position: absolute;
   top: 351px;
@@ -161,6 +196,10 @@ button {
 }
 
 #Apothminus {
+  padding: 10px;
+  margin-left: 17px;
+  font-size: 15px;
+  font-weight: bolder;
   z-index: 0;
   position: absolute;
   top: 351px;
@@ -172,7 +211,8 @@ button {
   color: white;
   background: none;
   border: 2px solid white;
-  font-size: 18px;
+  font-family: 'alagard_by_pix3m-d6awiwp';
+  font-size: 28px;
   z-index: 10;
   position: absolute;
   top: 156px;
@@ -200,6 +240,7 @@ button {
 
 #openScroll {
   position: absolute;
+  font-family: "alagard_by_pix3m-d6awiwp";
   width: 60%;
   height: 450px;
   top: 70px;
@@ -210,6 +251,41 @@ button {
   opacity: .95;
   z-index: 0;
   visibility: hidden;
+}
+
+#label {
+  text-align: center;
+  margin: 20px auto;
+  font-size: 30px;
+}
+
+#report {
+  margin: 30px auto;
+  text-align: center;
+  font-size: 25px;
+  padding: 10px;
+}
+
+#rawMats {
+  position: absolute;
+  float: right;
+  left: 5px;
+  padding: 5px;
+  font-size: 30px;
+}
+
+#consumables {
+  position: absolute;
+  float: left;
+  right: 40px;
+  padding: 5px;
+  margin: 0 auto;
+  font-size: 30px;
+}
+
+#rawMats ul,
+#consumables ul {
+  list-style: none;
 }
 
 #closeScroll {
