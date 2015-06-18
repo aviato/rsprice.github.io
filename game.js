@@ -331,20 +331,33 @@
         writeReport: function() {
           var matsListItems = rawMats.getElementsByTagName("li");
           var consListItems = consumables.getElementsByTagName("li");
+          openScroll.style.zIndex = 1000;
+          openScroll.style.visibility = "visible";
+          closeScrollButton.style.zIndex = 1000;
+          closeScrollButton.style.visibility = "visible";
           // In here we'll fill out a report with our current status
           // Using a div instead of the canvas so we'll update the elements
-          label.innerHTML = "Day " + game.day + " Report";
-          
-          matsListItems[0].innerHTML = "Ore: " + game.resources.ore;
-          matsListItems[1].innerHTML = "Grain: " + game.resources.grain;
-          matsListItems[2].innerHTML = "Logs: " + game.resources.logs;
-          matsListItems[3].innerHTML = "Herbs: " + game.resources.herbs;
-          
-          consListItems[0].innerHTML = "Swords: " + game.resources.swords;
-          consListItems[1].innerHTML = "Bread: " + game.resources.bread;
-          consListItems[2].innerHTML = "Firewood: " + game.resources.firewood;
-          consListItems[3].innerHTML = "Medicine: " + game.resources.medicine;
-          
+          if (game.day === 1) {
+            label.innerHTML = "Welcome!";
+            report.innerHTML = "The winter lasts 90 days this year, and you must manage your resources wisely or else face the bitter cold unprepared. From the desk in your keep you will oversee the day to day operations within the castle: providing medicine to your people, forging weapons, and keeping a stocked grainery. You are responsible for the subjects of your village… that is, if they don’t all die from blizzard, sickness, and the wolves of winter."
+            rawMats.style.visibility = "hidden";
+            consumables.style.visibility = "hidden";
+          } else {        
+            label.innerHTML = "Day " + game.day + " Report";
+            report.innerHTML = "Here is where the disaster text goes. It  will tell you all about your f up's"
+            matsListItems[0].innerHTML = "Ore: " + game.resources.ore;
+            matsListItems[1].innerHTML = "Grain: " + game.resources.grain;
+            matsListItems[2].innerHTML = "Logs: " + game.resources.logs;
+            matsListItems[3].innerHTML = "Herbs: " + game.resources.herbs;
+
+            consListItems[0].innerHTML = "Swords: " + game.resources.swords;
+            consListItems[1].innerHTML = "Bread: " + game.resources.bread;
+            consListItems[2].innerHTML = "Firewood: " + game.resources.firewood;
+            consListItems[3].innerHTML = "Medicine: " + game.resources.medicine;
+            
+            rawMats.style.visibility = "visible";
+            consumables.style.visibility = "visible";
+          }
           
           console.log("report written!");
           
@@ -417,18 +430,17 @@
     
     // deplete bread by population
     // if no bread, roll a starvation
+    game.resources.bread -= game.resources.subjects;
     if (game.resources.bread <= 0) {
       game.resources.bread = 0;
-    } else {
-      game.resources.bread -= game.resources.subjects;
     }
     
     // deplete fw by population + a little bit extra
     // if no firewood roll a blizzard
+    
+    game.resources.firewood -= game.resources.subjects + (game.resources.subjects * .04);
     if (game.resources.firewood <= 0) {
       game.resources.firewood = 0;
-    } else {
-      game.resources.firewood -= game.resources.subjects + (game.resources.subjects * .04);
     }
     
     
@@ -638,6 +650,7 @@
     Apoth.style.zIndex = 10;
     Apoth.style.visibility = "visible";
     playGame(game.day);
+    journal.buildings.scroll.writeReport();
   });
 
   
@@ -1041,17 +1054,13 @@
       game.clear();
       gameOver.draw();
     }
+    game.day++;
     journal.depleteResouces();
     disaster.rollDisaster();
-    openScroll.style.zIndex = 1000;
-    openScroll.style.visibility = "visible";
-    
-    closeScrollButton.style.zIndex = 1000;
-    closeScrollButton.style.visibility = "visible";
     journal.buildings.scroll.writeReport();
     console.log("next day!");
     sounds.pageTurn.play();
-    game.day++;
+
     game.resources.tasks = 3;
     for (var i = 0; i < buttonArray.length; i++) {
       buttonArray[i].style.visibility = "hidden";
@@ -1077,6 +1086,8 @@
     openScroll.style.visibility = "hidden";
     closeScrollButton.style.zIndex = 0;
     closeScrollButton.style.visibility = "hidden";
+    rawMats.style.visibility = "hidden";
+    consumables.style.visibility = "hidden";
   });
 
 
