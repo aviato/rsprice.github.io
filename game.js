@@ -199,13 +199,13 @@
   };
 
   function startGame(){
-//    sounds.mainThemeMP3.play();
-//    sounds.mainThemeMP3.addEventListener("ended", function() {
-//      sounds.mainLoopMP3.play();
-//    }, false);//  DISABLE FOR DEBUGGING
-//    sounds.mainLoopMP3.addEventListener("ended", function() {
-//      sounds.mainLoopMP3.currentTime = 0;
-//    }, false)
+    sounds.mainThemeMP3.play();
+    sounds.mainThemeMP3.addEventListener("ended", function() {
+      sounds.mainLoopMP3.play();
+    }, false);//  DISABLE FOR DEBUGGING
+    sounds.mainLoopMP3.addEventListener("ended", function() {
+      sounds.mainLoopMP3.currentTime = 0;
+    }, false)
     mainMenu.draw();
   }; 
 
