@@ -85,8 +85,8 @@
     this.LMsound = new Audio("resources/sounds/LumberMill.mp3");
     this.Apothsounds = new Audio("resources/sounds/Apothecary.mp3");
     this.pageTurn = new Audio("resources/sounds/PageTurn.mp3");
-    this.wolfAttack = new Audio("");
-    this.blizzard = new Audio("Blizzard.mp3");
+    this.wolfAttack = new Audio("resources/sounds/WolfAttack.mp3");
+    this.blizzard = new Audio("resources/sounds/Blizzard.mp3");
   }
 
   
@@ -199,13 +199,13 @@
   };
 
   function startGame(){
-    sounds.mainThemeMP3.play();
-    sounds.mainThemeMP3.addEventListener("ended", function() {
-      sounds.mainLoopMP3.play();
-    }, false);//  DISABLE FOR DEBUGGING
-    sounds.mainLoopMP3.addEventListener("ended", function() {
-      sounds.mainLoopMP3.currentTime = 0;
-    }, false)
+//    sounds.mainThemeMP3.play();
+//    sounds.mainThemeMP3.addEventListener("ended", function() {
+//      sounds.mainLoopMP3.play();
+//    }, false);//  DISABLE FOR DEBUGGING
+//    sounds.mainLoopMP3.addEventListener("ended", function() {
+//      sounds.mainLoopMP3.currentTime = 0;
+//    }, false)
     mainMenu.draw();
   }; 
 
@@ -438,7 +438,7 @@
     // deplete fw by population + a little bit extra
     // if no firewood roll a blizzard
     
-    game.resources.firewood -= game.resources.subjects + (game.resources.subjects * .04);
+    game.resources.firewood -= game.resources.subjects + Math.ceil(game.resources.subjects * .04);
     if (game.resources.firewood <= 0) {
       game.resources.firewood = 0;
     }
@@ -532,7 +532,7 @@
           console.log("freezing chance:" + game.freezeChance);
           
           if (randRoll + game.starvationChance >= 100) {
-            game.resources.subjects -= game.resources.subjects - game.resources.firewood;
+            game.resources.subjects -= Math.ceil(game.resources.subjects - game.resources.firewood);
           } else {
             // lose a random % of people based on difference between subjects and firewood
             // maybe change the / 10 to / a random num
@@ -564,7 +564,7 @@
           game.resources.subjects -= Math.ceil(Math.random() + 20) + Math.ceil(Math.random() + 5)
           console.log("plague epidemic");
         } else {
-          game.resources.subjects -= (Math.random() + 3);
+          game.resources.subjects -= Math.ceil((Math.random() + 3));
           console.log("died of plague");
         }
       }
@@ -715,9 +715,10 @@
     if (game.resources.tasks < 1) {
       game.ctx.fillStyle = "red";
       journal.buildings.blacksmith.forgeValue = 0;
+      game.ctx.fillStyle = "#000";
     }
     game.ctx.drawImage(game.BG, 0, 0);
-    journal.update();
+//    journal.update();
     game.update();
     
     // Label at top of page
@@ -812,6 +813,7 @@
     if (game.resources.tasks < 1) {
       game.ctx.fillStyle = "red";
       journal.buildings.granary.granaryValue = 0;
+      game.ctx.fillStyle = "#000";
     }
     game.ctx.drawImage(game.BG, 0, 0);
     journal.update();
@@ -913,9 +915,14 @@
 
   // Draw the lumbermill page on the right side of the journal
   function drawLumbermillPage(){
-    
+    if (game.resources.tasks < 1) {
+      game.ctx.fillStyle = "red";
+      journal.buildings.granary.granaryValue = 0;
+      game.ctx.fillStyle = "#000";
+    }
+
     game.ctx.drawImage(game.BG, 0, 0);
-    journal.update();
+//    journal.update();
     game.update();
     
     // Draw Lumber Mill Label
@@ -1007,9 +1014,14 @@
 
   // Draw the Apothecary page on the right side of the jounal
   function drawApothecaryPage(){
+    if (game.resources.tasks < 1) {
+      game.ctx.fillStyle = "red";
+      journal.buildings.granary.granaryValue = 0;
+      game.ctx.fillStyle = "#000";
+    }
     
     game.ctx.drawImage(game.BG, 0, 0);
-    journal.update();
+//    journal.update();
     game.update();
     
     game.ctx.fillText(journal.buildings.apothecary.label, 445, 165);
