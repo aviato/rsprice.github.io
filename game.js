@@ -131,17 +131,6 @@
 
   };
 
-  MainMenu.prototype.lore = function() {
-    
-    game.ctx.filltext(this.lore, game.size.x / 2, game.size.y / 2);
-    game.ctx.filltext(this.lore, game.size.x / 2, game.size.y / 2);
-    game.ctx.filltext(this.lore, game.size.x / 2, game.size.y / 2);
-    game.ctx.filltext(this.lore, game.size.x / 2, game.size.y / 2);
-    game.ctx.filltext(this.lore, game.size.x / 2, game.size.y / 2);
-    game.ctx.filltext(this.lore, game.size.x / 2, game.size.y / 2);
-    game.ctx.filltext(this.lore, game.size.x / 2, game.size.y / 2);
-  };
-
   
   // Name character and name castle should probably have their own screen as well
   
@@ -186,7 +175,7 @@
 
   // -----------------------------------------------------------------------------------------------
 
-  //                                      Main Game Loop Functios
+  //                                      Main Game Loop Functions
 
   // ------------------------------------------------------------------------------------------------
   
@@ -462,11 +451,10 @@
     var killedByWolves = Math.random() * 5;
     var killedByBlizzard = Math.ceil(Math.random() * (20 - 10) + 10);
     var killedByPlague = Math.ceil(Math.random() * (50 - 20) + 20);
-    var killedByStarvation = null;
+    var killedByStarvation = Math.ceil((game.resources.subjects - game.resources.bread) / 10 );
   
     // Disaster 1
-    this.wolves = function() {
-      console.log('The village was raided by wolves during the night! ' + killedByWolves + ' did not survive...');
+    this.wolves = 'The village was raided by wolves during the night! ' + killedByWolves + ' did not survive...';
     };
     
     // Disaster 2
@@ -531,7 +519,7 @@
           chanceToFreeze += 20;
           console.log("freezing chance:" + game.freezeChance);
           
-          if (randRoll + game.starvationChance >= 100) {
+          if (randRoll + game.freezeChance >= 100) {
             game.resources.subjects -= Math.ceil(game.resources.subjects - game.resources.firewood);
           } else {
             // lose a random % of people based on difference between subjects and firewood

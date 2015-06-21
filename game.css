@@ -15,6 +15,10 @@
   font-family: "alagard_by_pix3m-d6awiwp";
 }
 
+body {
+  background: #000;
+}
+
 input:active {
   outline: yellow;
 }
@@ -22,11 +26,10 @@ input:active {
 button {
   background: none;
   border: none;
-  
-  /* set border to none */
 }
 
 .container {
+  margin: 100px auto;
   height: 600px;
   width: 800px;
   position: relative;
