@@ -263,27 +263,35 @@ button {
 }
 
 #report {
-  margin: 30px auto;
+  margin: 0 auto;
   text-align: center;
   font-size: 25px;
+  
+}
+
+#introText {
+  margin: 0 auto;
+  text-align: center;
+  font-size: 30px;
   padding: 10px;
+  
 }
 
 #rawMats {
   position: absolute;
   float: right;
-  left: 5px;
+  left: 30px;
   padding: 5px;
-  font-size: 30px;
+  font-size: 25px;
 }
 
 #consumables {
   position: absolute;
   float: left;
-  right: 40px;
+  right: 65px;
   padding: 5px;
   margin: 0 auto;
-  font-size: 30px;
+  font-size: 25px;
 }
 
 #rawMats ul,
