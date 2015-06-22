@@ -88,6 +88,8 @@
     this.wolfAttack = new Audio('resources/sounds/WolfAttack.mp3');
     this.blizzard = new Audio('resources/sounds/Blizzard.mp3');
     this.victoryTheme = new Audio('resources/sounds/VICTORY.mp3');
+    this.plague = new Audio('resources/sounds/Plague.mp3');
+    this.starvation = new Audio('resources/sounds/Starvation.mp3');
   }
 
   
@@ -187,7 +189,7 @@
     sounds.mainThemeMP3.play();
     sounds.mainThemeMP3.addEventListener('ended', function() {
       sounds.mainLoopMP3.play();
-    }, false);//  DISABLE FOR DEBUGGING
+    }, false);//  DISABLE FOR DEBUGGING!
     sounds.mainLoopMP3.addEventListener('ended', function() {
       sounds.mainLoopMP3.currentTime = 0;
     }, false)
@@ -510,11 +512,13 @@
           // if you roll greater than 100 with a random roll and your starvation chance: disaster
           if (randRoll + game.starvationChance >= 100) {
             // Everyone who doesn't have food dies!
+            sounds.starvation.play();
             game.resources.subjects -= starvationDisaster;
             disaster.starveText = 'Those who have gone without food for too long have finally perished. You lost ' + starvationDisaster + ' subjects during the night. ' + game.resources.subjects + ' remain.';
             game.starvation = true;
           } else {
             // ... Otherwise, you lose a random % of people
+            sounds.starvation.play();
             game.resources.subjects -= starvation;
             disaster.starveText = 'You lost ' + starvation + ' subjects during the night to starvation. Provide them with nourishment to avoid disaster! ' + game.resources.subjects + ' remain.';
             game.starvation = true;
@@ -538,6 +542,7 @@
           console.log('freezing chance:' + game.freezeChance);
           
           if (randRoll + game.freezeChance >= 100) {
+            sounds.blizzard.play();
             game.resources.subjects -= blizzDisaster;
             disaster.blizzText = 'Your subjects held on for as long as they could, but they eventually succumbed to the cold. You lost ' + blizzDisaster + ' subjects during the night. ' +  game.resources.subjects + ' subjects remain.';
             game.blizz = true;
@@ -575,11 +580,13 @@
         console.log('plague');
         
         if (game.resources.medicine < Math.ceil(game.resources.subjects * .2)) {
+          sounds.plague.play();
           game.resources.subjects -= plagueDisaster;
           this.plagueText = 'Without enough medicine to prevent an outbreak, plague has spread through the city during the night and killed ' + plagueDisaster + ' subjects. ' + game.resources.subjects + ' subjects remain.' ;
           game.plague = true;
           console.log('plague epidemic');
         } else {
+          sounds.plague.play();
           game.resources.subjects -= plague;
           this.plagueText = 'A minor bout of plague hit the city during the night and killed ' + plague + ' subjects. Luckily you had enough medicine to fight off a full blown epidemic. ' + game.resources.subjects + '  subjects remain.';
           game.plague = true;
