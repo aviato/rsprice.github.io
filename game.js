@@ -188,11 +188,10 @@
   function startGame(){
     sounds.mainThemeMP3.play();
     sounds.mainThemeMP3.addEventListener('ended', function() {
+      sounds.mainLoopMP3.loop = true;
       sounds.mainLoopMP3.play();
     }, false);//  DISABLE FOR DEBUGGING!
-    sounds.mainLoopMP3.addEventListener('ended', function() {
-      sounds.mainLoopMP3.currentTime = 0;
-    }, false)
+    
     mainMenu.draw();
   }; 
 
@@ -1088,7 +1087,9 @@
 
   // Bind event listener to the ink well, the main mechanism for moving tot he next day
   nextDayButton.addEventListener('click', function() {
-
+    if (game.day >= 90) {
+      sounds.mainLoopMP3.pause();
+    }
     if (game.resources.subjects <= 0) {
       for (var i = 0; i < buttonArray.length; i++) {
         buttonArray[i].style.visibility = 'hidden';
