@@ -223,12 +223,7 @@
     this.buildings = {
       // Blacksmith object
       blacksmith: {
-        sprite: 'anvil',
         label: 'Blacksmith',
-        x: 172,
-        y: 200,
-        h: 58,
-        w: 99,
         introTextLn1: 'The blacksmith can turn your',
         introTextLn2: 'ore into swords to help fend',
         introTextLn3: 'off wolf attacks. The wolves',
@@ -250,12 +245,7 @@
       
       // Granary object
       granary: {
-        sprite: 'grain',
         label: 'Granary',
-        x: 187,
-        y: 259,
-        h: 81,
-        w: 87,
         introTextLn1: 'Turn your grain into bread',
         introTextLn2: 'to feed your subjects. If',
         introTextLn3: 'your bread stores are empty',
@@ -272,12 +262,7 @@
       
       // Lumbermill object
       lumbermill: {
-        sprite: 'lumber',
         label: 'Lumber Mill',
-        x: 180, 
-        y: 342,
-        h: 65,
-        w: 89,
         introTextLn1: 'The winter cold is bitter and',
         introTextLn2: 'cruel. A well stoked fire is',
         introTextLn3: 'crucial to the survival of your',
@@ -296,12 +281,7 @@
       
       // Apothecary object
       apothecary: {
-        sprite: 'vial',
         label: 'Apothecary',
-        x: 188,
-        y: 411,
-        h: 78,
-        w: 71,
         introTextLn1: 'The apothecary can turn your',
         introTextLn2: 'herbs into a second chance at',
         introTextLn3: 'life. Plague can strike at any',
@@ -318,6 +298,7 @@
       
       // Scroll Object
       scroll: {
+        
         // In here we'll fill out a report with our current status
         // Using a div instead of the canvas so we'll update the elements
         writeReport: function() {
@@ -328,9 +309,11 @@
           closeScrollButton.style.zIndex = 1000;
           closeScrollButton.style.visibility = 'visible';
           
+          // First day of game provides some intro text as a scroll report
           if (game.day === 1) {
             
             label.innerHTML = 'Welcome!';
+            
             report.innerHTML = 'The winter lasts 90 days this year, and you must manage your resources wisely or else face the bitter cold unprepared. From the desk in your keep you will oversee the day to day operations within the castle: providing medicine to your people, forging weapons, and keeping a stocked grainery. You are responsible for the subjects of your village… that is, if they don’t all die from blizzard, sickness, and the wolves of winter.'
             rawMats.style.visibility = 'hidden';
             consumables.style.visibility = 'hidden';
@@ -341,6 +324,7 @@
             
             report.innerHTML = '';
             
+            // Report the appropriate disaster on the next day's scroll
             if (game.wolves === true) {
               report.innerHTML = disaster.wolfText;
               game.wolves = false;
