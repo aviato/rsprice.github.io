@@ -195,15 +195,10 @@
     mainMenu.draw();
   }; 
 
-  function playGame(day) {
-    var people = game.resources.subjects;
-    game.turnActive = true;
+  function playGame() {
     game.clear();
     game.ctx.drawImage(game.BG, 0, 0);
     game.update();
-    //draw the scroll the screen with the days message
-    //scroll.draw(); 
-  
   };
 
 
@@ -659,7 +654,7 @@
     LM.style.visibility = 'visible';
     Apoth.style.zIndex = 10;
     Apoth.style.visibility = 'visible';
-    playGame(game.day);
+    playGame();
     journal.buildings.scroll.writeReport();
   });
 
