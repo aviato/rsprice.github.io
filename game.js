@@ -1,4 +1,4 @@
-//;(function() {
+;(function() {
   
 // ------------------------------------------------------------------------------------------------
 
@@ -619,7 +619,7 @@
 
   var buttonArray = [];
   
-  // Push all the button dom elements into a neat array for later use
+  // Push all the button dom elements into an array for later use
   buttonArray.push(bsButton, granButton, lmButton, apothButton, bsPlus, bsMinus, granPlus, granMinus, lmPlus, lmMinus, apothPlus, apothMinus, nextDayButton);
   
   // Set the game's cursor to a quill
@@ -1143,4 +1143,4 @@
 
 // ------------------------------------------------------------------------------------------------
 startGame();
-//})();
+})();
