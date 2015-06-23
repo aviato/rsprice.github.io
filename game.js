@@ -16,8 +16,6 @@
     this.totalDays = 90;
     this.BG = new Image();
     this.BG.src = 'resources/Screens/DeskJournalandScroll.png';
-    this.turnActive = false;
-    this.startScreenActive = true;
     this.indicator = new Image();
     this.indicator.src = 'resources/ActionIcons/IndicatorLight.png';
     this.scroll = new Image();
@@ -176,14 +174,6 @@
   //                                    Main Game Loop Functions
 
   // ------------------------------------------------------------------------------------------------
-  
-  var startScreenActive = true;
-
-  function loopSong() {
-    song.addEventListener('ended', function() {
-      song.currentTime = 0;
-    })
-  };
 
   function startGame(){
     sounds.mainThemeMP3.play();
@@ -592,7 +582,8 @@
   var gameOver = new GameOverScreen();
   var sounds = new Sounds();
   var disaster = new Disaster();
-                                           
+  
+  // All the DOM things
   var BS = document.getElementById('BS');
   var BSButton = document.getElementById('BSButton');
   var BSplus = document.getElementById('BSplus');
@@ -629,7 +620,7 @@
 
   var buttonArray = [];
   
-  // Push all the button dom elements into a neat array
+  // Push all the button dom elements into a neat array for later use
   buttonArray.push(BSButton, GranButton, LMButton, ApothButton, BSplus, BSminus, Granplus, Granminus, LMplus, LMminus, Apothplus, Apothminus, nextDayButton);
   
   // Set the game's cursor to a quill
@@ -661,7 +652,7 @@
   
   // ------------------------------------------------------------------------------------------------
 
-  //                                        Blacksmith
+  //                                      Blacksmith Page
 
   // ------------------------------------------------------------------------------------------------
 
@@ -762,7 +753,7 @@
 
   // ------------------------------------------------------------------------------------------------
 
-  //                                        Granary
+  //                                        Granary Page
 
   // ------------------------------------------------------------------------------------------------
 
@@ -862,7 +853,7 @@
 
   // ------------------------------------------------------------------------------------------------
 
-  //                                      Lumber Mill
+  //                                      Lumber Mill Page
 
   // ------------------------------------------------------------------------------------------------  
 
@@ -965,7 +956,7 @@
 
   // ------------------------------------------------------------------------------------------------
 
-  //                                      Apothecary
+  //                                      Apothecary Page
 
   // ------------------------------------------------------------------------------------------------
 
@@ -1105,7 +1096,7 @@
 
   // ------------------------------------------------------------------------------------------------
 
-  //                                      Scroll
+  //                                        Scroll
 
   // ------------------------------------------------------------------------------------------------
 
@@ -1122,7 +1113,7 @@
 
   // ------------------------------------------------------------------------------------------------
 
-  //                                      Debugging 
+  //                                        Debugging 
 
   // ------------------------------------------------------------------------------------------------
 
@@ -1145,7 +1136,7 @@
 
 // ------------------------------------------------------------------------------------------------
 
-//                                      Run the Game!!! 
+//                                         Run the Game
 
 // ------------------------------------------------------------------------------------------------
 startGame();
