@@ -78,10 +78,10 @@
     this.mainThemeMP3 = new Audio('resources/sounds/DepthsOfWinter1.mp3');
     this.mainLoopMP3 = new Audio('resources/sounds/WinterLoop.mp3');
     this.gameOverTheme = new Audio ('resources/sounds/GameOver.mp3');
-    this.BShammer = new Audio('resources/sounds/Anvil.mp3');
+    this.bsHammer = new Audio('resources/sounds/Anvil.mp3');
     this.granary = new Audio('resources/sounds/Granary.mp3');
-    this.LMsound = new Audio('resources/sounds/LumberMill.mp3');
-    this.Apothsounds = new Audio('resources/sounds/Apothecary.mp3');
+    this.lmChop = new Audio('resources/sounds/LumberMill.mp3');
+    this.apothBoil = new Audio('resources/sounds/Apothecary.mp3');
     this.pageTurn = new Audio('resources/sounds/PageTurn.mp3');
     this.wolfAttack = new Audio('resources/sounds/WolfAttack.mp3');
     this.blizzard = new Audio('resources/sounds/Blizzard.mp3');
@@ -584,30 +584,29 @@
   var disaster = new Disaster();
   
   // All the DOM things
-  var BS = document.getElementById('BS');
-  var BSButton = document.getElementById('BSButton');
-  var BSplus = document.getElementById('BSplus');
-  var BSminus = document.getElementById('BSminus');
-  var BScounter = 0;
+  var bs = document.getElementById('bs');
+  var bsButton = document.getElementById('bsButton');
+  var bsPlus = document.getElementById('bsPlus');
+  var bsMinus = document.getElementById('bsMinus');
+  var bsCounter = 0;
 
-  var Gran = document.getElementById('Gran');
-  var GranButton = document.getElementById('GranButton');
-  var Granplus = document.getElementById('Granplus');
-  var Granminus = document.getElementById('Granminus');
-  var GranCounter = 0;
+  var gran = document.getElementById('gran');
+  var granButton = document.getElementById('granButton');
+  var granPlus = document.getElementById('granPlus');
+  var granMinus = document.getElementById('granMinus');
+  var granCounter = 0;
 
-  var LM = document.getElementById('LM');
-  var LMButton = document.getElementById('LMButton');
-  var LMplus = document.getElementById('LMplus');
-  var LMminus = document.getElementById('LMminus');
-  var LMcounter = 0;
+  var lm = document.getElementById('lm');
+  var lmButton = document.getElementById('lmButton');
+  var lmPlus = document.getElementById('lmPlus');
+  var lmMinus = document.getElementById('lmMinus');
+  var lmCounter = 0;
 
-  var Apoth = document.getElementById('Apoth');
-  var ApothButton = document.getElementById('ApothButton');
-  var Apothplus = document.getElementById('Apothplus');
-  var Apothminus = document.getElementById('Apothminus');
-  var Apothminus = document.getElementById('Apothminus');
-  var Apothcounter = 0;
+  var apoth = document.getElementById('apoth');
+  var apothButton = document.getElementById('apothButton');
+  var apothPlus = document.getElementById('apothPlus');
+  var apothMinus = document.getElementById('apothMinus');
+  var apothCounter = 0;
 
   var startButton = document.getElementById('startButton');
   var label = document.getElementById('label');
@@ -621,7 +620,7 @@
   var buttonArray = [];
   
   // Push all the button dom elements into a neat array for later use
-  buttonArray.push(BSButton, GranButton, LMButton, ApothButton, BSplus, BSminus, Granplus, Granminus, LMplus, LMminus, Apothplus, Apothminus, nextDayButton);
+  buttonArray.push(bsButton, granButton, lmButton, apothButton, bsPlus, bsMinus, granPlus, granMinus, lmPlus, lmMinus, apothPlus, apothMinus, nextDayButton);
   
   // Set the game's cursor to a quill
   game.canvas.style.cursor = 'url(resources/ActionIcons/QuillCursor2.png), auto';
@@ -637,14 +636,14 @@
   startButton.addEventListener('click', function() {
     startButton.style.visibility = 'hidden';
     startButton.style.zIndex = -1000;
-    BS.style.zIndex = 10;
-    BS.style.visibility = 'visible';
-    Gran.style.zIndex = 10;
-    Gran.style.visibility = 'visible';
-    LM.style.zIndex = 10;
-    LM.style.visibility = 'visible';
-    Apoth.style.zIndex = 10;
-    Apoth.style.visibility = 'visible';
+    bs.style.zIndex = 10;
+    bs.style.visibility = 'visible';
+    gran.style.zIndex = 10;
+    gran.style.visibility = 'visible';
+    lm.style.zIndex = 10;
+    lm.style.visibility = 'visible';
+    apoth.style.zIndex = 10;
+    apoth.style.visibility = 'visible';
     playGame();
     journal.buildings.scroll.writeReport();
   });
@@ -657,64 +656,65 @@
   // ------------------------------------------------------------------------------------------------
 
   // Draw the BS page
-  BS.addEventListener('click', function() {
+  bs.addEventListener('click', function() {
     console.log('draw BS page');
-    if (BScounter > game.resources.tasks) { journal.buildings.blacksmith.forgeValue = ((Math.ceil(game.resources.subjects / 100) * game.resources.tasks)); }
+    if (bsCounter > game.resources.tasks) { journal.buildings.blacksmith.forgeValue = ((Math.ceil(game.resources.subjects / 100) * game.resources.tasks)); }
     drawBlacksmithPage();
     buttonArray.forEach(function(button) {
       button.style.visibility = 'hidden';
       button.style.zIndex = 0;
     });
-    BSButton.style.visibility = 'visible';
-    BSButton.style.zIndex = 10;
-    BSplus.style.visibility = 'visible';
-    BSminus.style.visibility = 'visible';
-    BSplus.style.zIndex = 10;
-    BSminus.style.zIndex = 10;
+    bsButton.style.visibility = 'visible';
+    bsButton.style.zIndex = 10;
+    bsPlus.style.visibility = 'visible';
+    bsMinus.style.visibility = 'visible';
+    bsPlus.style.zIndex = 10;
+    bsMinus.style.zIndex = 10;
 
   });
 
   // Forge swords from ore
-  BSButton.addEventListener('click', function() {
-    game.resources.tasks -= BScounter;
+  bsButton.addEventListener('click', function() {
+    game.resources.tasks -= bsCounter;
     if (game.resources.tasks <= 0) { game.resources.tasks = 0; }
-    BScounter = 0;
+    bsCounter = 0;
     console.log('this BLACKSMITH button works');
-    sounds.BShammer.play();
+    sounds.bsHammer.play();
     journal.buildings.blacksmith.forgeSwords(journal.buildings.blacksmith.forgeValue);
     journal.buildings.blacksmith.forgeValue = 0;
     drawBlacksmithPage();
   });
 
   // Increment forgeValue when the + button is clicked
-  BSplus.addEventListener('click', function() {
-    BScounter++;
-    if (BScounter > game.resources.tasks) { BScounter = game.resources.tasks; }
-    journal.buildings.blacksmith.forgeValue = ((Math.ceil(game.resources.subjects / 100) * BScounter));
+  bsPlus.addEventListener('click', function() {
+    bsCounter++;
+    if (bsCounter > game.resources.tasks) { bsCounter = game.resources.tasks; }
+    journal.buildings.blacksmith.forgeValue = ((Math.ceil(game.resources.subjects / 100) * bsCounter));
     drawBlacksmithPage();
-    console.log(BScounter);
-    // console.log('BS+');
+    console.log(bsCounter);
   });
 
   // Decrement forgeValue when the - button is clicked
-  BSminus.addEventListener('click', function () {
-    BScounter--;
-    if (BScounter < 0) { BScounter = 0; }
+  bsMinus.addEventListener('click', function () {
+    bsCounter--;
+    if (bsCounter < 0) { bsCounter = 0; }
     console.log('BSminus');
-    journal.buildings.blacksmith.forgeValue = ((Math.ceil(game.resources.subjects / 100) * BScounter));
+    journal.buildings.blacksmith.forgeValue = ((Math.ceil(game.resources.subjects / 100) * bsCounter));
     drawBlacksmithPage();
     console.log(journal.buildings.blacksmith.forgeValue);
   });
 
   // Draw the Blacksmith page on the right side of the journal
   function drawBlacksmithPage() {
+    
     if (game.resources.tasks < 1) {
       game.ctx.fillStyle = 'red';
       journal.buildings.blacksmith.forgeValue = 0;
       game.ctx.fillStyle = '#000';
     }
     game.ctx.drawImage(game.BG, 0, 0);
-//    journal.update();
+    
+    // Journal.update();
     game.update();
     
     // Label at top of page
@@ -735,9 +735,8 @@
     if (game.resources.swords === 0) { game.ctx.fillStyle = 'red'; }
     game.ctx.fillText('Armed subjects: ' + game.resources.swords, 420, 312);
 
+    // Change text color back to black
     game.ctx.fillStyle = '#000';
-    // turn the forge value into a string so that it can be printed to the page
-    journal.buildings.blacksmith.forgeValue.toString();
 
     // Forge swords text
     game.ctx.font = '22px alagard_by_pix3m-d6awiwp';
@@ -758,27 +757,27 @@
   // ------------------------------------------------------------------------------------------------
 
   // Draw the granary page
-  Gran.addEventListener('click', function() {
+  gran.addEventListener('click', function() {
     console.log('draw Gran page');
     buttonArray.forEach(function(button) {
       button.style.visibility = 'hidden';
       button.style.zIndex = 0;
     });
-    if (GranCounter > game.resources.tasks) { journal.buildings.granary.granaryValue = game.resources.subjects * game.resources.tasks; }
+    if (granCounter > game.resources.tasks) { journal.buildings.granary.granaryValue = game.resources.subjects * game.resources.tasks; }
     drawGranaryPage();
-    GranButton.style.visibility = 'visible';
-    GranButton.style.zIndex = 10;
-    Granplus.style.visibility = 'visible';
-    Granminus.style.visibility = 'visible';
-    Granplus.style.zIndex = 10;
-    Granminus.style.zIndex = 10;
+    granButton.style.visibility = 'visible';
+    granButton.style.zIndex = 10;
+    granPlus.style.visibility = 'visible';
+    granMinus.style.visibility = 'visible';
+    granPlus.style.zIndex = 10;
+    granMinus.style.zIndex = 10;
   });
   
   // Bake Bread
-  GranButton.addEventListener('click', function() {
-    game.resources.tasks -= GranCounter;
+  granButton.addEventListener('click', function() {
+    game.resources.tasks -= granCounter;
     if (game.resources.tasks <= 0) { game.resources.tasks = 0; }
-    GranCounter = 0;
+    granCounter = 0;
     sounds.granary.play();
     console.log('this GRANARY button works');
     journal.buildings.granary.makeBread(journal.buildings.granary.granaryValue);
@@ -787,31 +786,34 @@
   });
 
   // Increment the bake bread value
-  Granplus.addEventListener('click', function() {
-    GranCounter++;
-    if (GranCounter > game.resources.tasks) { GranCounter = game.resources.tasks; }
-    journal.buildings.granary.granaryValue = game.resources.subjects * GranCounter;
+  granPlus.addEventListener('click', function() {
+    granCounter++;
+    if (granCounter > game.resources.tasks) { granCounter = game.resources.tasks; }
+    journal.buildings.granary.granaryValue = game.resources.subjects * granCounter;
     drawGranaryPage();
     console.log('GR+');
   });
   
   // Decrement the bake bread value
-  Granminus.addEventListener('click', function () {
-    GranCounter--;
-    if (GranCounter < 0) { GranCounter = 0; }
-    console.log('GRminus');
-    journal.buildings.granary.granaryValue = game.resources.subjects * GranCounter;
+  granMinus.addEventListener('click', function () {
+    granCounter--;
+    if (granCounter < 0) { granCounter = 0; }
+    console.log('GR-');
+    journal.buildings.granary.granaryValue = game.resources.subjects * granCounter;
     drawGranaryPage();
   });
 
   // Draw the Granary page on the right side of the journal
   function drawGranaryPage() {
+    
     if (game.resources.tasks < 1) {
       game.ctx.fillStyle = 'red';
       journal.buildings.granary.granaryValue = 0;
       game.ctx.fillStyle = '#000';
     }
+    
     game.ctx.drawImage(game.BG, 0, 0);
+    
     game.update();
     
     // Granary label
@@ -858,28 +860,28 @@
   // ------------------------------------------------------------------------------------------------  
 
   // Draw the Lumber Mill page
-  LM.addEventListener('click', function() {
+  lm.addEventListener('click', function() {
     console.log('draw LM page');
     buttonArray.forEach(function(button) {
       button.style.visibility = 'hidden';
       button.style.zIndex = 0;
     });
-    if (LMcounter > game.resources.tasks) { journal.buildings.lumbermill.firewoodValue = game.resources.subjects * game.resources.tasks; }
+    if (lmCounter > game.resources.tasks) { journal.buildings.lumbermill.firewoodValue = game.resources.subjects * game.resources.tasks; }
     drawLumbermillPage();
-    LMButton.style.visibility = 'visible';
-    LMButton.style.zIndex = '60';
-    LMplus.style.visibility = 'visible';
-    LMminus.style.visibility = 'visible';
-    LMplus.style.zIndex = 10;
-    LMminus.style.zIndex = 10;
+    lmButton.style.visibility = 'visible';
+    lmButton.style.zIndex = '60';
+    lmPlus.style.visibility = 'visible';
+    lmMinus.style.visibility = 'visible';
+    lmPlus.style.zIndex = 10;
+    lmMinus.style.zIndex = 10;
   });
 
   // Make fire wood
-  LMButton.addEventListener('click', function() {
-    game.resources.tasks -= LMcounter;
+  lmButton.addEventListener('click', function() {
+    game.resources.tasks -= lmCounter;
     if (game.resources.tasks <= 0) { game.resources.tasks = 0; }
-    LMcounter = 0;
-    sounds.LMsound.play();
+    lmCounter = 0;
+    sounds.lmChop.play();
     console.log('this LUMBERMILL button works');
     journal.buildings.lumbermill.makeFirewood(journal.buildings.lumbermill.firewoodValue);
     journal.buildings.lumbermill.firewoodValue = 0;
@@ -888,20 +890,20 @@
   });
 
  // increment the fire wood value
-  LMplus.addEventListener('click', function() {
-    LMcounter++;
-    if (LMcounter > game.resources.tasks) { LMcounter = game.resources.tasks; }
-    journal.buildings.lumbermill.firewoodValue = game.resources.subjects * LMcounter;
+  lmPlus.addEventListener('click', function() {
+    lmCounter++;
+    if (lmCounter > game.resources.tasks) { lmCounter = game.resources.tasks; }
+    journal.buildings.lumbermill.firewoodValue = game.resources.subjects * lmCounter;
 //    console.log(journal.buildings.lumbermill.firewoodValue++);
     drawLumbermillPage();
     console.log('FW+');
   });
 
   // decrement the fire wood value
-  LMminus.addEventListener('click', function() {
-    LMcounter--;
-    if (LMcounter < 0) { LMcounter = 0; }
-    journal.buildings.lumbermill.firewoodValue = game.resources.subjects * LMcounter;
+  lmMinus.addEventListener('click', function() {
+    lmCounter--;
+    if (lmCounter < 0) { lmCounter = 0; }
+    journal.buildings.lumbermill.firewoodValue = game.resources.subjects * lmCounter;
     drawLumbermillPage();
     console.log(journal.buildings.lumbermill.firewoodValue);
     console.log('FWminus');
@@ -910,6 +912,7 @@
 
   // Draw the lumbermill page on the right side of the journal
   function drawLumbermillPage(){
+    
     if (game.resources.tasks < 1) {
       game.ctx.fillStyle = 'red';
       journal.buildings.granary.granaryValue = 0;
@@ -961,28 +964,28 @@
   // ------------------------------------------------------------------------------------------------
 
   // Draw the Apothecary page
-  Apoth.addEventListener('click', function() {
+  apoth.addEventListener('click', function() {
     console.log('draw Apoth page');
     buttonArray.forEach(function(button) {
       button.style.visibility = 'hidden';
       button.style.zIndex = 0;
     });
-    if (Apothcounter > game.resources.tasks) { journal.buildings.apothecary.medicineValue = ((Math.ceil(game.resources.subjects / 10) * game.resources.tasks)); }
+    if (apothCounter > game.resources.tasks) { journal.buildings.apothecary.medicineValue = ((Math.ceil(game.resources.subjects / 10) * game.resources.tasks)); }
     drawApothecaryPage();
-    ApothButton.style.visibility = 'visible';
-    ApothButton.style.zIndex = 10;
-    Apothplus.style.visibility = 'visible';
-    Apothminus.style.visibility = 'visible';
-    Apothplus.style.zIndex = 10;
-    Apothminus.style.zIndex = 10;
+    apothButton.style.visibility = 'visible';
+    apothButton.style.zIndex = 10;
+    apothPlus.style.visibility = 'visible';
+    apothMinus.style.visibility = 'visible';
+    apothPlus.style.zIndex = 10;
+    apothMinus.style.zIndex = 10;
   });
  
   // make medicine
-  ApothButton.addEventListener('click', function() {
-    game.resources.tasks -= Apothcounter;
+  apothButton.addEventListener('click', function() {
+    game.resources.tasks -= apothCounter;
     if (game.resources.tasks <= 0) { game.resources.tasks = 0; }
-    Apothcounter = 0;
-    sounds.Apothsounds.play();
+    apothCounter = 0;
+    sounds.apothBoil.play();
     console.log('this APOTHECARY button works');
     journal.buildings.apothecary.makeMedicine(Math.ceil(journal.buildings.apothecary.medicineValue));
     journal.buildings.apothecary.medicineValue = 0;
@@ -990,19 +993,19 @@
   });
 
   // increment the medicine value
-  Apothplus.addEventListener('click', function() {
-    Apothcounter++;
-    if (Apothcounter > game.resources.tasks) { Apothcounter = game.resources.tasks; }
-    journal.buildings.apothecary.medicineValue = Math.ceil((game.resources.subjects / 10) * Apothcounter);
+  apothPlus.addEventListener('click', function() {
+    apothCounter++;
+    if (apothCounter > game.resources.tasks) { apothCounter = game.resources.tasks; }
+    journal.buildings.apothecary.medicineValue = Math.ceil((game.resources.subjects / 10) * apothCounter);
     drawApothecaryPage();
     console.log('MEDS+');
   });
     
   // decrement the medicine value
-  Apothminus.addEventListener('click', function() {
-    Apothcounter--;
-    if (Apothcounter < 0) { Apothcounter = 0; }
-    journal.buildings.apothecary.medicineValue = Math.ceil((game.resources.subjects / 10) * Apothcounter);
+  apothMinus.addEventListener('click', function() {
+    apothCounter--;
+    if (apothCounter < 0) { apothCounter = 0; }
+    journal.buildings.apothecary.medicineValue = Math.ceil((game.resources.subjects / 10) * apothCounter);
     drawApothecaryPage();
     console.log('MED-');
   });

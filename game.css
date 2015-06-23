@@ -45,7 +45,7 @@ button {
 /*  cursor: url(resources/ActionIcons/QuillCursor.png), auto;*/
 }
 
-#BS {
+#bs {
   position: absolute;
   top: 197px;
   left: 180px;
@@ -55,7 +55,7 @@ button {
 /*  visibility: hidden;*/
 }
 
-#Gran {
+#gran {
   position: absolute;
   top: 262px;
   left: 180px;
@@ -65,7 +65,7 @@ button {
   visibility: hidden;
 }
 
-#LM {
+#lm {
   position: absolute;
   top: 340px;
   left: 180px;
@@ -75,7 +75,7 @@ button {
   visibility: hidden;
 }
 
-#Apoth {
+#apoth {
   position: absolute;
   top: 413px;
   left: 180px;
@@ -86,7 +86,7 @@ button {
 }
 
 /* button must be positioned with px */
-#BSButton {
+#bsButton {
   margin: 10px 8px;
   position: absolute;
   top: 380px;
@@ -94,7 +94,7 @@ button {
   visibility: hidden;
 }
 
-#GranButton {
+#granButton {
   margin: 10px 8px;
   position: absolute;
   top: 380px;
@@ -102,7 +102,7 @@ button {
   visibility: hidden;
 }
 
-#LMButton {
+#lmButton {
   margin: 10px 8px;
   position: absolute;
   top: 380px;
@@ -110,7 +110,7 @@ button {
   visibility: hidden;
 }
 
-#ApothButton {
+#apothButton {
   margin: 10px 8px;
   position: absolute;
   top: 380px;
@@ -118,7 +118,7 @@ button {
   visibility: hidden;
 }
 
-#BSplus{
+#bsPlus{
   font-size: 15px;
   padding: 10px;
   margin-left: 8px;
@@ -129,7 +129,7 @@ button {
   visibility: hidden;
 }
 
-#BSminus {
+#bsMinus {
   font-weight: bolder;
   font-size: 15px;
   padding: 10px;
@@ -141,7 +141,7 @@ button {
   visibility: hidden;
 }
 
-#Granplus {
+#granPlus {
   font-size: 15px;
   padding: 10px;
   margin-left: 8px;
@@ -152,7 +152,7 @@ button {
   visibility: hidden;
 }
 
-#Granminus {
+#granMinus {
   padding: 10px;
   margin-left: 15px;
   font-size: 15px;
@@ -164,7 +164,7 @@ button {
   visibility: hidden;
 }
 
-#LMplus {
+#lmPlus {
   font-size: 15px;
   padding: 10px;
   margin-left: 10px;
@@ -175,7 +175,7 @@ button {
   visibility: hidden;
 }
 
-#LMminus {
+#lmMinus {
   padding: 10px;
   margin-left: 17px;
   font-size: 15px;
@@ -187,7 +187,7 @@ button {
   visibility: hidden;
 }
 
-#Apothplus {
+#apothPlus {
   font-size: 15px;
   padding: 10px;
   margin-left: 10px;
@@ -198,7 +198,7 @@ button {
   visibility: hidden;
 }
 
-#Apothminus {
+#apothMinus {
   padding: 10px;
   margin-left: 17px;
   font-size: 15px;
