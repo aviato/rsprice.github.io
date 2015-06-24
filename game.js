@@ -1,5 +1,5 @@
-;(function() {
-  
+;(function () {
+
 // ------------------------------------------------------------------------------------------------
 
 //                                             Game
@@ -7,8 +7,8 @@
 // ------------------------------------------------------------------------------------------------
   
   // Game class
-  var Game = function() {
-    this.canvas = document.getElementById('canvas');    
+  var Game = function () {
+    this.canvas = document.getElementById('canvas');
     this.ctx = canvas.getContext('2d');
     this.FPS = 30;
     this.size = { x: canvas.width, y: canvas.height };
@@ -41,28 +41,28 @@
       herbs: 6750
     };
     
-  }
+  };
   
   // Clear the canvas
   // THIS MAY BREAK THINGS IN THE FUTURE... THE CODE SNIPPET INSIDE THIS FUNCTION WAS ONCE IN
   // GAME.PROTOTYPE.DRAW ON LINE 22 (FIRST LINE OF THE FUNCTION)
-  Game.prototype.clear = function() {
+  Game.prototype.clear = function () {
     this.ctx.clearRect(0, 0, canvas.width, canvas.height);
   };
   
   // Draw to the canvas
-  Game.prototype.draw = function() {
-      game.BG.onload = function() {
-        game.clear();
-        game.ctx.drawImage(game.BG, 0, 0);
-        game.update();
-        console.log('game.draw is working');
-      }
+  Game.prototype.draw = function () {
+    game.BG.onload = function () {
+      game.clear();
+      game.ctx.drawImage(game.BG, 0, 0);
+      game.update();
+      console.log('game.draw is working');
+    };
     
   };
   
   // 
-  Game.prototype.update = function() {
+  Game.prototype.update = function () {
     journal.update();
     console.log('game.update is working');
   };
@@ -74,10 +74,10 @@
 
   // ------------------------------------------------------------------------------------------------
     
-  var Sounds = function() {
+  var Sounds = function () {
     this.mainThemeMP3 = new Audio('resources/sounds/DepthsOfWinter1.mp3');
     this.mainLoopMP3 = new Audio('resources/sounds/WinterLoop.mp3');
-    this.gameOverTheme = new Audio ('resources/sounds/GameOver.mp3');
+    this.gameOverTheme = new Audio('resources/sounds/GameOver.mp3');
     this.bsHammer = new Audio('resources/sounds/Anvil.mp3');
     this.granary = new Audio('resources/sounds/Granary.mp3');
     this.lmChop = new Audio('resources/sounds/LumberMill.mp3');
@@ -88,7 +88,7 @@
     this.victoryTheme = new Audio('resources/sounds/VICTORY.mp3');
     this.plague = new Audio('resources/sounds/Plague.mp3');
     this.starvation = new Audio('resources/sounds/Starvation.mp3');
-  }
+  };
 
   
   // ------------------------------------------------------------------------------------------------
@@ -102,7 +102,7 @@
   */
 
   // Menu class... instantiate and draw to the game to display menu
-  var MainMenu = function() {
+  var MainMenu = function () {
     this.x = 200;
     this.y = 200;
     this.title = 'The Depths of Winter';
@@ -116,12 +116,12 @@
   };
 
   // Should probably be drawn when the page loads
-  MainMenu.prototype.draw = function() { 
-    mainMenu.startScreen.onload = function() {
+  MainMenu.prototype.draw = function () {
+    mainMenu.startScreen.onload = function () {
       game.clear();
-      game.ctx.drawImage(mainMenu.startScreen, 0 , 0);
+      game.ctx.drawImage(mainMenu.startScreen, 0, 0);
       console.log('start image working');
-    }
+    };
       
 
   };
@@ -135,7 +135,7 @@
 
   // ------------------------------------------------------------------------------------------------
   
-  var GameOverScreen = function() {
+  var GameOverScreen = function () {
     this.BG = new Image();
     this.BG.src = 'resources/Screens/GameOverScreen.png';
   };
@@ -154,12 +154,12 @@
   // ------------------------------------------------------------------------------------------------
     
 
-  var VictoryScreen = function() {
+  var VictoryScreen = function () {
     this.BG = new Image();
     this.BG.src = 'resources/Screens/VictoryScreenGreen.png';
   };
 
-  VictoryScreen.prototype.draw = function() {
+  VictoryScreen.prototype.draw = function () {
       game.ctx.drawImage(victory.BG, 0, 0);
       game.ctx.fillStyle = '#fff';
       game.ctx.font = '100px alagard_by_pix3m-d6awiwp';
@@ -175,12 +175,12 @@
 
   // ------------------------------------------------------------------------------------------------
 
-  function startGame(){
-    sounds.mainThemeMP3.play();
-    sounds.mainThemeMP3.addEventListener('ended', function() {
-      sounds.mainLoopMP3.loop = true;
-      sounds.mainLoopMP3.play();
-    }, false);//  DISABLE FOR DEBUGGING!
+  function startGame () {
+//    sounds.mainThemeMP3.play();
+//    sounds.mainThemeMP3.addEventListener('ended', function() {
+//      sounds.mainLoopMP3.loop = true;
+//      sounds.mainLoopMP3.play();
+//    }, false);//  DISABLE FOR DEBUGGING!
     
     mainMenu.draw();
   }; 
@@ -199,7 +199,7 @@
   // ------------------------------------------------------------------------------------------------
 
   // Keep track of all the journal's things
-  var Journal = function() {
+  var Journal = function () {
     this.playerUI = new Image();
     this.playerUI.src = 'resources/DeskJournalandScroll.png';
     this.journalArray = [];
@@ -218,7 +218,7 @@
         forgeValue: 0,
         armsStatus: 'Armed subjects: ' + game.resources.swords + '',
         oreStatus: 'Remaining ore: ' + game.resources.ore + '',
-        forgeSwords: function(val) {
+        forgeSwords: function (val) {
           game.resources.swords += val;
           game.resources.ore -= val * 10;
           // last thing I changed
@@ -237,9 +237,9 @@
         introTextLn4: 'you risk the chance of your',
         introTextLn5: 'subjects dying of starvation.',
         grainStatus: 'Remaining grain: ' + game.resources.grain + '',
-        breadStatus: 'Total bread: ' + + game.resources.bread + '',
+        breadStatus: 'Total bread: ' + game.resources.bread + '',
         granaryValue: 0,
-        makeBread: function(val) {
+        makeBread: function (val) {
           game.resources.bread += val;
           game.resources.grain -= val * 2;
         }
@@ -257,7 +257,7 @@
         logsStatus: 'Remaining logs: ' + game.resources.logs + '',
         firewoodStatus: 'Total firewood: ' + + game.resources.firewood + '',
         firewoodValue: 0,
-        makeFirewood: function(val) {
+        makeFirewood: function (val) {
           game.resources.firewood += val;
           game.resources.logs -= val * 2;
         }
@@ -275,7 +275,7 @@
         herbsStatus: 'Remaining herbs: ' + game.resources.herbs + '',
         medicineStatus: 'Total medicine: ' + + game.resources.medicine + '',
         medicineValue: 0,
-        makeMedicine: function(val) {
+        makeMedicine: function (val) {
           game.resources.medicine += val;
           game.resources.herbs -= val * 3;
         }
@@ -286,7 +286,7 @@
         
         // In here we'll fill out a report with our current status
         // Using a div instead of the canvas so we'll update the elements
-        writeReport: function() {
+        writeReport: function () {
           var matsListItems = rawMats.getElementsByTagName('li');
           var consListItems = consumables.getElementsByTagName('li');
           openScroll.style.zIndex = 1000;
@@ -326,6 +326,7 @@
               report.innerHTML = disaster.noDisasterText;
             }
             
+            // Populate the ul's with li's
             matsListItems[0].innerHTML = 'Ore: ' + game.resources.ore;
             matsListItems[1].innerHTML = 'Grain: ' + game.resources.grain;
             matsListItems[2].innerHTML = 'Logs: ' + game.resources.logs;
@@ -349,13 +350,13 @@
   };
 
   // Draw the journal (the background)
-  Journal.prototype.draw = function() {
+  Journal.prototype.draw = function () {
     
     game.ctx.drawImage(this.playerUI, 0, 0);
   };
   
   // Update the journal by drawing on it
-  Journal.prototype.update = function() {
+  Journal.prototype.update = function () {
     
     // Set Font
     game.ctx.font = '20px alagard_by_pix3m-d6awiwp';
@@ -404,7 +405,7 @@
 
   
   // Deplete all resources at the start of each day.
-  Journal.prototype.depleteResouces = function() {
+  Journal.prototype.depleteResouces = function () {
     
     // deplete swords by a random % of amount of swords
     // if no swords roll a wolf attack
@@ -439,7 +440,7 @@
   // ------------------------------------------------------------------------------------------------
   
   // !Disaster class... might need to be a part of the player class and subtract from Player values!
-  var Disaster = function() {
+  var Disaster = function () {
     this.wolfText = '';
     this.blizzText = '';
     this.plagueText = '';
@@ -447,8 +448,7 @@
     this.noDisasterText = '';
   };
 
-  Disaster.prototype.rollDisaster = function() {
-    var report = document.getElementById('report');
+  Disaster.prototype.rollDisaster = function () {
     // should roll to see if there are any disasters
     var randRoll = Math.ceil(Math.random() * 100);
     var disasterRoll = Math.ceil(Math.random() * 4);
@@ -474,7 +474,7 @@
         if (game.resources.subjects > game.resources.bread) {
           // there is a set chance to starve that will increment each day that subs > food
           // add 10% chance to starve for each day
-          game.starvationChance += 20;
+          chanceToStarve += 20;
           console.log('starvation chance: ' + game.starvationChance);
           
           // if you roll greater than 100 with a random roll and your starvation chance: disaster
@@ -633,7 +633,7 @@
 
   // ------------------------------------------------------------------------------------------------
 
-  startButton.addEventListener('click', function() {
+  startButton.addEventListener('click', function () {
     startButton.style.visibility = 'hidden';
     startButton.style.zIndex = -1000;
     bs.style.zIndex = 10;
@@ -656,7 +656,7 @@
   // ------------------------------------------------------------------------------------------------
 
   // Draw the BS page
-  bs.addEventListener('click', function() {
+  bs.addEventListener('click', function () {
     console.log('draw BS page');
     if (bsCounter > game.resources.tasks) { journal.buildings.blacksmith.forgeValue = ((Math.ceil(game.resources.subjects / 100) * game.resources.tasks)); }
     drawBlacksmithPage();
@@ -674,19 +674,19 @@
   });
 
   // Forge swords from ore
-  bsButton.addEventListener('click', function() {
+  bsButton.addEventListener('click', function () {
     game.resources.tasks -= bsCounter;
     if (game.resources.tasks <= 0) { game.resources.tasks = 0; }
     bsCounter = 0;
     console.log('this BLACKSMITH button works');
-    sounds.bsHammer.play();
     journal.buildings.blacksmith.forgeSwords(journal.buildings.blacksmith.forgeValue);
+    sounds.bsHammer.play();
     journal.buildings.blacksmith.forgeValue = 0;
     drawBlacksmithPage();
   });
 
   // Increment forgeValue when the + button is clicked
-  bsPlus.addEventListener('click', function() {
+  bsPlus.addEventListener('click', function () {
     bsCounter++;
     if (bsCounter > game.resources.tasks) { bsCounter = game.resources.tasks; }
     journal.buildings.blacksmith.forgeValue = ((Math.ceil(game.resources.subjects / 100) * bsCounter));
@@ -757,7 +757,7 @@
   // ------------------------------------------------------------------------------------------------
 
   // Draw the granary page
-  gran.addEventListener('click', function() {
+  gran.addEventListener('click', function () {
     console.log('draw Gran page');
     buttonArray.forEach(function(button) {
       button.style.visibility = 'hidden';
@@ -774,7 +774,7 @@
   });
   
   // Bake Bread
-  granButton.addEventListener('click', function() {
+  granButton.addEventListener('click', function () {
     game.resources.tasks -= granCounter;
     if (game.resources.tasks <= 0) { game.resources.tasks = 0; }
     granCounter = 0;
@@ -786,7 +786,7 @@
   });
 
   // Increment the bake bread value
-  granPlus.addEventListener('click', function() {
+  granPlus.addEventListener('click', function () {
     granCounter++;
     if (granCounter > game.resources.tasks) { granCounter = game.resources.tasks; }
     journal.buildings.granary.granaryValue = game.resources.subjects * granCounter;
@@ -860,7 +860,7 @@
   // ------------------------------------------------------------------------------------------------  
 
   // Draw the Lumber Mill page
-  lm.addEventListener('click', function() {
+  lm.addEventListener('click', function () {
     console.log('draw LM page');
     buttonArray.forEach(function(button) {
       button.style.visibility = 'hidden';
@@ -877,7 +877,7 @@
   });
 
   // Make fire wood
-  lmButton.addEventListener('click', function() {
+  lmButton.addEventListener('click', function () {
     game.resources.tasks -= lmCounter;
     if (game.resources.tasks <= 0) { game.resources.tasks = 0; }
     lmCounter = 0;
@@ -890,7 +890,7 @@
   });
 
  // increment the fire wood value
-  lmPlus.addEventListener('click', function() {
+  lmPlus.addEventListener('click', function () {
     lmCounter++;
     if (lmCounter > game.resources.tasks) { lmCounter = game.resources.tasks; }
     journal.buildings.lumbermill.firewoodValue = game.resources.subjects * lmCounter;
@@ -900,7 +900,7 @@
   });
 
   // decrement the fire wood value
-  lmMinus.addEventListener('click', function() {
+  lmMinus.addEventListener('click', function () {
     lmCounter--;
     if (lmCounter < 0) { lmCounter = 0; }
     journal.buildings.lumbermill.firewoodValue = game.resources.subjects * lmCounter;
@@ -964,7 +964,7 @@
   // ------------------------------------------------------------------------------------------------
 
   // Draw the Apothecary page
-  apoth.addEventListener('click', function() {
+  apoth.addEventListener('click', function () {
     console.log('draw Apoth page');
     buttonArray.forEach(function(button) {
       button.style.visibility = 'hidden';
@@ -981,7 +981,7 @@
   });
  
   // make medicine
-  apothButton.addEventListener('click', function() {
+  apothButton.addEventListener('click', function () {
     game.resources.tasks -= apothCounter;
     if (game.resources.tasks <= 0) { game.resources.tasks = 0; }
     apothCounter = 0;
@@ -993,7 +993,7 @@
   });
 
   // increment the medicine value
-  apothPlus.addEventListener('click', function() {
+  apothPlus.addEventListener('click', function () {
     apothCounter++;
     if (apothCounter > game.resources.tasks) { apothCounter = game.resources.tasks; }
     journal.buildings.apothecary.medicineValue = Math.ceil((game.resources.subjects / 10) * apothCounter);
@@ -1002,7 +1002,7 @@
   });
     
   // decrement the medicine value
-  apothMinus.addEventListener('click', function() {
+  apothMinus.addEventListener('click', function () {
     apothCounter--;
     if (apothCounter < 0) { apothCounter = 0; }
     journal.buildings.apothecary.medicineValue = Math.ceil((game.resources.subjects / 10) * apothCounter);
@@ -1059,7 +1059,7 @@
   // ------------------------------------------------------------------------------------------------
 
   // Bind event listener to the ink well, the main mechanism for moving tot he next day
-  nextDayButton.addEventListener('click', function() {
+  nextDayButton.addEventListener('click', function () {
     if (game.day >= 90) {
       sounds.mainLoopMP3.pause();
     }
@@ -1104,7 +1104,7 @@
   // ------------------------------------------------------------------------------------------------
 
   // Bind event to the close scroll button
-  closeScrollButton.addEventListener('click', function() {
+  closeScrollButton.addEventListener('click', function () {
     openScroll.style.zIndex = 0;
     openScroll.style.visibility = 'hidden';
     closeScrollButton.style.zIndex = 0;
@@ -1134,7 +1134,7 @@
     
     console.log(x, y); 
     
-};
+}
 
 
 // ------------------------------------------------------------------------------------------------
@@ -1142,5 +1142,6 @@
 //                                         Run the Game
 
 // ------------------------------------------------------------------------------------------------
+  
 startGame();
 })();
