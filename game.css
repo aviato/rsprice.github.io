@@ -36,10 +36,6 @@ button {
   font-family: "alagard_by_pix3m-d6awiwp";
 }
 
-html a:hover {
-  cursor: url(resources/ActionIcons/QuillCursor2.png), auto;
-}
-
 #canvas, canvas {
   z-index: -1;
   cursor: none;

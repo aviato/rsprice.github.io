@@ -1,8 +1,8 @@
 ;(function () {
 
 // ------------------------------------------------------------------------------------------------
-
-//                                             Game
+   
+//                                                Game
 
 // ------------------------------------------------------------------------------------------------
   
@@ -93,7 +93,7 @@
   
   // ------------------------------------------------------------------------------------------------
 
-  //                                           Main Menu
+  //                                            Main Menu
 
   // ------------------------------------------------------------------------------------------------
 
@@ -176,11 +176,11 @@
   // ------------------------------------------------------------------------------------------------
 
   function startGame () {
-//    sounds.mainThemeMP3.play();
-//    sounds.mainThemeMP3.addEventListener('ended', function() {
-//      sounds.mainLoopMP3.loop = true;
-//      sounds.mainLoopMP3.play();
-//    }, false);//  DISABLE FOR DEBUGGING!
+    sounds.mainThemeMP3.play();
+    sounds.mainThemeMP3.addEventListener('ended', function() {
+      sounds.mainLoopMP3.loop = true;
+      sounds.mainLoopMP3.play();
+    }, false);//  DISABLE FOR DEBUGGING!
     
     mainMenu.draw();
   }; 
@@ -194,7 +194,7 @@
 
   // ------------------------------------------------------------------------------------------------
 
-  //                                           Journal
+  //                                            Journal
 
   // ------------------------------------------------------------------------------------------------
 
@@ -204,7 +204,7 @@
     this.playerUI.src = 'resources/DeskJournalandScroll.png';
     this.journalArray = [];
     
-    // All the building objects... x & y coords + width and height of sprites + strings and methods
+    // All the building objects
     this.buildings = {
       // Blacksmith object
       blacksmith: {
@@ -299,7 +299,7 @@
             
             label.innerHTML = 'Welcome!';
             
-            report.innerHTML = 'The winter lasts 90 days this year, and you must manage your resources wisely or else face the bitter cold unprepared. From the desk in your keep you will oversee the day to day operations within the castle: providing medicine to your people, forging weapons, and keeping a stocked grainery. You are responsible for the subjects of your village… that is, if they don’t all die from blizzard, sickness, and the wolves of winter.'
+            report.innerHTML = 'The winter lasts 90 days this year, and you must manage your resources wisely or else face the bitter cold unprepared. From the desk in your keep you will oversee the day to day operations within the castle: providing medicine to your people, forging weapons, and keeping a stocked grainary. You are responsible for the subjects of your village… that is, if they don’t all die from blizzard, sickness, and the wolves of winter.';
             rawMats.style.visibility = 'hidden';
             consumables.style.visibility = 'hidden';
             
@@ -435,11 +435,11 @@
       
   // ------------------------------------------------------------------------------------------------
 
-  //                                         Disasters
+  //                                           Disasters
 
   // ------------------------------------------------------------------------------------------------
   
-  // !Disaster class... might need to be a part of the player class and subtract from Player values!
+  // Disaster class... might need to be a part of the player class and subtract from Player values!
   var Disaster = function () {
     this.wolfText = '';
     this.blizzText = '';
@@ -1099,7 +1099,7 @@
 
   // ------------------------------------------------------------------------------------------------
 
-  //                                        Scroll
+  //                                          Scroll
 
   // ------------------------------------------------------------------------------------------------
 
