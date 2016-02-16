@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="styles.css">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>rsprice</title>
+  </head>
+
+  <body>
+    <header>
+      <h1>Ryan Price</h1>
+      <nav>
+        <ul>
+          <li>About</li>
+          <li>Projects</li>
+          <li>Resume</li>
+          <li>Contact</li>
+        </ul>
+      </nav>
+    </header>
+
+    <section id="about">
+      <h2>About</h2>
+
+      <pre>
+        let technicalSkills = {
+          strong: [
+            'JavaScript',
+            'jQuery',
+            'HTML5',
+            'CSS3',
+            'Bootstrap',
+            'Node.js',
+            'Express.js',
+            'Angular.js'
+          ],
+          experienced: [
+            'React.js',
+            'MySQL',
+            'MongoDB',
+            'SASS',
+            'Mocha.js',
+            'Grunt.js',
+            'NPM',
+            'Agile',
+            'CoffeeScript',
+            'ES6',
+            'Webpack'
+          ]
+        }
+
+        let hobbies = {
+          videoGames: ['Starcraft', 'Diablo', 'Warcraft', 'Counter Strike', 'Portal', 'DOTA'],
+          physActivities: ['Soccer', 'Hiking', 'Fishing', 'Running'],
+          playsDrums: true
+        }
+
+        class Developer {
+          constructor(name, age, location, hasCoffee, skills, hobbies) {
+            this.name      = name
+            this.age       = age
+            this.location  = location
+            this.hasCoffee = hasCoffee
+            this.skills    = skills
+            this.hobbies   = hobbies
+          }
+          getCoffee() {
+            if (this.hasCoffee) {
+              return 'No such thing as too much coffee!'
+            }
+            console.log('Woooo! More Coffee!')
+            return this.hasCoffee = true
+          }
+          code() {
+            let strong = this.skills.strong[Math.floor(Math.random()*this.skills.strong.length)]
+            let exp    = this.skills.experienced[Math.floor(Math.random()*this.skills.experienced.length)]
+            if (this.hasCoffee) {
+              console.log(`It's time to code some ${strong} and learn more about ${exp}!`)
+            } else {
+              this.getCoffee()
+            }
+          }
+        }
+
+        let ryan = new Developer('Ryan', 25, 'Portland, OR', true, technicalSkills, hobbies)
+
+      </pre>
+
+    </section>
+
+    <section id="projects">
+      <h2>Projects</h2>
+
+      <pre>
+        let projects = {
+          Knowhere: {},
+          Samuraicipes: {},
+          ShouldIWatchThis: {},
+          TheDepthsOfWinter: {}
+        }
+
+      </pre>
+
+      <div>
+        <h3>Knowhere</h3>
+        <p>Knowhere is a web application that provides users a logical, democratic way to plan their next trip.</p>
+      </div>
+
+      <div>
+        <h3>Samuraicipes</h3>
+        <p>Web Application that provides recipes and nutritional data to help consumers build a shopping list</p>
+      </div>
+
+      <div>
+        <h3>Should I Watch This</h3>
+        <p>Web application that visualizes TV show IMDB ratings to help consumers invest their time into quality programs</p>
+      </div>
+
+      <div>
+        <h3>The Depths of Winter</h3>
+        <p>Winter-survival simulation game produced for the Bacon Game Jam, a 48 hour online hackathon</p>
+      </div>
+
+    </section>
+
+    <section id="resume">
+      <h2>Resume</h2>
+      <h5>Coming Soon...</h5>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <ul>
+        <li>Github</li>
+        <li>LinkedIn</li>
+        <li>Steam</li>
+        <li>Battle.net</li>
+        <li>Email</li>
+      </ul>
+    </section>
+
+    <footer>
+      <nav>
+        <ul>
+          <li>About</li>
+          <li>Projects</li>
+          <li>Resume</li>
+          <li>Contact</li>
+        </ul>
+      </nav>
+      Back to Top ^
+    </footer>
+  </body>
+</html>

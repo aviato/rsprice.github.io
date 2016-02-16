@@ -1,0 +1,31 @@
+{
+  "name": "rsprice.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.dev.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.config.prod.js",
+    "dev": "webpack-dev-server --config webpack.config.dev.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rsprice/rsprice.github.io.git"
+  },
+  "author": "Ryan Price",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rsprice/rsprice.github.io/issues"
+  },
+  "homepage": "https://github.com/rsprice/rsprice.github.io",
+  "devDependencies": {
+    "css-loader": "^0.23.1",
+    "html-webpack-plugin": "^2.8.1",
+    "node-sass": "^3.4.2",
+    "raw-loader": "^0.5.1",
+    "sass-loader": "^3.1.2",
+    "style-loader": "^0.13.0",
+    "webpack": "^1.12.13",
+    "webpack-dev-server": "^1.14.1"
+  }
+}
