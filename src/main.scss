@@ -1,0 +1,9 @@
+$background-primary: #fff;
+$header-primary: navy;
+
+body {
+  background-color: $background-primary;
+  h1 {
+    background-color: $header-primary;
+  }
+}

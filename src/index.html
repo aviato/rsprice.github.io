@@ -18,104 +18,89 @@
       <h1>Ryan Price</h1>
       <nav>
         <ul>
-          <li>About</li>
-          <li>Projects</li>
-          <li>Resume</li>
-          <li>Contact</li>
+          <li><a href="">About</a></li>
+          <li><a href="">Projects</a></li>
+          <li><a href="">Resume</a></li>
+          <li><a href="">Contact</a></li>
         </ul>
       </nav>
     </header>
 
     <section id="about">
-      <h2>About</h2>
+      <h1>About</h1>
 
-      <pre>
-        let technicalSkills = {
-          strong: [
-            'JavaScript',
-            'jQuery',
-            'HTML5',
-            'CSS3',
-            'Bootstrap',
-            'Node.js',
-            'Express.js',
-            'Angular.js'
-          ],
-          experienced: [
-            'React.js',
-            'MySQL',
-            'MongoDB',
-            'SASS',
-            'Mocha.js',
-            'Grunt.js',
-            'NPM',
-            'Agile',
-            'CoffeeScript',
-            'ES6',
-            'Webpack'
-          ]
-        }
+      <p>25 years old. Living in Portland, Oregon. I like to build cool stuff. Blah, blah, blah.</p>
 
-        let hobbies = {
-          videoGames: ['Starcraft', 'Diablo', 'Warcraft', 'Counter Strike', 'Portal', 'DOTA'],
-          physActivities: ['Soccer', 'Hiking', 'Fishing', 'Running'],
-          playsDrums: true
-        }
+      <h1>Technical Skills</h1>
 
-        class Developer {
-          constructor(name, age, location, hasCoffee, skills, hobbies) {
-            this.name      = name
-            this.age       = age
-            this.location  = location
-            this.hasCoffee = hasCoffee
-            this.skills    = skills
-            this.hobbies   = hobbies
-          }
-          getCoffee() {
-            if (this.hasCoffee) {
-              return 'No such thing as too much coffee!'
-            }
-            console.log('Woooo! More Coffee!')
-            return this.hasCoffee = true
-          }
-          code() {
-            let strong = this.skills.strong[Math.floor(Math.random()*this.skills.strong.length)]
-            let exp    = this.skills.experienced[Math.floor(Math.random()*this.skills.experienced.length)]
-            if (this.hasCoffee) {
-              console.log(`It's time to code some ${strong} and learn more about ${exp}!`)
-            } else {
-              this.getCoffee()
-            }
-          }
-        }
+      <h3>Strong:</h3>
+      <ul>
+        <li>JavaScript</li>
+        <li>jQuery</li>
+        <li>HTML5</li>
+        <li>CSS3</li>
+        <li>Bootstrap</li>
+        <li>Node.js</li>
+        <li>Express.js</li>
+        <li>Angular.js</li>
+      </ul>
 
-        let ryan = new Developer('Ryan', 25, 'Portland, OR', true, technicalSkills, hobbies)
-
-      </pre>
+      <h3>Experienced:</h3>
+      <ul>
+        <li>React.js</li>
+        <li>MySQL</li>
+        <li>MongoDB</li>
+        <li>SASS</li>
+        <li>Mocha.js</li>
+        <li>Grunt.js</li>
+        <li>NPM</li>
+        <li>Agile</li>
+        <li>CoffeeScript</li>
+        <li>ES6</li>
+        <li>Webpack</li>
+      </ul>
 
     </section>
 
     <section id="projects">
-      <h2>Projects</h2>
-
-      <pre>
-        let projects = {
-          Knowhere: {},
-          Samuraicipes: {},
-          ShouldIWatchThis: {},
-          TheDepthsOfWinter: {}
-        }
-
-      </pre>
+      <h1>Projects</h1>
 
       <div>
         <h3>Knowhere</h3>
         <p>Knowhere is a web application that provides users a logical, democratic way to plan their next trip.</p>
+        <h4>Team</h4>
+        <ul>
+          <li>Brian N.</li>
+          <li>Zach S.</li>
+          <li>Max G.</li>
+          <li>Ryan P.</li>
+        </ul>
+        <h4>Tech Stack</h4>
+        <ul>
+          <li>MongoDB</li>
+          <li>Express.js</li>
+          <li>Angular.js</li>
+          <li>Node.js</li>
+        </ul>
       </div>
 
       <div>
         <h3>Samuraicipes</h3>
         <p>Web Application that provides recipes and nutritional data to help consumers build a shopping list</p>
+        <h4>Team</h4>
+        <ul>
+          <li>Eric H.</li>
+          <li>Casey W.</li>
+          <li>Aaron P.</li>
+          <li>Ryan P.</li>
+        </ul>
+        <h4>Tech Stack</h4>
+        <ul>
+          <li>MongoDB</li>
+          <li>Express.js</li>
+          <li>Angular.js</li>
+          <li>Node.js</li>
+        </ul>
       </div>
 
       <div>
@@ -131,18 +116,17 @@
     </section>
 
     <section id="resume">
-      <h2>Resume</h2>
+      <h1>Resume</h1>
       <h5>Coming Soon...</h5>
     </section>
 
     <section id="contact">
-      <h2>Contact</h2>
+      <h1>Contact</h1>
+
       <ul>
-        <li>Github</li>
-        <li>LinkedIn</li>
-        <li>Steam</li>
-        <li>Battle.net</li>
-        <li>Email</li>
+        <li><a href="">Github</a> </li>
+        <li><a href="">LinkedIn</a></li>
+        <li><a href="">Twitter</a></li>
       </ul>
     </section>
 

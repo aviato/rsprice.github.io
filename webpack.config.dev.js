@@ -1,5 +1,6 @@
 // webpack.config.dev.js
-var path = require('path')
+var css     = require('!css!sass!./file.scss');
+var path    = require('path')
 var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 
@@ -23,8 +24,8 @@ module.exports = {
   ],
   module: {
     loaders: [{
-      test: /\.css$/,
-      loaders: ['style', 'css']
+      test: /\.scss$/,
+      loaders: ['style', 'css', 'sass']
     }, {
       test: /\.html$/,
       loader: 'raw-loader' // loaders: ['raw-loader'] is also perfectly acceptable.

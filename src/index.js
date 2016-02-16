@@ -1,5 +1,7 @@
 // index.js
 require('./index.html')
+require("!style!css!sass!./main.scss");
+
 // Accept hot module reloading
 if (module.hot) {
   module.hot.accept()
@@ -68,3 +70,51 @@ class Developer {
 }
 
 let ryan = new Developer('Ryan', 25, 'Portland, OR', true, technicalSkills, hobbies)
+
+let projects = [
+  {
+    "name": 'Knowhere',
+    "team": ['Brian N.', 'Zach S.', 'Max G.', 'Ryan P.'],
+    "summary": `Web application that provides groups and individuals
+     with information to help organize an upcoming trip`,
+     "technologies": ['MongoDB', 'Express.js', 'Angular.js', 'Node.js', 'Grunt.js']
+  },
+  {
+    "name": 'Samuraicipes',
+    "team": ['Eric H.', 'Casey W.', 'Aaron P.', 'Ryan P.'],
+    "summary": `Web Application that provides recipes and nutritional
+     data to help consumers build a shopping list`,
+     "technologies": ['MongoDB', 'Express.js', 'Angular.js', 'Node.js', 'Grunt.js']
+  },
+  {
+    "name": 'Should I Watch This',
+    "team": ['Eric H.', 'Casey W.', 'Aaron P.', 'Ryan P.'],
+    "summary": `Web application that visualizes TV show IMDB ratings to help
+     consumers invest their time into quality programs`,
+     "technologies": ['MongoDB', 'Express.js', 'Angular.js', 'Node.js', 'Grunt.js']
+  },
+  {
+    "name": 'The Depths of Winter',
+    "team": ['Matt L.', 'Nick K.', 'Ryan P.'],
+    "summary": `Winter-survival simulation game produced for the Bacon Game Jam,
+     a 48 hour online hackathon `,
+     "technologies": ['HTML5', 'HTML5 Canvas', 'CSS3', 'JavaScript']
+  }
+]
+
+let contact = [
+  {
+    "platform": 'Github',
+    "username": 'rsprice',
+    "url": 'https://github.com/rsprice'
+  },
+  {
+    "platform": 'Twitter',
+    "username": '@imryanprice',
+    "url": 'https://twitter.com/imryanprice'
+  },
+  {
+    "platform": 'LinkedIn',
+    "url": 'https://www.linkedin.com/in/rsprice',
+  }
+]
