@@ -1,7 +1,7 @@
 // webpack.config.dev.js
-var css     = require('!css!sass!./file.scss');
-var path    = require('path')
-var webpack = require('webpack')
+// var css               = require('style!css!sass!./main.scss');
+var path              = require('path')
+var webpack           = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {

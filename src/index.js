@@ -7,7 +7,6 @@ if (module.hot) {
   module.hot.accept()
 }
 
-require('./styles.css') // The page is now styled
 var Please = require('pleasejs')
 
 let technicalSkills = {
