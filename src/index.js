@@ -8,6 +8,7 @@ import {Header} from './modules/header';
 import {Footer} from './modules/footer';
 import {About} from './modules/about';
 import {Projects} from './modules/projects';
+import projectData from './modules/projectData';
 
 // Accept hot module reloading
 if (module.hot) {
@@ -22,13 +23,13 @@ if (module.hot) {
         <div>
           <Header />
           <About />
-          <Projects />
+          <Projects data={this.props.data} />
           <Footer />
         </div>
       );
     }
   });
 
-  ReactDOM.render(<PortfolioApp />, container.create());
+  ReactDOM.render(<PortfolioApp data={projectData}/>, container.create());
 
 })();
