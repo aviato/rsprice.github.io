@@ -18,7 +18,7 @@ module.exports = {
     }),
     new webpack.optimize.OccurenceOrderPlugin(),
     new HtmlWebpackPlugin({
-      filename: './src/index.html'
+      filename: './index.html'
     })
   ],
   module: {

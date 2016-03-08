@@ -10,7 +10,7 @@ module.exports = {
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/dev-server',
     './src/index.js',
-    './src/index.html'
+    './index.html'
   ],
   output: {
     path: path.join(__dirname, 'dist'),
@@ -19,7 +19,7 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      template: './src/index.html'
+      template: './index.html'
     })
   ],
   module: {

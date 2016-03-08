@@ -1,5 +1,4 @@
-// index.js
-require('./index.html');
+require('../index.html');
 require('./stylesheets/main.scss');
 
 // Accept hot module reloading
