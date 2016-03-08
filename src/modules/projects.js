@@ -37,7 +37,6 @@ let TeamProject = React.createClass({
   }
 })
 
-
 export class Projects extends React.Component {
   render() {
     let propData = this.props.data;
