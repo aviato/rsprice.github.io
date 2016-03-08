@@ -1,0 +1,30 @@
+@import "modules/colors";
+
+body {
+  background-color: $background-primary;
+  h1 {
+    background-color: $header-primary;
+  }
+}
+
+.layout-header { text-align: center; }
+
+.nav-links { list-style: none; li { display: inline-block; } }
+
+.layout-footer {
+  text-align: center;
+  background-color: navy;
+  color: white;
+  a {
+    color: white;
+  }
+}
+
+.links-subtle {
+  color: white !important;
+  text-decoration: none;
+}
+
+.center {
+  margin: 0 auto;
+}

@@ -1,13 +1,13 @@
 // index.js
-require('./index.html')
-require("!style!css!sass!./main.scss");
+require('./index.html');
+require('./stylesheets/main.scss');
 
 // Accept hot module reloading
 if (module.hot) {
   module.hot.accept()
 }
 
-var Please = require('pleasejs')
+var Please = require('pleasejs');
 
 let technicalSkills = {
   "strong": [
