@@ -10,16 +10,16 @@ module.exports = {
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/dev-server',
     './src/index.js',
-    './index.html'
+    './src/index.html'
   ],
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname),
     filename: 'bundle.js'
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      template: './index.html'
+      template: './src/index.html'
     })
   ],
   module: {
