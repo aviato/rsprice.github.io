@@ -26,7 +26,7 @@ module.exports = {
       "team": ['Matt L.', 'Nick K.', 'Ryan P.'],
       "summary": `Winter-survival simulation game produced for the Bacon Game Jam,
        a 48 hour online hackathon `,
-       "technologies": ['HTML5', 'HTML5 Canvas', 'CSS3', 'JavaScript']
+       "technologies": ['HTML', 'HTML5 Canvas', 'CSS3', 'JavaScript']
     }
   ],
   "soloProjects": [
