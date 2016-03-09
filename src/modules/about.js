@@ -1,4 +1,4 @@
-var React = require('react');
+import React from 'react';
 
 export class About extends React.Component {
   render() {

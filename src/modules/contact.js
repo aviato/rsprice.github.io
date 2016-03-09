@@ -1,4 +1,4 @@
-var React = require('react');
+import React from 'react';
 
 let SocialMediaItem = React.createClass({
   render: function () {

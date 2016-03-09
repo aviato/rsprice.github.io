@@ -9,6 +9,7 @@ import {Footer} from './modules/footer';
 import {About} from './modules/about';
 import {Projects} from './modules/projects';
 import {Contact} from './modules/contact';
+import {Resume} from './modules/resume';
 import projectData from './modules/projectData';
 
 // Accept hot module reloading
@@ -26,6 +27,7 @@ if (module.hot) {
           <About />
           <Projects data={this.props.data} />
           <Contact data={this.props.data} />
+          <Resume />
           <Footer />
         </div>
       );
