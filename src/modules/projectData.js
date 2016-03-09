@@ -46,5 +46,10 @@ module.exports = {
       "name": 'Pomodoro Timer',
       "summary": 'A pomodoro timer created with React.js'
     }
-  ]
+  ],
+  "socialMediaLinks": {
+    "Twitter": "https://twitter.com/imryanprice",
+    "Github": "https://github.com/rsprice",
+    "LinkedIn": "https://www.linkedin.com/in/rsprice",
+  }
 }
